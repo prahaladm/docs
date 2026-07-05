@@ -9,79 +9,124 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
+        "group": "Overview",
+        "pages": [
+          "overview/introduction",
+          "overview/system-architecture",
+          "overview/authoring-contract",
+          "overview/two-ways-to-build",
+          "overview/portability-and-exit",
+          "overview/roadmap"
         ]
       },
       {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
+        "group": "Foundation",
+        "pages": [
+          "foundation/create-project",
+          "foundation/import-design-system",
+          "foundation/import-user-stories",
+          "foundation/connect-backend"
+        ]
+      },
+      {
+        "group": "Develop",
+        "pages": [
+          "develop/screens-and-navigation",
+          "develop/components-and-layout",
+          "develop/styling-and-theming",
+          "develop/authentication",
+          "develop/backend-and-data",
+          "develop/business-logic",
+          "develop/api-binding",
+          "develop/cloud-functions",
+          "develop/localization"
+        ]
+      },
+      {
+        "group": "Review",
+        "pages": [
+          "review/validate",
+          "review/preview",
+          "review/design-qa",
+          "review/accessibility-review",
+          "review/collaboration-and-environments",
+          "review/audit-trail"
+        ]
+      },
+      {
+        "group": "Deploy",
+        "pages": [
+          "deploy/export-code",
+          "deploy/generate-builds",
+          "deploy/publish",
+          "deploy/private-enterprise-distribution",
+          "deploy/post-launch-updates"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/components",
+          "reference/style-contract",
+          "reference/error-codes",
+          "reference/backend-conventions",
+          "reference/tool-catalog",
+          "reference/generated-code"
+        ]
+      },
+      {
+        "group": "Agent Integration",
+        "pages": [
+          "agent-integration/overview",
+          "agent-integration/mcp-setup",
+          "agent-integration/skills",
+          "agent-integration/self-correction-loop",
+          "agent-integration/contract-versioning",
+          "agent-integration/prompting-guide"
+        ]
+      },
+      {
+        "group": "Integrations",
+        "pages": [
+          "integrations/overview"
+        ]
+      },
+      {
+        "group": "Enterprise & Governance",
+        "pages": [
+          "enterprise-governance/overview",
+          "enterprise-governance/identity-and-access",
+          "enterprise-governance/data-security",
+          "enterprise-governance/compliance",
+          "enterprise-governance/ai-output-security",
+          "enterprise-governance/secrets-management",
+          "enterprise-governance/audit-logging",
+          "enterprise-governance/incident-response-sla",
+          "enterprise-governance/vulnerability-disclosure"
+        ]
+      },
+      {
+        "group": "Guides",
+        "pages": [
+          "guides/index"
+        ]
+      },
+      {
+        "group": "Account & Billing",
+        "pages": [
+          "account-billing/plans-credits-usage",
+          "account-billing/subscriptions"
+        ]
+      },
+      {
+        "group": "Changelog",
+        "pages": [
+          "changelog"
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
