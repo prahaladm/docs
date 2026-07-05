@@ -1,0 +1,12 @@
+---
+title: "The Authoring Contract"
+description: "The shared schema that keeps Studio edits and agent-driven edits consistent with each other."
+---
+
+This page should explain the authoring contract (SAC): the versioned schema that defines every node, style token, and action NativeFlow understands. Both Studio's drag-and-drop editor and the MCP server's tool calls read and write against this same contract, which is why a screen built by hand and a screen built by an agent are structurally identical.
+
+Cover how the contract is versioned, how to fetch the current version (`get_authoring_contract`), and why agents should pin to it at the start of a session.
+
+<Note>
+  TODO: document the contract's top-level shape and link to the full schema reference.
+</Note>
