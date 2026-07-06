@@ -3,21 +3,21 @@ title: "Introduction"
 description: "What NativeFlow is and who this documentation is written for."
 ---
 
-**Agents build. Humans govern. Enterprise wins.**
+**Agents Build. Humans Govern. Enterprise Wins.**
 
-NativeFlow Studio is an agent-native enterprise mobile app development platform built on React Native and Expo. AI agents write the code. Humans review and approve the changes that matter. The platform combines a visual studio, MCP (Model Context Protocol) tool integration, and a governance and audit layer, so enterprises can trust AI-generated mobile apps in production.
+NativeFlow Studio is an Agent-Native Enterprise Mobile App Development Platform built on React Native and Expo. AI agents write the code. Humans review and approve the changes that matter. The platform combines a visual studio, MCP (Model Context Protocol) tool integration, and a governance and audit layer, so enterprises can trust AI-generated mobile apps in production.
 
-## The problem it solves
+## The Problem It Solves
 
 AI coding agents can already generate mobile app code quickly. What enterprises, especially regulated ones like banking, healthcare, and logistics, can't do is ship code they can't trace, review, or trust. Code generation isn't NativeFlow's differentiator. The governance layer is: it makes every agent-generated change safe, auditable, and reviewable before it ships.
 
-## How agents build in NativeFlow Studio
+## How Agents Build in NativeFlow Studio
 
 Agents connect to NativeFlow Studio through MCP. NativeFlow exposes its studio capabilities, page creation, theming, data binding, table management, and more, as MCP tools, so an agent works through a structured, governed tool surface instead of editing raw files.
 
 Every write an agent proposes must conform to the SAC (Studio Authoring Contract), the strict, server-side-validated contract that governs how agents can write to a project. There's no normalizer: a write must already be valid, or it's rejected. The SAC is what constrains an agent to a known-safe, known-valid set of operations.
 
-Once a change conforms to the SAC, the change router assigns it to one of three tiers:
+Once a change conforms to the SAC, the Change Router assigns it to one of three tiers:
 
 - **Automatic:** the agent applies the change with no human review.
 - **Notify:** the agent applies the change, and a human is informed.
@@ -36,13 +36,13 @@ Every project starts in **Foundation**, where each discipline contributes the bu
 3. **User Journeys:** product managers publish the flows a user takes through the app, mapping business objectives to screens, decisions, and interactions.
 4. **APIs:** architects and developers define the data and function bindings the app will consume.
 5. **Service Layer:** architects and developers define backend logic and service bindings, using one of four binding types: Direct, Orchestrated, Function, or Action.
-6. **Specification:** once the five items above are approved, NativeFlow Studio consolidates them into a single specification, ready to hand off to Build.
+6. **Specification:** once the five items above are approved, NativeFlow Studio consolidates them into a single Specification, ready to hand off to Build.
 
 Every Foundation artifact goes through a draft, review, and approval cycle. Only approved artifacts become part of the project's authoritative foundation.
 
 ## Build
 
-Agents consume the approved specification through the SAC and generate a production-ready React Native application. Because every screen, workflow, component, API integration, and business rule traces back to an approved Foundation artifact, the generated app stays traceable to its design, business, and technical sources.
+Agents consume the approved Specification through the SAC and generate a production-ready React Native application. Because every screen, workflow, component, API integration, and business rule traces back to an approved Foundation artifact, the generated app stays traceable to its design, business, and technical sources.
 
 ## Review & Refinement
 
@@ -52,7 +52,7 @@ Reviewers open the generated app in NativeFlow Studio and inspect every screen, 
 
 Reviewers can also inspect the full component hierarchy, component properties, bindings, service integrations, and app logic, to confirm the generated app matches the approved Design System, User Journeys, Storyboard, and Service Layer.
 
-Any refinement a reviewer makes becomes part of the app's source of truth automatically, so manual changes stay synchronized with the specification without breaking governance or traceability.
+Any refinement a reviewer makes becomes part of the app's source of truth automatically, so manual changes stay synchronized with the Specification without breaking governance or traceability.
 
 ## Export & Deployment
 
@@ -65,11 +65,11 @@ That completes the lifecycle:
 
 **Foundation → Specification → Build → Review → Export & Deploy**
 
-## Who it's for
+## Who It's For
 
 NativeFlow Studio is built for enterprise teams building mobile apps, particularly in regulated industries like banking, healthcare, and logistics, where auditability and change control matter as much as delivery speed. It integrates with enterprise systems across Kafka (Confluent Cloud, AWS MSK), IAM (Okta, Azure AD), push notifications (Braze, Firebase), and ERP/CRM (Salesforce, Workday, ServiceNow).
 
-## Where to go next
+## Where to Go Next
 
 <CardGroup cols={2}>
   <Card title="System Architecture" href="/overview/system-architecture">
@@ -81,7 +81,7 @@ NativeFlow Studio is built for enterprise teams building mobile apps, particular
   </Card>
 
   <Card title="The Authoring Contract" href="/overview/authoring-contract">
-    The full SAC and change router model.
+    The full SAC and Change Router model.
   </Card>
 
   <Card title="Agent Integration" href="/agent-integration/overview">
