@@ -28,7 +28,8 @@
           "foundation/import-design-system",
           "foundation/import-user-stories",
           "foundation/connect-backend"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Develop",
@@ -42,7 +43,8 @@
           "develop/api-binding",
           "develop/cloud-functions",
           "develop/localization"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Review",
@@ -53,7 +55,8 @@
           "review/accessibility-review",
           "review/collaboration-and-environments",
           "review/audit-trail"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Deploy",
@@ -63,7 +66,8 @@
           "deploy/publish",
           "deploy/private-enterprise-distribution",
           "deploy/post-launch-updates"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Reference",
@@ -74,7 +78,8 @@
           "reference/backend-conventions",
           "reference/tool-catalog",
           "reference/generated-code"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Agent Integration",
@@ -85,13 +90,15 @@
           "agent-integration/self-correction-loop",
           "agent-integration/contract-versioning",
           "agent-integration/prompting-guide"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Integrations",
         "pages": [
           "integrations/overview"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Enterprise & Governance",
@@ -105,26 +112,30 @@
           "enterprise-governance/audit-logging",
           "enterprise-governance/incident-response-sla",
           "enterprise-governance/vulnerability-disclosure"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Guides",
         "pages": [
           "guides/index"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Account & Billing",
         "pages": [
           "account-billing/plans-credits-usage",
           "account-billing/subscriptions"
-        ]
+        ],
+        "hidden": true
       },
       {
         "group": "Changelog",
         "pages": [
           "changelog"
-        ]
+        ],
+        "hidden": true
       },
       "favicon.svg",
       "logo/light.svg",

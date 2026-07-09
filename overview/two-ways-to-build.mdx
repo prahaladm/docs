@@ -3,10 +3,16 @@ title: "Two Ways to Build"
 description: "Building visually in NativeFlow Studio versus building programmatically with an AI agent."
 ---
 
-This page should lay out the two authoring paths side by side: a human dragging components onto the canvas in Studio, and an agent calling MCP tools like `create_project` or `design_upsert_screen`. Explain that these are two front ends to the same authoring contract, so teams can mix both — a developer can hand-polish a screen an agent scaffolded, and vice versa.
+<Frame>
+  ![Two Ways To Build](/images/two_ways_to_build.png)
+</Frame>
 
-This page sets up the pattern used throughout Foundation and Develop, where every page shows the Studio steps and the equivalent agent tool call side by side.
+**Two Ways to Build**
 
-<Note>
-  TODO: add a comparison table (task → Studio action → MCP tool call).
-</Note>
+NativeFlow Studio supports two approaches to building an app.
+
+The first is through an external agent. Using an agent of your choice, such as Claude or Cursor, connected to NativeFlow Studio via MCP, you can build the entire app from outside the Studio. The agent writes into the Studio the same way it would through any other MCP-governed tool surface, subject to the same SAC validation and change router as any other Agent-authored change.
+
+The second is through **Studio Assistant**, the AI assistant built into the Studio itself. Instead of connecting an external agent, you prompt this assistant directly inside NativeFlow Studio, and it builds the app for you in the same environment.
+
+Both approaches produce the same governed, SAC-validated output, the difference is where the Agent lives: outside the Studio via MCP, or inside the Studio as a built-in assistant.

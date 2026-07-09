@@ -3,10 +3,10 @@ title: "The Authoring Contract"
 description: "The shared schema that keeps Studio edits and agent-driven edits consistent with each other."
 ---
 
-This page should explain the authoring contract (SAC): the versioned schema that defines every node, style token, and action NativeFlow understands. Both Studio's drag-and-drop editor and the MCP server's tool calls read and write against this same contract, which is why a screen built by hand and a screen built by an agent are structurally identical.
+<Frame>
+  ![Agent Writes Through Sac](/images/agent_writes_through_sac.png)
+</Frame>
 
-Cover how the contract is versioned, how to fetch the current version (`get_authoring_contract`), and why agents should pin to it at the start of a session.
+Every write an agent makes through NativeFlow's MCP server, whether it's touching styles and props, events and logic, pages and themes, or API and data bindings, resolves to a single call against the Studio Authoring Contract. There is no surface an agent can write to that bypasses it.
 
-<Note>
-  TODO: document the contract's top-level shape and link to the full schema reference.
-</Note>
+Accepted writes route through the Automatic, Notify, or Review governance tier before they reach the project, and every write, accepted or rejected, is recorded in the audit log. This is what keeps an agent-built screen and a hand-built screen structurally identical, and what makes it possible to see exactly what any agent did to a project and why.

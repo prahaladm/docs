@@ -1,10 +1,8 @@
 ---
 title: "Portability and Exit"
-description: "How to export your app's generated code and leave the platform if you ever need to."
+description: "Your Code, Your Choice - No lock in."
 ---
 
-This page should address the question architects ask before committing to a platform: what happens if we want to leave? Cover the generated-code export path (see Deploy \> Export Code), what's portable (the generated native/RN codebase) versus what's platform-specific (the visual document model, managed backend conveniences), and any lock-in tradeoffs a reader should evaluate.
+Every app NativeFlow Studio generates is a standard React Native application. There is no proprietary runtime, no custom file format, and no NativeFlow-specific syntax baked into the generated code beyond the NativeFlow runtime layer itself, which is a normal package in the app, not a requirement to keep using the Studio.
 
-<Note>
-  TODO: get concrete numbers/examples on export format and how much manual rework is typically needed after an export.
-</Note>
+This means zero lock-in. The generated codebase can be opened, built, and maintained with standard React Native and Expo tooling, independent of NativeFlow Studio. A team can export the app, hand it to any React Native developer, and continue development without ever touching the Studio again. Enterprises evaluating NativeFlow Studio aren't committing to a closed ecosystem, they're generating a codebase they fully own from day one.
