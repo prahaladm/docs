@@ -18,21 +18,39 @@ Humans govern the outcome. Every change Agents propose is validated against the 
 
 ## **The Problem It Solves**
 
-AI coding Agents can already generate mobile app code quickly. What enterprises, especially regulated ones like banking, healthcare, and logistics, can't do is ship code they can't trace, review, or trust.
+AI coding agents can already generate mobile application code quickly. The challenge is not generating code. The challenge is building complete, production ready applications that can be reviewed, integrated, deployed, and maintained using a consistent development workflow.
 
-Code generation isn't NativeFlow's differentiator. Determinism, Guardrails and Governance are.
+Taking an application from concept to production involves much more than generating user interface code. A production ready application requires backend integrations, business logic, serverless functions, API orchestration, application configuration, testing, deployment, and ongoing lifecycle management.
 
-**Determinism**
+Current AI assisted development is often fragmented across multiple tools. Different stages of the application lifecycle are handled in separate environments, requiring developers and AI Agents to switch contexts and manually synchronize artifacts. This increases development effort, introduces inconsistencies, and makes it difficult to build and maintain production ready applications efficiently.
 
-NativeFlow Studio solves this with a two-pass approach. The first pass generates a Blueprint inside the Studio, a structured representation of the page: its components, design system bindings, data, and API orchestration. The second pass runs that Blueprint through the Code Generator to produce the React Native or Expo application. Because the Blueprint is the single source of truth for generation, the same Blueprint always produces the same output. The build is deterministic, not a fresh guess from the Agent each time.
+### **Unified Development Environment**
 
-**Guardrails**
+NativeFlow Studio addresses these challenges by providing a unified development environment for the complete application lifecycle. Developers and AI Agents work within a single workspace to design applications, implement business logic, author serverless functions, configure enterprise integrations, manage application assets, generate production ready React Native or Expo applications, and prepare them for deployment.
 
-Every change an Agent makes inside the Studio is validated against the Studio Authoring Contract (SAC), the schema that defines what an Agent is allowed to write and how. The SAC enforces guardrails at write time, so Agents can't produce structurally invalid or out-of-contract changes in the first place.
+All development activities operate on the same application model, allowing changes to be authored, validated, and generated without moving between disconnected tools. This reduces context switching, improves consistency across generated artifacts, and provides a common foundation for validation, governance, and deployment.
 
-**Governance**
+### **Determinism**
 
-On top of this, the Studio gives Developers and Architects full visibility into every page it builds: the component structure, the design system in use, the functions written, and the API orchestration behind it. Nothing is a black box. That visibility, backed by a deterministic Blueprint and a contract-enforced write layer, is what makes NativeFlow Studio's governance layer real rather than aspirational.
+NativeFlow Studio uses a two pass generation process.
+
+In the first pass, the AI Agent generates a Blueprint within the Studio. The Blueprint is a structured representation of the application that captures the page hierarchy, components, design system bindings, data models, navigation, integrations, serverless functions, and API orchestration.
+
+In the second pass, the Blueprint is processed by the Code Generator to produce the React Native or Expo application.
+
+Since the Blueprint is the single source of truth for code generation, the same Blueprint always produces the same application. Code generation is therefore deterministic and repeatable rather than being regenerated independently by the AI Agent for every build.
+
+### **Guardrails**
+
+Every change made by an AI Agent is validated against the Studio Authoring Contract (SAC). The SAC defines the structure, capabilities, and constraints that govern what an Agent is allowed to create or modify within the Studio.
+
+Validation occurs during authoring, ensuring that changes conform to the expected schema before they become part of the application. This prevents structurally invalid or unsupported artifacts from being introduced into the project and provides a consistent authoring model for both developers and AI Agents.
+
+### **Governance**
+
+NativeFlow Studio provides complete visibility into every artifact generated during application development. Developers and architects can inspect the application structure, component hierarchy, design system usage, serverless functions, integrations, and API orchestration directly within the Studio.
+
+Because every generated application is derived from a deterministic Blueprint and every modification is validated through the Studio Authoring Contract, all generated artifacts remain traceable, reviewable, and reproducible. This provides a governance model where application behavior can be understood, audited, and evolved throughout the software lifecycle without relying on opaque AI generated output.
 
 ## **Single Source of Truth**
 
