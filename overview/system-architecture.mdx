@@ -1,12 +1,22 @@
 ---
-title: "System Architecture"
-description: "How NativeFlow's canvas, backend services, and generated app code fit together."
+title: "Generated App Architecture"
+description: "From Foundation to Runtime"
 ---
 
-This page should diagram the major pieces of a NativeFlow deployment: the Studio canvas and its document model, the managed backend (tables, policies, edge functions), the design system layer, and the code generation pipeline that turns the document model into a real mobile app.
+<Frame>
+  ![Image](/images/image-7.png)
+</Frame>
 
-Call out where the MCP server sits in this picture — it reads and writes the same document model that Studio edits, which is why both paths stay in sync.
+Every app NativeFlow Studio produces is a React Native application built on Expo. The architecture has four layers, each tracing back to a specific Foundation artifact reviewed and approved in the Studio:
 
-<Note>
-  TODO: add an architecture diagram (canvas/document model → backend → codegen → build output).
-</Note>
+- **UI layer**: screens and components rendered from the Design System.
+- **Navigation layer**: screen flows generated from the User Journeys and Storyboard.
+- **Logic layer**: orchestration and integration calls to external systems, based on the Developer's API Orchestration and Function definitions.
+- **Data layer**: state and bindings defined by the Architect's API Contracts.
+
+These layers run on the **NativeFlow runtime**, which handles the theme engine, business logic execution, API integration, and authentication. The NativeFlow runtime in turn runs on the **React Native runtime**, which handles native execution and device APIs using Expo tooling.
+
+The Logic layer connects outward to two categories of external systems:
+
+- **First-party**: Core APIs (from the Architect's API Contracts) and Authored Functions (cloud or serverless logic written by the Developer).
+- **Third-party**: Essential Services (push, SMS/OTP, authentication providers like Firebase, Twilio, Okta) and Third-Party Integrations (ERP/CRM systems like Salesforce and Workday, messaging systems like Kafka).
