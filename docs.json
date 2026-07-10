@@ -8,8 +8,8 @@
     "dark": "#4F46E5"
   },
   "favicon": {
-    "light": "/images/NativeFlow_Logo(1).png",
-    "dark": "/images/NativeFlow_Logo(1).png"
+    "light": "/images/NativeFlow_Logo.png",
+    "dark": "/images/NativeFlow_Logo.png"
   },
   "navigation": {
     "pages": [
@@ -146,8 +146,8 @@
     ]
   },
   "logo": {
-    "light": "/images/NativeFlow_Logo(1).png",
-    "dark": "/images/NativeFlow_Logo(1).png",
+    "light": "/images/NativeFlow_Logo.png",
+    "dark": "/images/NativeFlow_Logo.png",
     "href": "https://GetNativeFlow.com"
   },
   "navbar": {
