@@ -1,0 +1,133 @@
+---
+title: "Action Reference"
+description: "All 22 actions and their parameters, grouped by the six categories of the action picker."
+---
+
+## Overview
+
+Studio has **22 actions across 6 categories**. The same picker opens for every page lifecycle event (On Screen Load, On Focus, On Blur, On Header Action) and for a component's own touch events (On Tap, On Long Press, and the rest). Same search box, same six categories, same entries.
+
+This page lists what each action takes. For where actions are attached, see the page configuration docs.
+
+## How to read these tables
+
+- **Control** is what the parameter renders as in the panel: a text field, a dropdown, or a textarea.
+- **Default or placeholder**: a value in `code` is a real default, meaning the dropdown opens already showing it. A value in *italics* is a placeholder, which is grey hint text in an empty field. Leave the field alone and the action gets nothing, not the placeholder.
+- **Required?**: Studio marks no action parameter as required. There are no asterisks and no red validation, and every action can be left completely unconfigured. Where this column says *effectively*, that is an inference from the parameter's purpose, not a label Studio shows.
+- **Bind**: most free text parameters carry **Var** and **Bind** controls on the label row, for pointing the parameter at a variable or at another component's value instead of typing a literal.
+
+## Navigation
+
+| Action | Parameter | Control | Default or placeholder | Required? | What it expects |
+| --- | --- | --- | --- | --- | --- |
+| **Navigate To** | Target Page | dropdown | *Select page...* | effectively | Every page in the project |
+| | Route Parameters | dependent sub-form | | no | Inert until a target page is picked, showing *Select a target page first*. Once a target is chosen it reads *No parameters declared on target page. You can add custom params below* and offers **+ Add Parameter** |
+| **Go Back** | *(none)* | | | | Go Back has no parameters at all. Adding it is the whole configuration |
+| **Open URL** | URL | text + Bind | *https://example.com* | effectively | An external URL to open in the browser |
+
+## Data
+
+| Action | Parameter | Control | Default or placeholder | Required? | What it expects |
+| --- | --- | --- | --- | --- | --- |
+| **API Call** | *(unlabelled)* | dropdown | *Select API call...* | effectively | A configured API call, listed from **CONNECT → API Calls** |
+| | On Success / On Error | nested action branches | | no | Each opens the same 22 action catalog, for chaining a follow up action |
+| **Set Variable** | Variable | dropdown | *Select variable...* | effectively | The page's declared variables, each listed with its type, for example `isLoading  boolean`. Empty on a page with none |
+| | Value | text, with a **Static/Dynamic** toggle | *new value* | no | In the default static mode, a literal typed into the field. The button beside it reads **Dynamic**, which is the mode it will switch to. Click it and the button reads **Static** and a **Bind** control replaces the plain field |
+
+<Note>
+The API Call dropdown is gated on having an API call **defined**, not on having a backend connected. With one call defined and no backend connected, the dropdown lists that call. See [Connect an API](/guides/connect-an-api).
+</Note>
+
+## Interaction
+
+| Action | Parameter | Control | Default or placeholder | Required? | What it expects |
+| --- | --- | --- | --- | --- | --- |
+| **Show Alert** | Title | text + Bind | *Alert* | no | The dialog's title |
+| | Message | text + Bind | *Something happened* | no | The dialog's body text |
+| **Show Toast** | Message | text + Bind | *Action completed* | effectively | The toast's text |
+| | Duration | dropdown | `Short (2s)` | no | **Short (2s)** or **Long (4s)**. Two options, nothing custom |
+| **Haptic Feedback** | Style | dropdown | `Selection` | no | Seven: **Selection**, **Impact Light**, **Impact Medium**, **Impact Heavy**, **Notification Success**, **Notification Warning**, **Notification Error** |
+| **Copy to Clipboard** | Text | text + Bind | *Text to copy* | effectively | The string to put on the clipboard |
+| **Toggle Overlay** | Overlay | dropdown | *Select overlay...* | effectively | Overlay components placed in the project: Modal, Drawer, AlertDialog, Popover. Zero options if none is placed |
+| | Action | dropdown | `Toggle` | no | **Toggle**, **Open**, **Close** |
+
+## Communication
+
+| Action | Parameter | Control | Default or placeholder | Required? | What it expects |
+| --- | --- | --- | --- | --- | --- |
+| **Share** | Title | text + Bind | *Check this out* | no | Title passed to the native share sheet |
+| | Message | text + Bind | *Hey, take a look!* | no | Body text to share |
+| | URL | text + Bind | *https://example.com* | no | A link to share |
+| **Open Email** | To | text + Bind | *user@example.com* | effectively | Recipient address |
+| | Subject | text + Bind | *Hello* | no | Subject line |
+| | Body | text + Bind | *Message body* | no | Body text |
+
+## Flow
+
+| Action | Parameter | Control | Default or placeholder | Required? | What it expects |
+| --- | --- | --- | --- | --- | --- |
+| **Run TypeScript** | Code | **textarea** | *// your TypeScript code here* | effectively | TypeScript source. A plain textarea, not a code editor with syntax highlighting or completion. **No Bind control** |
+| | On Success / On Error | nested action branches | | no | Each opens the full action catalog |
+| **Delay** | Duration (ms) | text | *1000* | effectively | A number of milliseconds. **No Bind control** |
+| **Console Log** | Message | text + Bind | *Debug message* | effectively | The message to log |
+
+## Authentication
+
+Exactly seven Authentication actions exist. All seven open and are fully readable with no backend connected, because the parameter forms are not gated behind a provider. Every one of them also carries **On Success** and **On Error** branches.
+
+| Action | Parameter | Control | Default or placeholder | Required? | What it expects |
+| --- | --- | --- | --- | --- | --- |
+| **Sign In** | Email | text + Bind | *Bind to the email field* | effectively | The email to sign in with. The placeholder is telling you to bind, not to type |
+| | Password | text + Bind | *Bind to the password field* | effectively | The password |
+| | OAuth Provider | dropdown | `None` (the email and password default) | no | Opens showing two options, **Google** and **Apple**. The default text is what the field reads before you pick one |
+| **Sign Up** | Email | text + Bind | *Bind to the email field* | effectively | |
+| | Password | text + Bind | *Bind to the password field* | effectively | |
+| | Confirm Password | text + Bind | *Bind to the confirm field* | no | |
+| | Display Name | text + Bind | *(no placeholder)* | no | A name for the new account |
+| **Sign Out** | *(none)* | | | | No parameters, only the On Success and On Error branches |
+| **Send OTP Code** | Phone Number | text + Bind | *Bind to the phone field* | effectively | The number to text the code to |
+| **Verify OTP Code** | Phone Number | text + Bind | *(no placeholder)* | effectively | The same number the code was sent to |
+| | Code | text + Bind | *Bind to the code field* | effectively | The code the user typed |
+| **Send Magic Link** | Email | text + Bind | *Bind to the email field* | effectively | Address to email the one tap link to |
+| **Send Password Reset** | Email | text + Bind | *Bind to the email field* | effectively | Address to email the reset link to |
+
+## Which actions have On Success and On Error
+
+Nine of the 22, and they are exactly the ones that talk to something outside the app.
+
+| Has On Success / On Error | Does not |
+| --- | --- |
+| API Call, Run TypeScript, Sign In, Sign Up, Sign Out, Send OTP Code, Verify OTP Code, Send Magic Link, Send Password Reset | Navigate To, Go Back, Open URL, Set Variable, Show Alert, Show Toast, Haptic Feedback, Copy to Clipboard, Toggle Overlay, Share, Open Email, Delay, Console Log |
+
+Each branch expands to its own **+ Add** control that opens the same 22 action catalog, so an action chain can nest.
+
+## The Bind and Var affordances
+
+Almost every free text parameter's label row carries two small controls, **Var** and **Bind**. **Bind** opens a **Search components...** picker listing the page's own bindable component nodes, by type and node id, each with a count and an expand chevron, such as `Button button_1 (3)` or `Input input_1 (4)`. This is the same binding vocabulary a component's own properties use.
+
+**Three parameters have no Bind control:** Run TypeScript's **Code** (a textarea), Delay's **Duration (ms)**, and Set Variable's **Value**, which has its own Static and Dynamic switch instead.
+
+## What a missing backend actually changes
+
+Not the forms, the option lists. On a project with no backend connected, every Authentication action's fields sit there ready to be bound to inputs that nothing will authenticate against. Toggle Overlay's dropdown is empty until an overlay component exists on the page. Set Variable's dropdown is empty until a variable is declared. The gating is data, not UI.
+
+So the presence of an Authentication action in a project says nothing about whether authentication is actually wired.
+
+## Troubleshooting
+
+| Issue | Likely cause | What to do |
+| --- | --- | --- |
+| An action's dropdown (API Call, Toggle Overlay, Set Variable) opens completely empty | The dropdown lists project data that does not exist yet | Create the thing first: define an API call, place a Modal, Drawer, AlertDialog or Popover, or declare a Page or App Variable under Properties → Variables |
+| You typed nothing into a field and expected the grey hint text to be used | That is a placeholder, not a default. An empty field stays empty | Type a real value, or use **Bind** or **Var** |
+| You cannot tell which parameters are mandatory | Studio marks none of them | Use the **Required?** column above. Where it says *effectively*, the action can still be saved without it, it just will not do anything useful |
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Style and tokens" href="/studio-guide/reference/style-and-tokens">
+    Colour tokens, typography names, spacing and breakpoints.
+  </Card>
+  <Card title="Visibility rules" href="/studio-guide/reference/visibility-rules">
+    The four visibility and conditional style mechanisms.
+  </Card>
+</CardGroup>

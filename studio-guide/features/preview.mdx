@@ -1,0 +1,208 @@
+---
+title: "Preview"
+description: "Run your app for real beside the canvas, at three device sizes, with edits landing in under a second."
+---
+
+## Overview
+
+The canvas shows what a screen looks like. It cannot show what the app does. **Preview** runs a real build of your project beside the canvas, so buttons fire their configured actions, switches toggle and navigation navigates.
+
+Click the play icon in the top right toolbar. No build and no export step is needed. Preview is available from the moment a project has a page.
+
+Which shape of preview you get depends on the canvas's app target:
+
+- <Icon icon="mobile-screen-button" size={14} /> **Mobile target**: the app runs in a phone or tablet device frame, with device size toggles and an **Open in Expo Go** button.
+- <Icon icon="globe" size={14} /> **Web target**: the same project runs as its web build, which Studio labels as the Next.js output, with Desktop, Tablet and Mobile width toggles.
+
+<Tip>
+Throughout this page, <Icon icon="mobile-screen-button" size={12} /> marks something that only applies on the Mobile target, <Icon icon="globe" size={12} /> marks Web-only, and both icons together mean it applies to both.
+</Tip>
+
+<Frame caption="The top right toolbar: Undo, Redo, the Preview play icon, the Platform review layers icon, the Build & Export menu icon, the properties panel toggle, and a red bug icon badged with an issue count">
+  <img src="/studio-guide/images/preview/toolbar-controls.jpg" alt="The preview and testing toolbar controls" />
+</Frame>
+
+<Frame caption="Opening the preview, waiting through the real first bundle, and cycling all three device sizes.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/preview-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration, and it waits out the real 25-30 second first bundle rather than cutting away.
+
+## Open the preview
+
+<Steps>
+  <Step title="Click the play icon">
+    A second panel opens to the right of the canvas and starts bundling.
+
+    <Note>
+    **The first bundle takes 25 to 30 seconds.** That is a real bundling step, measured repeatedly on a project that had not been previewed for a while. Clicking and looking away too early only shows an unstyled placeholder. Do not re-click the play icon while you wait, because that restarts the panel rather than the bundle.
+    </Note>
+
+    <Frame caption="Studio with the preview open: the AI Assistant on the left, the phone canvas in the middle, and a second phone frame on the right running the same screen as a live app">
+      <img src="/studio-guide/images/preview/preview-panel-phone.jpg" alt="The preview panel open beside the canvas" />
+    </Frame>
+  </Step>
+
+  <Step title="Read the panel header">
+    Everything the panel can do sits in its header.
+
+    | Control | What it is |
+    | --- | --- |
+    | Three device icons | Device size: Phone, Tablet, Tablet landscape |
+    | Gear | Preview settings, which is the preview engine picker |
+    | Close | Returns the right hand side to the Properties panel |
+    | Green dot plus **Open in Expo Go** | The device preview entry point |
+
+    <Frame caption="The preview panel header at double zoom: the three device icons with phone highlighted, the gear, the close control, and a green dot beside the Open in Expo Go button">
+      <img src="/studio-guide/images/preview/preview-panel-header.jpg" alt="The preview panel header controls" />
+    </Frame>
+  </Step>
+
+  <Step title="Pick an engine, if you need to">
+    The gear opens a **Preview Engine** picker.
+
+    - **Sandpack V2**, the default, and what this page describes.
+    - **Sandpack (Legacy)**, the previous engine, kept as a fallback.
+
+    <Frame caption="The Preview settings popover: Preview Engine with Sandpack V2 selected and Sandpack (Legacy) below it">
+      <img src="/studio-guide/images/preview/preview-engine.jpg" alt="The preview engine picker" />
+    </Frame>
+  </Step>
+</Steps>
+
+<Note>
+While the preview is open it occupies the same space as the **Properties panel**, and the panel does not come back. The toolbar's show and hide properties toggle flips its label but no property fields appear.
+
+Canvas selection still works, so a selected node keeps its outline and type badge. To change a property you either close the preview first, or make the change from the AI Assistant, the Component Tree or the Pages list, which all stay available.
+</Note>
+
+## Responsive preview <Icon icon="mobile-screen-button" size={16} /><Icon icon="globe" size={16} />
+
+The three device icons change the size of the running app. These are real device viewports, measured from inside the running preview rather than assumed.
+
+| Target | Toggle | Preview viewport |
+| --- | --- | --- |
+| <Icon icon="mobile-screen-button" size={14} /> Mobile | **Phone** | **390 x 844** |
+| <Icon icon="mobile-screen-button" size={14} /> Mobile | **Tablet** | **768 x 1024** |
+| <Icon icon="mobile-screen-button" size={14} /> Mobile | **Tablet landscape** | **1024 x 768** |
+| <Icon icon="globe" size={14} /> Web | Mobile | 390 x 844 |
+| <Icon icon="globe" size={14} /> Web | Tablet | 768 x 1024 |
+| <Icon icon="globe" size={14} /> Web | Desktop | As wide as the Studio window |
+
+<Frame caption="switching the preview between Phone, Tablet and Tablet landscape while the canvas beside it stays at phone width">
+  <img src="/studio-guide/images/preview/device-sizes.jpg" alt="Switching preview device sizes" />
+</Frame>
+
+<Note>
+The tablet frame is scaled down to fit the panel. It occupied roughly 737px of screen while reporting a 768px viewport, so measure the app's viewport rather than the frame on screen.
+</Note>
+
+<Tip>
+The canvas toolbar carries its own copy of the same three device icons, at the same widths, and the two sets are independent. Switching the preview to Tablet and then the canvas to Mobile leaves the preview at tablet width. Think of it as "what size am I designing at" versus "what size am I testing at".
+</Tip>
+
+## The web preview <Icon icon="globe" size={16} />
+
+The same play button gives you the web build when the canvas is on the **Web** target. Switch the target with the Mobile and Web toggle at the top of the canvas, either before opening the preview or while it is already open, in which case it swaps immediately.
+
+At **Desktop** width the web preview takes over the entire window and the editor is hidden. Pick **Tablet** or **Mobile** and it docks back to the right hand side with the editor visible beside it.
+
+<Frame caption="The whole Studio window filled by the web preview at Desktop width, the app rendering as a web page with its own left navigation rail and a full width screen">
+  <img src="/studio-guide/images/preview/web-preview-desktop.jpg" alt="The web preview at desktop width" />
+</Frame>
+
+Things the web preview showed that the mobile preview did not, on the verified project:
+
+- The web output renders its **own app shell**, a left navigation listing the project's pages and a top bar carrying the project name and a page label.
+- In that navigation the pages were labelled "Page 1" through "Page 5" rather than by their Studio names.
+- **Switch** components rendered as plain square checkboxes on web, where the mobile preview rendered them as pill shaped toggles.
+
+<Note>
+The app target is a persisted project setting, not a per session view. Switching to Web and reloading Studio later reopens the project still on Web. If your canvas looks unexpectedly like a web page, check that toggle first.
+</Note>
+
+## Live reload <Icon icon="mobile-screen-button" size={16} /><Icon icon="globe" size={16} />
+
+**Edits reach the running preview in under a second, with no re-bundle.** This was measured by polling the preview's own DOM every 300ms while a heading was changed and then undone and redone.
+
+| Editor action | Time until the preview showed the new state |
+| --- | --- |
+| Undo | about **0.6 seconds** |
+| Redo | about **0.3 seconds** |
+
+<Frame caption="editing a heading on the canvas, the running preview updating almost instantly, then Undo reverting both without the panel reloading">
+  <img src="/studio-guide/images/preview/live-edit.jpg" alt="A live edit landing in the running preview" />
+</Frame>
+
+Leave the panel open and the play button alone, and the 25 to 30 second bundling wait does not repeat. That is the point of it. Once the preview is warm, keep it open and keep working.
+
+Switching pages in the editor navigates the preview too. Open the Pages list with the preview running, click a different page, and the preview follows.
+
+<Note>
+There is no reload or refresh button in the preview panel. Only the device toggles, the settings gear and the close control. Closing and reopening is the only manual re-bundle, and it re-runs the full warm up.
+</Note>
+
+<Note>
+**Undo can look applied and then come back after a reload.** Observed twice: after Undo, the canvas and the live preview both reverted and the header read "Saved", but reloading the project brought the un-done value back. A control test with the preview closed behaved the same way, so this is not specific to the preview.
+
+Do not rely on Undo alone to revert something you care about. Re-type the original value, reload, and confirm it stuck.
+</Note>
+
+## Open in Expo Go <Icon icon="mobile-screen-button" size={16} />
+
+On the Mobile target, the panel header carries **Open in Expo Go**. Clicking it opens a dialog with a QR code, a "Ready to scan" heading, a status row reading "Waiting for a device to connect...", the session URL in a copyable field, three numbered steps, and **Download QR** and **Close** buttons.
+
+<Frame caption="The Open in Expo Go dialog: a large QR code in scan frame brackets, the Ready to scan heading, the waiting for a device status row, the exp:// URL in a copyable field, and the three numbered steps">
+  <img src="/studio-guide/images/preview/expo-go-modal.jpg" alt="The Open in Expo Go dialog" />
+</Frame>
+
+Two details in that URL matter:
+
+- The runtime version, observed as `exposdk:54.0.0`, is the Expo SDK your phone's Expo Go must match.
+- The `snack-channel` value is specific to this preview session and is regenerated, so a QR you saved earlier is not a permanent link to your app.
+
+## Nearby: Platform review, Issues and Build & Export
+
+Three controls sit next to Preview and belong to checking an app rather than building it.
+
+<Tabs>
+  <Tab title="Platform review">
+    The layers icon opens a report comparing the web and mobile renderings screen by screen. On the verified project its summary read "Every screen renders the same on web and mobile." and all five screens reported no differences.
+
+    Read it as a screen level check, not a pixel level one. What it compares is not explained anywhere in the dialog, and the same project's web preview visibly rendered Switches as checkboxes while the report still said no differences.
+
+    <Frame caption="The Platform review dialog: the summary line above a Screen and Findings table listing five screens, each with a green tick and No differences">
+      <img src="/studio-guide/images/preview/platform-review.jpg" alt="The platform review report" />
+    </Frame>
+
+    <Frame caption="Opening Platform review from the toolbar and reading its report.">
+      <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/platform-review-demo.mp4"></video>
+    </Frame>
+
+    The recording above is a real, unscripted session, re-run on a later date than the screenshot above — by then the project had grown to six screens (a new page added since), and the report still read every one as no differences. Entirely read-only: opening the report is the only action there is.
+  </Tab>
+
+  <Tab title="Issues">
+    The bug icon, badged with a count, opens a project wide Errors and Warnings list. Each entry carries a category tag such as `ACTION` or `VARIABLE`, a plain English description, a **Fix:** suggestion, a **Fix** button and a dismiss control, with **Clear all** at the top.
+
+    <Frame caption="The Issues panel with Errors and Warnings tabs, showing an ACTION warning about a button with no onPress handler and a VARIABLE warning about an unused page variable, each with a Fix button">
+      <img src="/studio-guide/images/preview/issues-panel.jpg" alt="The issues panel" />
+    </Frame>
+  </Tab>
+
+  <Tab title="Build & Export">
+    The menu icon lists **Export project**, **Export as Next.js (Web)**, **Build Android**, **GitHub...**, and a **RECENT BUILDS** section. Builds and exports have real cost and real side effects, so nothing in this menu is part of previewing.
+
+    <Frame caption="The Build & Export menu: Export project, Export as Next.js (Web), Build Android, GitHub, and a RECENT BUILDS section reading No builds yet">
+      <img src="/studio-guide/images/preview/build-export-menu.jpg" alt="The build and export menu" />
+    </Frame>
+  </Tab>
+</Tabs>
+
+<Note>
+**Regression Tests does not test your app.** The only place in Studio with "Tests" in its name is **CONFIG → Regression Tests**, and its own subtitle is "Run code-generator checks to catch regressions before shipping." Its checks are named after Studio's internals, such as registry coverage and prop fidelity. It exercises Studio's code generator, not the app you built.
+</Note>
+
+## Summary
+
+Open the preview once, wait 25 to 30 seconds for the first bundle, then leave it open. Edits land in 0.3 to 0.6 seconds with no re-bundle, and switching pages in the editor navigates the preview too. The three device sizes are real viewports at 390 x 844, 768 x 1024 and 1024 x 768. On the Mobile target, **Open in Expo Go** hands you a QR code and a session URL for running the same preview on a device.

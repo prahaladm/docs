@@ -1,0 +1,62 @@
+---
+title: "Skills"
+description: "A custom-instruction-file pane in CONFIG, badged Alpha — and, as of this pass, one where creating a file doesn't survive a reload."
+---
+
+## Overview
+
+**CONFIG → Skills** is a pane for authoring custom instruction files, presumably meant for the AI Assistant to read while it works on your project — the same idea as a project-level system-prompt fragment.
+
+<Note>
+**This pane is badged Alpha, and its one available action does not currently work.** Everything below is a straight report of what was observed, including a bug: creating a file here does not survive a reload. Read this page as a status report, not a how-to.
+</Note>
+
+Reached by expanding **CONFIG** in the left sidebar and clicking the book icon, whose tooltip reads **"Skills Alpha."**
+
+## What it looks like, empty
+
+A **Search skills…** box across the top, a **+** button (tooltip: **Add Custom Skill**) at the top right, an empty file list on the left, and a centred **"Select a file to view"** placeholder on the right.
+
+This project has no skills at all, built in or custom. Searching for a single letter returned nothing, so there is no hidden default catalog being filtered out — the pane is genuinely empty until you create something.
+
+## Clicking + creates a file immediately — no naming dialog
+
+Clicking **+** does not ask for a name or description. It immediately adds a row to the file list, under a new **CUSTOM** group heading, named `new-skill`. That is the same pattern as **API Calls**' own **+ Add** button, covered in [Data & APIs](/guides/connect-an-api): the click *is* the create action.
+
+Right after the click, the project's top-bar save indicator reads **"Saving…"** — ordinarily, everywhere else in Studio, the sign that a real save request went out.
+
+<Frame caption="Creating a skill, watching Saving… appear, then reloading to show it's gone.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/skills-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session, and it demonstrates the finding below directly rather than describing it.
+
+## What survives a reload: nothing
+
+Despite the "Saving…" indicator, reloading the page and reopening Skills shows the exact same empty state as before — no `new-skill` file, no **CUSTOM** group, nothing. This was reproduced three times, including once from a completely fresh browser session, and the result was identical every time.
+
+<Warning>
+**As of this pass, Skills cannot be used to create anything that lasts.** The create action is visually instant and the save indicator fires, but nothing is actually persisted to the backend. Whatever this pane is meant to hold once it works, it doesn't yet.
+</Warning>
+
+Not verified, and blocked by the bug above: what a skill file's editor looks like once genuinely open on a persisted file; whether the AI Assistant actually reads anything from this pane; whether "Custom" implies some other, non-custom category of skill that simply isn't populated in this project.
+
+## Nearby: three more Alpha panes in CONFIG
+
+Hovering every icon in the CONFIG rail turned up four Alpha badges in total, not just this one:
+
+| Icon | Tooltip |
+| --- | --- |
+| Shield | Security (not Alpha — this is [Authentication](/guides/set-up-authentication)) |
+| Brain circuit | AI Agents *Alpha* |
+| Flask | Automated Tests *Alpha* |
+| Book (open) | Skills *Alpha* — this page |
+| Palette | Theme Settings (not Alpha) |
+| Gear | App Settings (not Alpha) |
+| History | History & Snapshots *Alpha* |
+
+None of the other three Alpha panes have documentation yet.
+
+## Summary
+
+Skills is a CONFIG pane for custom instruction files, currently Alpha and currently broken: clicking its only action creates a file that a "Saving…" indicator claims was saved, and a reload proves otherwise, every time. Nothing here should be relied on to persist until that's fixed.

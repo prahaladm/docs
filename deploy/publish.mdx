@@ -3,8 +3,15 @@ title: "Publish"
 description: "Submitting a NativeFlow app to the App Store and Google Play."
 ---
 
-This page should cover store submission: metadata, screenshots, review requirements, and how NativeFlow assists with (or hands off) the submission process.
+<Warning>
+**This page's own question is answered: as of this pass, NativeFlow Studio has no store-submission path at all, for either platform.** Confirmed multiple independent ways, live:
 
-<Note>
-  TODO: document whether NativeFlow submits on the team's behalf or produces artifacts for manual submission.
-</Note>
+- The **⋮ Build & Export** menu's four items (Export project, Export as Next.js, Build Android, GitHub…) — none mentions the App Store, TestFlight, Google Play submission, or release tracks.
+- The **Build Mobile App** dialog produces installers only (Preview APK, Release APK, Release AAB) — nothing about submitting them anywhere.
+- The separate **App Development Lifecycle** pane lists **Deploy to Play Store** and **Deploy to App Store** as menu entries, but both render disabled and greyed out, carry no tooltip, and clicking them does nothing.
+- Account-level Settings (the gear on the Projects dashboard) has no Apple, App Store Connect, Google Play, or signing-credential section anywhere.
+</Warning>
+
+**What this means practically:** NativeFlow doesn't submit on the team's behalf, and it doesn't yet produce store-ready submission artifacts either — a Release AAB (see "Generate Builds") is the closest thing, and getting it into the Play Store or App Store is a manual step you run yourself, outside Studio, today.
+
+The routes actually available out of Studio, in full: download a React Native source package, download a Next.js web project, build an Android APK/AAB on Codemagic, or push the source to your own GitHub repository — after which distribution is entirely yours to run through your own pipeline and store accounts.

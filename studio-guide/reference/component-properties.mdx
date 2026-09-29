@@ -1,0 +1,1974 @@
+---
+title: "Component Properties"
+description: "Every component type in the general registry, every property it exposes anywhere in Studio, and the 72 style keys they all share."
+---
+
+
+Every component type in NativeFlow Studio's general component registry, and every property Studio exposes for it anywhere in the editor — not specific to Themed Components. See the Themed Component Property Reference for the narrower schema the Create Themed Component dialog itself exposes.
+
+**53 component types · 432 schema properties · 72 shared style keys · 354 events across all types**
+
+See [Create Themed Component](/features/themed-components) for how a subset of these become reusable presets, and [Themed Component Property Reference](/reference/themed-component-properties) for that dialog's own, more precise schema.
+
+## Available Widgets, by Category
+
+### Charts
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [AreaChart](#areachart) | No | Degraded | 20 | 5 |
+| [BarChart](#barchart) | No | Degraded | 18 | 5 |
+| [LineChart](#linechart) | No | Degraded | 21 | 5 |
+| [PieChart](#piechart) | No | Degraded | 10 | 5 |
+| [StackedBarChart](#stackedbarchart) | No | Degraded | 17 | 5 |
+
+### Data Display
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Badge](#badge) | No | Supported | 4 | 5 |
+| [Card](#card) | Yes | Supported | 3 | 6 |
+| [CardList](#cardlist) | Yes | Supported | 10 | 12 |
+| [LanguageSwitcher](#languageswitcher) | No | Supported | 2 | 5 |
+| [List](#list) | Yes | Supported | 11 | 12 |
+| [Table](#table) | No | Supported | 15 | 5 |
+
+### Disclosure
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Accordion](#accordion) | No | Supported | 6 | 6 |
+| [Actionsheet](#actionsheet) | No | Degraded | 3 | 7 |
+
+### Feedback
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Alert](#alert) | No | Supported | 3 | 5 |
+| [Progress](#progress) | No | Supported | 5 | 5 |
+| [Spinner](#spinner) | No | Supported | 2 | 5 |
+| [Toast](#toast) | No | Supported | 6 | 5 |
+
+### Forms
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Button](#button) | No | Supported | 8 | 7 |
+| [Checkbox](#checkbox) | No | Supported | 8 | 6 |
+| [Form](#form) | Yes | Supported | 0 | 6 |
+| [FormControl](#formcontrol) | Yes | Supported | 8 | 6 |
+| [IconButton](#iconbutton) | No | Supported | 10 | 7 |
+| [Input](#input) | No | Supported | 9 | 10 |
+| [Link](#link) | No | Supported | 5 | 7 |
+| [Pressable](#pressable) | Yes | Supported | 4 | 7 |
+| [Radio](#radio) | No | Supported | 8 | 6 |
+| [SearchInput](#searchinput) | No | Supported | 16 | 11 |
+| [Select](#select) | No | Supported | 8 | 8 |
+| [Slider](#slider) | No | Supported | 8 | 8 |
+| [Switch](#switch) | No | Supported | 4 | 6 |
+| [Textarea](#textarea) | No | Supported | 7 | 10 |
+
+### Layout
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Box](#box) | Yes | Supported | 0 | 6 |
+| [Center](#center) | Yes | Supported | 0 | 6 |
+| [Column](#column) | Yes | Supported | 1 | 6 |
+| [Divider](#divider) | No | Supported | 2 | 5 |
+| [Grid](#grid) | Yes | Supported | 1 | 6 |
+| [Row](#row) | Yes | Supported | 1 | 6 |
+
+### Media And Icons
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Avatar](#avatar) | No | Supported | 3 | 7 |
+| [Carousel](#carousel) | Yes | Supported | 30 | 13 |
+| [CircleImage](#circleimage) | No | Supported | 12 | 7 |
+| [Icon](#icon) | No | Supported | 3 | 5 |
+| [Image](#image) | No | Supported | 4 | 7 |
+| [Video](#video) | No | Supported | 7 | 8 |
+
+### Others
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Fab](#fab) | No | Degraded | 5 | 7 |
+| [Skeleton](#skeleton) | No | Supported | 4 | 5 |
+
+### Overlay
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [AlertDialog](#alertdialog) | No | Supported | 4 | 7 |
+| [Drawer](#drawer) | No | Supported | 3 | 7 |
+| [Menu](#menu) | No | Supported | 4 | 7 |
+| [Modal](#modal) | Yes | Supported | 4 | 7 |
+| [Popover](#popover) | No | Supported | 5 | 7 |
+| [Tooltip](#tooltip) | No | Supported | 2 | 7 |
+
+### Typography
+
+| Component | Accepts Children | Web Support | Own Properties | Events |
+| --- | --- | --- | --- | --- |
+| [Heading](#heading) | No | Supported | 7 | 5 |
+| [Text](#text) | No | Supported | 9 | 5 |
+
+## Universal Style Properties
+
+Every one of the 53 component types above shares this exact same set of 72 style properties (Style panel: Appearance, Spacing, Sizing, and more) — confirmed identical across all of them in this schema snapshot, not just "usually the same." They're documented once here instead of repeated under every component below.
+
+### Appearance
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `color` | Style › Appearance › Text | color | Hidden on non-text widgets. |
+| `backgroundColor` | Style › Appearance › Background | color | Hex, rgba() or theme token; supports opacity. |
+| `borderColor` | Style › Appearance › Border | color |  |
+| `borderWidth` | Style › Appearance › Border | number |  |
+| `opacity` | Style › Appearance › Opacity | number | 0..1 in the model; the slider shows 0–100%. |
+| `overflow` |  | enum | Containers author this as a prop; the native `<View>` ignores "scroll". |
+
+### Border
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `borderTopWidth` |  | number |  |
+| `borderRightWidth` |  | number |  |
+| `borderBottomWidth` |  | number |  |
+| `borderLeftWidth` |  | number |  |
+| `borderTopLeftRadius` |  | number |  |
+| `borderTopRightRadius` |  | number |  |
+| `borderBottomLeftRadius` |  | number |  |
+| `borderBottomRightRadius` |  | number |  |
+| `borderStyle` |  | enum |  |
+
+### Effects
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `shadowColor` |  | color |  |
+| `shadowOpacity` |  | number | iOS |
+| `shadowRadius` |  | number | iOS |
+| `shadowOffset` |  | object | `{ width, height }` |
+| `elevation` |  | number | Android |
+| `transform` |  | array | `[{ rotate: "45deg" }, { scale: 1.1 }]` |
+
+### Flexbox
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `flex` | Layout › Sizing (Hug / Fill / Expand) | number |  |
+| `alignSelf` | Layout › cross-axis hint action | enum |  |
+| `flexBasis` |  | number\|string |  |
+| `flexGrow` |  | number |  |
+| `flexShrink` |  | number |  |
+| `flexDirection` |  | enum | Authored as a prop on containers; the style key is the codegen fallback. |
+| `flexWrap` |  | enum |  |
+| `justifyContent` |  | enum |  |
+| `alignItems` |  | enum |  |
+| `alignContent` |  | enum |  |
+
+### Geometry
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `width` | Style › Geometry › Size | number\|string | px in the panel; "50%" accepted in the schema. |
+| `height` | Style › Geometry › Size | number\|string |  |
+| `borderRadius` | Style › Geometry › Radius | number | Presets 0, 4, 8, 16, 999 + custom px. |
+| `minHeight` | Layout › Min height | number\|string |  |
+| `minWidth` |  | number\|string |  |
+| `maxWidth` |  | number\|string |  |
+| `maxHeight` |  | number\|string |  |
+| `aspectRatio` |  | number |  |
+| `display` |  | enum |  |
+
+### Position
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `position` |  | enum |  |
+| `top` |  | number\|string |  |
+| `right` |  | number\|string |  |
+| `bottom` |  | number\|string |  |
+| `left` |  | number\|string |  |
+| `zIndex` |  | number |  |
+
+### Spacing
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `padding` | Layout › Padding | number | Default 0 (opt-in spacing). |
+| `paddingTop` | Layout › Padding | number |  |
+| `paddingRight` | Layout › Padding | number |  |
+| `paddingBottom` | Layout › Padding | number |  |
+| `paddingLeft` | Layout › Padding | number |  |
+| `margin` | Layout › Margin | number |  |
+| `marginTop` | Layout › Margin | number |  |
+| `marginRight` | Layout › Margin | number |  |
+| `marginBottom` | Layout › Margin | number |  |
+| `marginLeft` | Layout › Margin | number |  |
+| `gap` |  | number | On Row/Column the panel writes props.space / props.gap; the style key is the fallback. |
+| `rowGap` |  | number |  |
+| `columnGap` |  | number |  |
+| `paddingHorizontal` |  | number |  |
+| `paddingVertical` |  | number |  |
+| `marginHorizontal` |  | number |  |
+| `marginVertical` |  | number |  |
+
+### Typography
+
+| Property | Panel Section | Type | Notes |
+| --- | --- | --- | --- |
+| `fontSize` |  | number | Panel authors typography via the text-style picker (theme styles), not raw px. |
+| `fontWeight` |  | enum |  |
+| `fontStyle` |  | enum |  |
+| `fontFamily` |  | string |  |
+| `lineHeight` |  | number | Locked to 1 on typography leaves (removes half-leading). |
+| `letterSpacing` |  | number |  |
+| `textAlign` |  | enum |  |
+| `textTransform` |  | enum |  |
+| `textDecorationLine` |  | enum |  |
+
+## Component Details
+
+### Accordion
+
+- **Category:** Disclosure
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Accordion Item` | Header text of the accordion section |
+| `defaultValue` | Default Value | string | `` | Key of the section that is expanded by default |
+| `type` | Type | select | `single` | `single`, `multiple` |
+| `variant` | Variant | select | `filled` | `filled`, `unfilled` |
+| `isCollapsible` | Collapsible | boolean | `true` | Allow the open section to be collapsed by clicking again |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the accordion |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Value Change | Disclosure | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Actionsheet
+
+- **Category:** Disclosure
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Actions` | Heading text of the action sheet |
+| `items` | Items (comma) | string | `Edit,Delete,Cancel` | Comma-separated list of action items |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the action sheet when clicking outside it |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Alert
+
+- **Category:** Feedback
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `This is an alert` | The alert message text |
+| `action` | Action | select | `info` | `error`, `warning`, `success`, `info`, `muted` |
+| `variant` | Variant | select | `solid` | `solid`, `outline`, `accent` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### AlertDialog
+
+- **Category:** Overlay
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Are you sure?` | Heading text of the alert dialog |
+| `description` | Description | string | `This action cannot be undone.` | Body text explaining the alert action |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `full` |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the dialog when clicking outside it |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### AreaChart
+
+- **Category:** Charts
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of data points |
+| `title` | Title | string | `` | Chart title displayed above the chart |
+| `lineColor` | Line Color | color | `#56D0A0` | Color of the area line |
+| `startFillColor` | Fill Color | color | `#56D0A0` | Color of the area fill |
+| `startOpacity` | Fill Opacity | number | `0.3` | Opacity of the area fill (0-1) |
+| `thickness` | Line Thickness | number | `2` | Thickness of the line |
+| `curved` | Curved | boolean | `true` | Use curved lines |
+| `hideDataPoints` | Hide Data Points | boolean | `false` | Hide data point dots |
+| `dataPointsColor` | Points Color | color | `#56D0A0` | Color of data point dots |
+| `dataPointsRadius` | Points Radius | number | `3` | Radius of data point dots |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width in pixels |
+| `chartHeight` | Chart Height | number | `200` | Total chart height in pixels |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. months) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Avatar
+
+- **Category:** Media And Icons
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `src` | Image URL | string | `` | URL of the avatar image |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `xl`, `2xl` |
+| `fallbackText` | Fallback Text | string | `AB` | Initials shown when no image is available |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Load | Media | Yes |
+| On Error | Media | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Badge
+
+- **Category:** Data Display
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Badge` | The label text inside the badge |
+| `variant` | Variant | select | `solid` | `solid`, `outline` |
+| `action` | Action | select | `info` | `error`, `warning`, `success`, `info`, `muted` |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### BarChart
+
+- **Category:** Charts
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of data points with value, label, and optional frontColor |
+| `title` | Title | string | `` | Chart title displayed above the chart |
+| `barWidth` | Bar Width | number | `30` | Width of each bar in pixels |
+| `spacing` | Spacing | number | `10` | Space between bars in pixels |
+| `frontColor` | Bar Color | color | `#4ABFF4` | Default color for bars |
+| `showGradient` | Show Gradient | boolean | `false` | Apply gradient fill to bars |
+| `showValuesOnTop` | Show Values | boolean | `false` | Display values above each bar |
+| `hideRules` | Hide Rules | boolean | `false` | Hide horizontal grid lines |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width in pixels |
+| `chartHeight` | Chart Height | number | `200` | Total chart height in pixels |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. months) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Box
+
+- **Category:** Layout
+- **Accepts children:** Yes
+
+No properties beyond the Universal Style Properties above — this is a pure layout/container component.
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Button
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Button` | The label text displayed inside the button |
+| `variant` | Variant | select | `solid` | `solid`, `outline`, `link` |
+| `action` | Action | select | `primary` | `primary`, `secondary`, `positive`, `negative`, `default` |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `xl` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction and dim the button |
+| `isLoading` | Loading | boolean | `false` | Show a spinner and disable the button |
+| `isPressed` | Pressed | boolean | `false` | Force the pressed visual state |
+| `isFocusVisible` | Focus Visible | boolean | `false` | Show the keyboard focus ring indicator |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Press In | Touch | Yes |
+| On Press Out | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Card
+
+- **Category:** Data Display
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `productCard` | `productCard`, `profileCard`, `statCard`, `mediaCard`, `pricingCard`, `articleCard`, `custom` |
+| `variant` | Variant | select | `elevated` | `elevated`, `outline`, `ghost`, `filled` |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### CardList
+
+- **Category:** Data Display
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `list` | `list`, `card`, `table`, `dataGrid`, `checklist`, `calendar`, `kanban`, `transactionList`, `contactList`, `settingsList`, `mediaList`, `custom` |
+| `dataSource` | Data Source | string | `` | API call or variable providing the card list data array |
+| `space` | Card Spacing | select | `none` | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl` |
+| `variant` | Card Variant | select | `elevated` | `elevated`, `outline`, `filled`, `ghost` |
+| `cardPadding` | Card Padding | number | `12` | Inner spacing inside each card in pixels |
+| `cardBorderRadius` | Card Radius | number | `8` | Corner radius of each card in pixels |
+| `itemCount` | Preview Items | number | `3` | Number of placeholder cards shown in the canvas preview |
+| `scrollable` | Scrollable | boolean | `true` | Enable vertical scrolling when content overflows |
+| `showsScrollIndicator` | Scroll Indicator | boolean | `true` | Show the scrollbar indicator while scrolling |
+| `cardBackgroundColor` | Per-Card Background | color | `#FFFFFF` | Fill color of each INDIVIDUAL card in the list (not the container). For the overall list background use Style → Background Color below. |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Scroll | Scroll | Yes |
+| On Scroll Begin Drag | Scroll | No |
+| On Scroll End Drag | Scroll | No |
+| On Momentum Scroll Begin | Scroll | No |
+| On Momentum Scroll End | Scroll | No |
+| On End Reached | Scroll | No |
+| On Refresh | Scroll | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Carousel
+
+- **Category:** Media And Icons
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `image` | `image`, `card`, `custom` |
+| `dataSource` | Data Source | string | `` | API call or variable providing the slide data array |
+| `slideCount` | Preview Slides | number | `3` | Number of placeholder slides seeded when the template style changes |
+| `direction` | Direction | select | `horizontal` | `horizontal`, `vertical` |
+| `mode` | Mode | select | `default` | `default`, `parallax`, `stack`, `tinder` |
+| `loop` | Loop | boolean | `false` | Wrap around from the last slide back to the first |
+| `autoPlay` | Autoplay | boolean | `false` | Advance slides automatically |
+| `autoPlayInterval` | Autoplay Interval (ms) | number | `3000` | Delay between automatic slide changes in milliseconds |
+| `snapEnabled` | Snap To Slide | boolean | `true` | Snap scrolling to slide boundaries |
+| `gesturesEnabled` | Allow Swipe | boolean | `true` | Let the user swipe between slides |
+| `defaultIndex` | Initial Slide | number | `0` | Zero-based index of the slide shown first |
+| `itemWidthPct` | Slide Width (%) | number | `100` | Slide width as a percentage of the carousel width (below 100% peeks the next slide) |
+| `slideHeight` | Slide Height | number | `200` | Height of each slide in pixels |
+| `slideGap` | Slide Gap | number | `0` | Spacing between slides in pixels |
+| `slideRadius` | Slide Radius | number | `8` | Corner radius applied to each slide |
+| `slideBackground` | Slide Background | color | `#E5E7EB` | Background color painted behind each slide |
+| `inactiveScale` | Inactive Scale | number | `1` | Scale factor applied to non-active slides (1 = no shrink) |
+| `inactiveOpacity` | Inactive Opacity | number | `1` | Opacity applied to non-active slides (1 = fully opaque) |
+| `pagination` | Pagination | select | `dots` | `none`, `dots`, `bars`, `numbers` |
+| `paginationPosition` | Pagination Position | select | `inside` | `inside`, `outside` |
+| `dotColor` | Dot Color | color | `rgba(0,0,0,0.25)` | Color of inactive pagination dots |
+| `activeDotColor` | Active Dot Color | color | `#0077E6` | Color of the pagination dot for the current slide |
+| `dotSize` | Dot Size | number | `8` | Diameter of each pagination dot in pixels |
+| `dotSpacing` | Dot Spacing | number | `6` | Space between pagination dots in pixels |
+| `showArrows` | Show Arrows | boolean | `false` | Show previous / next arrow buttons over the carousel |
+| `arrowColor` | Arrow Color | color | `#FFFFFF` | Color of the arrow glyphs |
+| `arrowSize` | Arrow Size | number | `20` | Size of the arrow glyphs in pixels |
+| `selectable` | Selectable | boolean | `false` | Let users tap slides to select them. Selected slides are highlighted and exposed as selectedItems / selectedIndices for other components to bind to. |
+| `selectionMode` | Selection Mode | select | `single` | `single`, `multiple` |
+| `selectedBackgroundColor` | Selected Highlight | color | `#EEF2FF` | Background color applied to a selected slide (only used when Selectable is on). |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Slide Change | Scroll | Yes |
+| On Slide Tap | Touch | Yes |
+| On Snap End | Scroll | Yes |
+| On Scroll Start | Scroll | Yes |
+| On Scroll End | Scroll | Yes |
+| On Autoplay Start | Scroll | Yes |
+| On Autoplay Stop | Scroll | Yes |
+| On Loop | Scroll | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Center
+
+- **Category:** Layout
+- **Accepts children:** Yes
+
+No properties beyond the Universal Style Properties above — this is a pure layout/container component.
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Checkbox
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `label` | Label | string | `Checkbox` | Text displayed next to the checkbox indicator |
+| `isChecked` | Checked | boolean | `false` | Whether the checkbox is currently checked |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the checkbox |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling on the checkbox |
+| `isIndeterminate` | Indeterminate | boolean | `false` | Show a partial-check state (dash instead of checkmark) |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+| `value` | Value | string | `` | The form value submitted when this checkbox is selected |
+| `checkColor` | Check Color | color | `` | Color applied to the checkbox border and background fill when checked |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Value Change | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### CircleImage
+
+- **Category:** Media And Icons
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `source` | Image URL | string | `` | URL of the circular image to display |
+| `alt` | Alt Text | string | `User` | Descriptive text for accessibility |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `xl`, `2xl` |
+| `fallbackType` | Fallback Type | select | `text` | `text`, `icon` |
+| `fallbackText` | Fallback Text | string | `` | Initials displayed when no image is available |
+| `fallbackIcon` | Fallback Icon | string | `user` | Icon name shown when no image is available |
+| `fallbackBg` | Fallback Background | color | `#6366F1` | Background color of the fallback circle |
+| `fallbackColor` | Fallback Color | color | `#FFFFFF` | Text or icon color in the fallback circle |
+| `showBadge` | Show Badge | boolean | `false` | Display a small status badge on the circle |
+| `badgePosition` | Badge Position | select | `bottom-right` | `top-right`, `bottom-right`, `top-left`, `bottom-left` |
+| `badgeBg` | Badge Color | color | `#22C55E` | Background color of the status badge |
+| `badgeSize` | Badge Size | number | `12` | Diameter of the status badge in pixels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Load | Media | Yes |
+| On Error | Media | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Column
+
+- **Category:** Layout
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `space` | Space | select | `none` | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Divider
+
+- **Category:** Layout
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `orientation` | Orientation | select | `horizontal` | `horizontal`, `vertical` |
+| `thickness` | Thickness | number | `1` | Thickness of the divider line in pixels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Drawer
+
+- **Category:** Overlay
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `anchor` | Anchor | select | `left` | `left`, `right`, `top`, `bottom` |
+| `size` | Size | select | `sm` | `sm`, `md`, `lg`, `full` |
+| `isBackdropVisible` | Backdrop Visible | boolean | `true` | Show a dimmed overlay behind the drawer |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Fab
+
+- **Category:** Others
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placement` | Placement | select | `bottom right` | `top right`, `top left`, `bottom right`, `bottom left` |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the FAB |
+| `label` | Label | string | `` | Optional text label displayed alongside the FAB icon |
+| `icon` | Icon | icon | `plus` | Icon displayed inside the FAB button |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Press In | Touch | Yes |
+| On Press Out | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Form
+
+- **Category:** Forms
+- **Accepts children:** Yes
+
+No properties beyond the Universal Style Properties above — this is a pure layout/container component.
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### FormControl
+
+- **Category:** Forms
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `label` | Label | string | `Field Label` | Label displayed above the form field |
+| `helperText` | Helper Text | string | `` | Guidance text displayed below the input field |
+| `errorText` | Error Text | string | `` | Validation error message shown when the field is invalid |
+| `isRequired` | Required | boolean | `false` | Mark the field as required with a visual indicator |
+| `isDisabled` | Disabled | boolean | `false` | Disable all child form inputs |
+| `isInvalid` | Invalid | boolean | `false` | Show error styling on all child form inputs |
+| `isReadOnly` | Read Only | boolean | `false` | Make all child inputs read-only |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Grid
+
+- **Category:** Layout
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `columns` | Columns | number | `2` | Number of columns in the grid layout |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Heading
+
+- **Category:** Typography
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Heading` | The heading text content displayed on screen |
+| `size` | Size | select | `xl` | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `5xl` |
+| `bold` | Bold | boolean | `true` | Apply bold font weight to the heading |
+| `italic` | Italic | boolean | `false` | Apply italic style to the heading |
+| `underline` | Underline | boolean | `false` | Add underline decoration to the heading |
+| `strikeThrough` | Strikethrough | boolean | `false` | Add strikethrough decoration to the heading |
+| `isTruncated` | Truncated | boolean | `false` | Truncate text with ellipsis if it overflows |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Icon
+
+- **Category:** Media And Icons
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `name` | Icon | icon | `star` | Which icon to display from the icon library |
+| `size` | Size | number | `24` | Icon dimensions in pixels |
+| `strokeWidth` | Stroke Width | number | `2` | Thickness of the icon stroke lines |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### IconButton
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `icon` | Icon Name | icon | `heart` | Name of the Lucide icon to display |
+| `iconSize` | Icon Size | number | `0` | Override icon size in pixels (0 = auto from button size) |
+| `iconColor` | Icon Color | color | `` | Override the icon color |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `xl` |
+| `variant` | Variant | select | `solid` | `solid`, `outline`, `ghost`, `link` |
+| `action` | Action | select | `primary` | `primary`, `secondary`, `positive`, `negative` |
+| `label` | Label Text | string | `` | Optional text label displayed alongside the icon |
+| `labelPosition` | Label Position | select | `bottom` | `bottom`, `right`, `top`, `left` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction and dim the button |
+| `isLoading` | Loading | boolean | `false` | Show a spinner and disable the button |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Press In | Touch | Yes |
+| On Press Out | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Image
+
+- **Category:** Media And Icons
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `src` | Source URL | string | `` | URL of the image to display |
+| `placeholder` | Placeholder URL | string | `` | A low-res or fallback image shown while the main image loads or if it fails |
+| `alt` | Alt Text | string | `Image` | Descriptive text for accessibility and screen readers |
+| `resizeMode` | Resize Mode | select | `cover` | `cover`, `contain`, `stretch`, `center` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Load | Media | Yes |
+| On Error | Media | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Input
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Enter text...` | Hint text shown when the input is empty |
+| `defaultValue` | Default Value | string | `` | Initial value pre-filled in the input |
+| `variant` | Variant | select | `outline` | `outline`, `rounded`, `underlined` |
+| `size` | Size | select | `md` | `sm`, `md`, `lg`, `xl` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the input |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling |
+| `isReadOnly` | Read Only | boolean | `false` | Allow text selection but prevent editing |
+| `isRequired` | Required | boolean | `false` | Mark this field as required for form validation |
+| `type` | Type | select | `text` | `text`, `password`, `email`, `number`, `phone`, `url` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Change Text | Form | Yes |
+| On Focus | Form | Yes |
+| On Blur | Form | Yes |
+| On Submit Editing | Form | Yes |
+| On Key Press | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### LanguageSwitcher
+
+- **Category:** Data Display
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `variant` | Variant | select | `select` | `select`, `segmented` |
+| `showLabel` | Show locale code | boolean | `true` | Render the BCP-47 code next to each option |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### LineChart
+
+- **Category:** Charts
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of data points |
+| `title` | Title | string | `` | Chart title displayed above the chart |
+| `lineColor` | Line Color | color | `#FF6384` | Color of the line |
+| `thickness` | Line Thickness | number | `2` | Thickness of the line in pixels |
+| `curved` | Curved | boolean | `true` | Use curved lines instead of straight |
+| `hideDataPoints` | Hide Data Points | boolean | `false` | Hide the dots on each data point |
+| `dataPointsColor` | Points Color | color | `#FF6384` | Color of data point dots |
+| `dataPointsRadius` | Points Radius | number | `4` | Radius of data point dots |
+| `areaFill` | Area Fill | boolean | `false` | Fill the area under the line |
+| `areaFillColor` | Area Fill Color | color | `#FF6384` | Color of the area fill under the line |
+| `areaFillOpacity` | Area Fill Opacity | number | `0.2` | Opacity of the area fill (0-1) |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width in pixels |
+| `chartHeight` | Chart Height | number | `200` | Total chart height in pixels |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. months) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Link
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Link` | The clickable text displayed for the link |
+| `href` | URL (href) | string | `` | The destination URL the link navigates to |
+| `isExternal` | External | boolean | `false` | Open the link in a new browser tab |
+| `isHovered` | Hovered | boolean | `false` | Force the hovered visual state |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `xl` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Press In | Touch | Yes |
+| On Press Out | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### List
+
+- **Category:** Data Display
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `list` | `list`, `card`, `table`, `dataGrid`, `checklist`, `calendar`, `kanban`, `transactionList`, `contactList`, `settingsList`, `mediaList`, `custom` |
+| `dataSource` | Data Source | string | `` | API call or variable providing the list data array |
+| `space` | Item Spacing | select | `none` | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl` |
+| `divider` | Show Dividers | boolean | `true` | Draw a thin separator line between each row in the list. |
+| `dividerColor` | Divider Line Color | color | `#E5E7EB` | Color of the thin separator LINE between rows (only visible when "Show Dividers" is on). This is NOT the list background — for that use Style → Background Color below. |
+| `itemCount` | Preview Items | number | `3` | Number of placeholder items shown in the canvas preview |
+| `scrollable` | Scrollable | boolean | `true` | Enable vertical scrolling when content overflows |
+| `showsScrollIndicator` | Scroll Indicator | boolean | `true` | Show the scrollbar indicator while scrolling |
+| `selectable` | Selectable | boolean | `false` | Let users tap items to select them. Selected items are highlighted and exposed as selectedItems / selectedIndices for other components to bind to. |
+| `selectionMode` | Selection Mode | select | `single` | `single`, `multiple` |
+| `selectedBackgroundColor` | Selected Highlight | color | `#EEF2FF` | Background color applied to a selected item (only used when Selectable is on). |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Scroll | Scroll | Yes |
+| On Scroll Begin Drag | Scroll | No |
+| On Scroll End Drag | Scroll | No |
+| On Momentum Scroll Begin | Scroll | No |
+| On Momentum Scroll End | Scroll | No |
+| On End Reached | Scroll | No |
+| On Refresh | Scroll | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Menu
+
+- **Category:** Overlay
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placement` | Placement | select | `bottom` | `top`, `bottom`, `left`, `right` |
+| `offset` | Offset | number | `8` | Distance in pixels between the trigger and menu popup |
+| `items` | Items (comma) | string | `Edit,Delete,Share` | Comma-separated list of menu action items |
+| `closeOnSelect` | Close on Select | boolean | `true` | Dismiss the menu after an item is selected |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Modal
+
+- **Category:** Overlay
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `initialVisibility` | Initial State | select | `auto` | `auto`, `visible`, `hidden` |
+| `placement` | Placement | select | `center` | `center`, `top`, `bottom`, `left`, `right` |
+| `size` | Size | select | `full` | `xs`, `sm`, `md`, `lg`, `full` |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the modal when clicking outside it |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### PieChart
+
+- **Category:** Charts
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of pie slices with value, label, and frontColor |
+| `title` | Title | string | `` | Chart title displayed above the chart |
+| `radius` | Radius | number | `80` | Outer radius of the pie chart |
+| `donut` | Donut | boolean | `false` | Render as a donut chart with hollow center |
+| `innerRadius` | Inner Radius | number | `40` | Inner radius when donut is enabled |
+| `showText` | Show Percentages | boolean | `true` | Display percentage labels on slices |
+| `showLabels` | Show Labels | boolean | `false` | Display label text next to each slice |
+| `textColor` | Text Color | color | `#333` | Color of percentage labels |
+| `textSize` | Text Size | number | `10` | Font size of percentage labels |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Popover
+
+- **Category:** Overlay
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Popover` | Heading text inside the popover |
+| `trigger` | Trigger Text | string | `Click me` | Text of the button that opens the popover |
+| `placement` | Placement | select | `bottom` | `top`, `bottom`, `left`, `right` |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `full` |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the popover when clicking outside it |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Pressable
+
+- **Category:** Forms
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `isDisabled` | Disabled | boolean | `false` | Prevent touch/click interactions |
+| `isFocused` | Focused | boolean | `false` | Force the focused visual state |
+| `isHovered` | Hovered | boolean | `false` | Force the hovered visual state |
+| `isPressed` | Pressed | boolean | `false` | Force the pressed visual state |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Press In | Touch | Yes |
+| On Press Out | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Progress
+
+- **Category:** Feedback
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `value` | Value | number | `60` | Current progress percentage (0–100) |
+| `size` | Size | select | `md` | `xs`, `sm`, `md`, `lg`, `xl`, `2xl` |
+| `orientation` | Orientation | select | `horizontal` | `horizontal`, `vertical` |
+| `trackColor` | Track Color | color | `#E5E7EB` | Background color of the unfilled track. styles.backgroundColor is an alias for this — it colors the TRACK, never the fill. |
+| `fillColor` | Fill Color | color | `#3b82f6` | Color of the filled progress portion. This is the bar's accent color — set it per item (e.g. red for a failing zone), not styles.backgroundColor. |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Radio
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `label` | Label | string | `Radio` | Text displayed next to the radio indicator |
+| `isChecked` | Checked | boolean | `false` | Whether this radio option is currently selected |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with this radio option |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling on the radio |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+| `value` | Value | string | `` | Unique identifier for this radio option (e.g. 'option1'), used to determine the selected radio in a group |
+| `circleColor` | Circle Color | color | `` | Color applied to the radio circle border and the inner fill dot when selected |
+| `circleBorderWidth` | Circle Border Width | number | `2` | Thickness of the radio circle border in pixels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Value Change | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Row
+
+- **Category:** Layout
+- **Accepts children:** Yes
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `space` | Space | select | `none` | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Layout | Layout | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### SearchInput
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Search…` | Hint text shown when the search field is empty |
+| `defaultValue` | Default Value | string | `` | Initial search query pre-filled in the field |
+| `variant` | Variant | select | `rounded` | `outline`, `rounded`, `underlined` |
+| `size` | Size | select | `md` | `sm`, `md`, `lg`, `xl` |
+| `showClearButton` | Show Clear | boolean | `true` | Show a clear button to dismiss the search text |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the search input |
+| `isReadOnly` | Read Only | boolean | `false` | Allow text selection but prevent editing |
+| `iconPosition` | Icon Position | select | `left` | `left`, `right` |
+| `showDropdown` | Show Dropdown | boolean | `false` | Enable a results dropdown below the search field for autocomplete or suggestions |
+| `dropdownItems` | Dropdown Items | string | `` | Comma-separated list of suggestion items, or bind to an API response array |
+| `emptyMessage` | Empty Message | string | `No results` | Text shown in the dropdown when no items match the search query |
+| `maxDropdownHeight` | Max Dropdown Height | number | `200` | Maximum height of the dropdown results panel in pixels |
+| `debounceMs` | Debounce (ms) | number | `300` | Milliseconds to wait after typing before triggering the search event |
+| `iconColor` | Icon Color | color | `` | Color of the search and clear icons |
+| `placeholderColor` | Placeholder Color | color | `` | Color of the placeholder hint text |
+| `focusBorderColor` | Focus Border Color | color | `` | Border color when the search input is focused |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Change Text | Form | Yes |
+| On Submit Editing | Form | Yes |
+| On Clear | Form | Yes |
+| On Focus | Form | Yes |
+| On Blur | Form | Yes |
+| On Select Item | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Select
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Select option` | Hint text shown when no option is selected |
+| `selectedValue` | Selected Value | string | `` | The currently selected option value |
+| `defaultValue` | Default Value | string | `` | Option pre-selected when the component first renders |
+| `variant` | Variant | select | `outline` | `outline`, `rounded`, `underlined` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the select |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling |
+| `isRequired` | Required | boolean | `false` | Mark this field as required for form validation |
+| `options` | Options (comma) | string | `Option 1,Option 2,Option 3` | Dropdown choices. Bind an API array to populate from a dataset — rows are read as `{label\|name\|text}` / `{value\|id}`. Literal values also accepted: comma-separated, or JSON e.g. `["Safety","Equipment"]` or `[{"label":"Safety","value":"safety"}]`. |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Value Change | Form | Yes |
+| On Open | Form | No |
+| On Close | Form | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Skeleton
+
+- **Category:** Others
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `variant` | Variant | select | `rounded` | `sharp`, `rounded`, `circular` |
+| `speed` | Speed (s) | number | `2` | Animation cycle duration in seconds |
+| `startColor` | Start Color | color | `#E0E0E0` | Base color of the shimmer animation |
+| `isLoaded` | Is Loaded | boolean | `false` | When true, hides the skeleton and shows actual content |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Slider
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `value` | Value | number | `50` | Current position of the slider thumb |
+| `minValue` | Min Value | number | `0` | Minimum selectable value on the slider |
+| `maxValue` | Max Value | number | `100` | Maximum selectable value on the slider |
+| `step` | Step | number | `1` | Increment value between each selectable position |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+| `orientation` | Orientation | select | `horizontal` | `horizontal`, `vertical` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the slider |
+| `trackColor` | Track Color | color | `` | Color of the filled portion of the slider track |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Value Change | Form | Yes |
+| On Sliding Start | Form | Yes |
+| On Sliding Complete | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Spinner
+
+- **Category:** Feedback
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `visible` | Visible | boolean | `true` | Whether the loading spinner is visible |
+| `size` | Size | number | `36` | Diameter of the spinner in pixels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### StackedBarChart
+
+- **Category:** Charts
+- **Accepts children:** No
+- **Web support:** ⚠️ Degraded — confirm actual web rendering before relying on this component there.
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array with stackValues arrays for each bar group |
+| `title` | Title | string | `` | Chart title displayed above the chart |
+| `stackColors` | Stack Colors | string | `#4ABFF4,#FF6384,#FFCE56,#56D0A0` | Comma-separated colors for each stack segment |
+| `barWidth` | Bar Width | number | `30` | Width of each bar |
+| `spacing` | Spacing | number | `10` | Space between bar groups |
+| `showValuesOnTop` | Show Values | boolean | `false` | Display total values above each bar group |
+| `hideRules` | Hide Rules | boolean | `false` | Hide horizontal grid lines |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width |
+| `chartHeight` | Chart Height | number | `200` | Total chart height |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. quarters) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Switch
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `isChecked` | Checked | boolean | `false` | Whether the switch is currently toggled on |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the switch |
+| `size` | Size | select | `md` | `sm`, `md`, `lg` |
+| `trackColor` | Track Color | color | `` | Color of the switch track when toggled on |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Value Change | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Table
+
+- **Category:** Data Display
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `data` | Data (JSON) | string | `[]` | JSON array of row records, or an API binding. Each column reads one field by key. |
+| `columns` | Columns (JSON) | string | `[{"key":"name","label":"Name"}]` | JSON column specs — key, label, width, align, bold, muted, sortable, kind: text \| identity \| badge \| delta \| flag \| chevron |
+| `rows` | Preview Rows | number | `3` | How many sample rows the canvas draws while the data is empty or bound to an API |
+| `showHeader` | Show Header | boolean | `true` | Show the column header row |
+| `headerColor` | Header Color | color | `#FFFFFF` | Background color of the header row |
+| `striped` | Striped Rows | boolean | `false` | Tint every other row |
+| `sortable` | Sortable Columns | boolean | `false` | Web only — let the reader sort by any column. Set "sortable": true on a single column spec to allow just that one. |
+| `pagination` | Pagination | boolean | `false` | Web only — page the rows instead of rendering the whole list |
+| `paginationPerPage` | Rows Per Page | number | `10` | Web only — how many rows each page shows when pagination is on |
+| `selectableRows` | Selectable Rows | boolean | `false` | Web only — add a checkbox column so the reader can select rows |
+| `fixedHeader` | Sticky Header | boolean | `false` | Web only — keep the header visible while the rows scroll |
+| `fixedHeaderHeight` | Scroll Height | number | `400` | Web only — height in px of the scrolling row area when the header is sticky |
+| `highlightOnHover` | Highlight On Hover | boolean | `false` | Web only — tint the row under the pointer |
+| `dense` | Dense Rows | boolean | `false` | Web only — tighter row height for data-heavy tables |
+| `noDataText` | Empty Text | string | `No records to display` | Web only — message shown when the table has no rows |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Text
+
+- **Category:** Typography
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Hello World` | The text content displayed on screen |
+| `size` | Size | select | `md` | `2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `5xl`, `6xl` |
+| `bold` | Bold | boolean | `false` | Apply bold font weight to the text |
+| `italic` | Italic | boolean | `false` | Apply italic style to the text |
+| `underline` | Underline | boolean | `false` | Add underline decoration to the text |
+| `strikeThrough` | Strikethrough | boolean | `false` | Add strikethrough decoration to the text |
+| `isTruncated` | Truncated | boolean | `false` | Truncate text with ellipsis if it overflows |
+| `sub` | Sub Text | boolean | `false` | Render as subscript-style smaller text |
+| `highlight` | Highlight | boolean | `false` | Apply a highlight background to the text |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Textarea
+
+- **Category:** Forms
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Enter text...` | Hint text shown when the textarea is empty |
+| `defaultValue` | Default Value | string | `` | Initial text pre-filled in the textarea |
+| `size` | Size | select | `md` | `sm`, `md`, `lg`, `xl` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the textarea |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling |
+| `isReadOnly` | Read Only | boolean | `false` | Allow text selection but prevent editing |
+| `isRequired` | Required | boolean | `false` | Mark this field as required for form validation |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Change Text | Form | Yes |
+| On Focus | Form | Yes |
+| On Blur | Form | Yes |
+| On Submit Editing | Form | Yes |
+| On Key Press | Form | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Toast
+
+- **Category:** Feedback
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Toast Title` | Heading text of the toast notification |
+| `description` | Description | string | `Toast description text` | Body text displayed below the toast title |
+| `action` | Action | select | `info` | `error`, `warning`, `success`, `info`, `muted` |
+| `variant` | Variant | select | `solid` | `solid`, `outline`, `accent` |
+| `duration` | Duration (ms) | number | `5000` | How long the toast remains visible in milliseconds |
+| `placement` | Placement | select | `bottom` | `top`, `bottom`, `top right`, `top left`, `bottom right`, `bottom left` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Tooltip
+
+- **Category:** Overlay
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Tooltip text` | The informational text displayed in the tooltip |
+| `placement` | Placement | select | `top` | `top`, `bottom`, `left`, `right` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Open | Overlay | No |
+| On Close | Overlay | No |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Video
+
+- **Category:** Media And Icons
+- **Accepts children:** No
+
+**Properties specific to this component** (plus every Universal Style Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `source` | Video URL | string | `` | URL of the video file to play (mp4, webm or hls stream) |
+| `poster` | Poster URL | string | `` | Thumbnail image shown before playback starts |
+| `controls` | Show Controls | boolean | `true` | Show the playback controls (play, scrub, volume) on every surface. Turn off for a chrome-free autoplay video |
+| `autoplay` | Autoplay | boolean | `false` | Start playing as soon as the page opens. Always plays muted — browsers block unmuted autoplay |
+| `loop` | Loop | boolean | `false` | Restart the video automatically when it ends |
+| `muted` | Muted | boolean | `true` | Start with the audio muted |
+| `resizeMode` | Resize Mode | select | `cover` | `cover`, `contain`, `stretch` |
+
+**Events**
+
+| Event | Category | Web Supported |
+| --- | --- | --- |
+| On Tap | Touch | Yes |
+| On Double Tap | Touch | Yes |
+| On Long Press | Touch | Yes |
+| On Touch Start | Touch | Yes |
+| On Touch End | Touch | Yes |
+| On Load | Media | Yes |
+| On Error | Media | Yes |
+| On End | Media | Yes |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Themed component properties" icon="palette" href="/studio-guide/reference/themed-component-properties">
+    The narrower set the Create Themed Component dialog itself offers.
+  </Card>
+  <Card title="Style and tokens" icon="swatchbook" href="/studio-guide/reference/style-and-tokens">
+    Colour tokens, typography names, spacing and breakpoints.
+  </Card>
+</CardGroup>

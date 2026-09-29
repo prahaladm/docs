@@ -3,11 +3,44 @@ title: "Authentication"
 description: "Setting up sign-in and access policies for a NativeFlow app."
 ---
 
-This page should cover configuring authentication for an app: sign-in methods, session handling, and row-level access policies that govern what signed-in users can read or write.
-
 <Tabs>
   <Tab title="Studio">
-    TODO: step-by-step instructions for enabling authentication and configuring access policies through the Studio backend panel.
+    Authentication lives at **CONFIG → Security** (the shield icon in the left rail) — not in App Settings. Its tooltip reads *Security*; every surface inside it is titled **Authentication**.
+
+    It's a wizard, several steps long, ending in **Finish setup**. The wizard doesn't apply anything as you go — **Finish setup** applies everything at once, generates the missing auth screens, and replaces the pane with a summary card. The only way back afterward is **Start over**, which deletes the generated screens.
+
+    <Frame caption="Turning on the master toggle, the Connect step's real fields, the Backend dropdown, and Sign-in's Email and password fields — stopped deliberately before Finish setup.">
+      <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/set-up-authentication-demo.mp4"></video>
+    </Frame>
+
+    The recording above is a real, unscripted Studio session — it never types a credential and never reaches Finish setup, so nothing it does is destructive.
+
+    **Step 1 — connect an identity backend.** The **Backend** dropdown offers exactly four options:
+
+    | Backend | Fields it asks for |
+    | --- | --- |
+    | **Supabase** *(default)* | Project URL, Publishable Key, optional Supabase Management API token |
+    | **Auth0** | Domain, Client ID, Redirect URI, Scopes, Roles Claim Path |
+    | **WorkOS** | API Key, Client ID, optional Organization ID |
+    | **Custom JWT** | Login/Refresh/Profile/Sign-up/Password-Reset endpoints, Roles Claim Path |
+
+    **Step 2 — choose sign-in methods.** On Supabase, five are offered: Email and password (no external setup needed), Google OAuth, Phone and OTP (five SMS providers), Magic link, and Apple sign-in. At least one must be on before you can continue.
+
+    **Step 3 — review the auth screens Finish will generate.** Studio tells you up front which of your existing pages it will reuse (matched by name) and which it will create — typically Sign In, Confirm Email, Forgot Password and Check Email — plus which page opens after a successful sign-in.
+
+    **Step 4 — field validation**, with sensible defaults already set (Required + Email Format on email fields, and so on).
+
+    **Step 5 — Protect**, a checklist of every page outside the auth flow, each defaulting to **Requires sign-in**.
+
+    **Step 6 — Finish setup**, which shows a full summary before you commit, then applies everything to Web Preview, Expo Go and the exported app in one step.
+
+    Once setup has run, four **Advanced** panels stay available: **Roles and permissions** (a roles table, permissions, named roles, and provider-role mapping), **Per-screen and API access** (Public / Authenticated / Role-restricted per target), **Token lifetime** (Access Token TTL, Offline Grace Period), and **Session behaviour** (whether sign-out also ends the SSO session).
+
+    <Warning>
+    **Nothing persists until the provider connection is valid.** Until step 1 is genuinely complete, a full page reload discards everything — the master toggle, the backend, the sign-in method, the Protect selections, roles and permissions. This was confirmed directly: toggling auth on, picking a backend, and enabling a sign-in method all reverted on the next fresh page load. Do step 1 first, and treat the wizard as unsaved until then.
+    </Warning>
+
+    Once sign-in exists, seven Authentication actions become available on any component: **Sign In**, **Sign Up**, **Sign Out**, **Send OTP Code**, **Verify OTP Code**, **Send Magic Link**, **Send Password Reset** — each with real **On Success** / **On Error** branches.
   </Tab>
   <Tab title="Agent">
     TODO: show the equivalent agent flow using `create_policy` and `enable_rls` to configure authentication and access control.

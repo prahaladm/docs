@@ -1,0 +1,256 @@
+---
+title: "Set Up Authentication"
+description: "Run the wizard that gives your app users, sign-in screens and protected pages."
+---
+
+## Overview
+
+Authentication is where you decide whether your app has users at all: where their identities live, how they sign in, which screens a signed out person cannot reach, and what roles mean in your app.
+
+It is a wizard, several steps long, ending in **Finish**. The wizard does not apply as you go — the **Finish setup** button applies everything at once, creates the missing auth screens, and then replaces the pane with a summary card.
+
+By the end of this guide you will know what each step asks for, which of the four identity backends fits you, and what Finish will actually build.
+
+<Note>
+**The step count has been observed to change.** Most of this guide was written against a 6-step wizard (Connect, Sign-in, Screens, Validate, Protect, Finish). A later check found it back at 7 steps — **Connect, Sign-in, Biometric, Screens, Validate, Access, Finish** — only three days after the 6-step version was seen. Only **Connect** and **Sign-in**, covered below, have been confirmed against that later 7-step version; treat anything about Screens, Validate, Protect/Access or Finish as possibly stale until it's re-checked.
+</Note>
+
+**Prerequisites**
+
+- A Studio project.
+- An account with one of four identity backends, plus its credentials: **Supabase**, **Auth0**, **WorkOS**, or your own service behind a **Custom JWT** contract. Getting those is work you do in that provider's console, not in Studio.
+- Nothing else to *read* the wizard. You can click through every step and open all four Advanced panels before you commit to anything.
+
+<Note>
+You will find this under **CONFIG → Security** (the shield icon in the left rail). The tooltip says *Security*; every surface inside it is titled **Authentication**. It is not in App Settings.
+</Note>
+
+<Frame caption="Turning on the master toggle, the Connect step's real fields, the Backend dropdown, and Sign-in's Email and password fields — stopped deliberately before Finish setup.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/set-up-authentication-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session, and deliberately partial: it covers only Connect and Sign-in, never types a credential, and never reaches Finish setup. It runs at automation speed with no narration, and every toggle it flips is flipped back by the end.
+
+## Run the wizard
+
+<Steps>
+  <Step title="Turn authentication on">
+    Expand **CONFIG** in the left rail and click the **shield** icon. The pane opens on step 1, **Connect**, with a status chip reading *Step 1 of 6 (or 7 — see the note above), Auth off* and a card reading:
+
+    > **Authentication is off**
+    > The app is fully public. Turn on authentication using the toggle above to configure an identity provider.
+
+    Flip the master **Authentication** toggle in the top right, or click **Turn on authentication** in the card. Until you do, **Back** and **Next** are both greyed out and the footer reads *Turn on authentication to continue.*
+
+    <Frame caption="The Authentication pane with auth off: the six step list on the left, the status chip, and the Authentication is off card">
+      <img src="/studio-guide/images/set-up-authentication/auth-off.jpg" alt="The Authentication pane before the master toggle is on" />
+    </Frame>
+
+    <Tip>
+    The step list on the left stays clickable even while **Next** is disabled. Click any step name to jump straight to it. That is how you read the whole wizard before committing to anything.
+    </Tip>
+  </Step>
+
+  <Step title="Step 1: connect an identity backend">
+    Step 1 shows the **Identity backend** card: *Where user identities are managed and how the app reaches them.* The **Backend** dropdown offers exactly four options.
+
+    | Backend | Fields it asks for |
+    | --- | --- |
+    | **Supabase** *(default)* | **Project URL** (`https://xxxx.supabase.co`), **Publishable Key** (`eyJhbGciOi...`), and an optional masked **Supabase Management API token** (`sbp_...`) |
+    | **Auth0** | **Domain** (`your-tenant.us.auth0.com`), **Client ID**, **Redirect URI** (auto generated as `nativeflow://auth/callback`), **Scopes (comma-joined)** (`openid,profile,email,offline_access`), **Roles Claim Path** (`https://your-app/roles`) |
+    | **WorkOS** | **API Key** (`sk_...`), **Client ID**, optional **Organization ID** |
+    | **Custom JWT** | **Login Endpoint**, **Refresh Endpoint**, optional **Profile Endpoint**, **Roles Claim Path** (`roles`), optional **Sign-up Endpoint**, optional **Password Reset Endpoint** |
+
+    <Frame caption="The Backend dropdown open, listing Supabase, Auth0, WorkOS and Custom JWT">
+      <img src="/studio-guide/images/set-up-authentication/backend-dropdown.jpg" alt="The four identity backends" />
+    </Frame>
+
+    Two pieces of Studio's own guidance are worth repeating. Under the Supabase **Publishable Key**: *Safe to use client-side. Find it under Settings, API keys in Supabase*, and *This key is safe for client use only if Row Level Security is enabled on your tables.* Under the **Management API token**: *Stored in this browser only. Enables live checks (SMS provider, provider drift) via Supabase's Management API.*
+
+    Below the fields sits **Test Connection**, described as checking *reachability, key validity, roles table, and (with a management token) provider drift*.
+
+    <Note>
+    Changing backend is guarded. Picking a different one raises a **Change identity provider?** dialog first: *Switching providers clears the current provider configuration. Roles, permissions, and access rules are preserved, but you will need to re-enter provider credentials.*
+    </Note>
+
+    **Next** stays disabled with the footer message *Fill in the connection details before continuing* until this step is complete.
+  </Step>
+
+  <Step title="Step 2: choose sign-in methods">
+    Step 2 is headed *How people sign in*, with the note *Turn on the methods you want. Email and password works with no extra setup.* A counter chip tracks how many are on. Only the methods your backend supports are listed, and a row reveals its fields only once its toggle is on.
+
+    On Supabase, five methods are offered.
+
+    | Method | What it needs |
+    | --- | --- |
+    | **Email and password** | Nothing external. Exposes **MINIMUM PASSWORD LENGTH** (default `6`, shorter values are rejected by the backend) and **Require email confirmation before first sign-in**, on by default |
+    | **Google OAuth** | **CLIENT ID** and a masked **CLIENT SECRET**, created in Google's own console, plus three redirect URIs to register for **WEB PREVIEW**, **EXPO GO** and **EXPORTED APP** |
+    | **Phone and OTP** | An **SMS PROVIDER** and its credentials. For Twilio: **ACCOUNT SID**, masked **AUTH TOKEN**, **MESSAGE SERVICE SID** |
+    | **Magic link** | No credentials, but it uses your project's existing email setup. Studio warns that the default shared mailer is rate limited and links a **Custom SMTP setup guide** |
+    | **Apple sign-in** | **SERVICES ID (CLIENT ID)** and **CLIENT SECRET GENERATED ON**, which is a date field, not a secret field |
+
+    Five SMS providers are offered: **Twilio**, **Twilio Verify**, **MessageBird**, **Vonage**, **TextLocal (community)**.
+
+    <Frame caption="Step 2 with all five sign-in methods listed and collapsed">
+      <img src="/studio-guide/images/set-up-authentication/signin-methods.jpg" alt="The five sign-in methods on Supabase" />
+    </Frame>
+
+    <Note>
+    **Apple is the one method whose secret does not live in Studio.** You generate the JWT from your Team ID, Key ID and `.p8` file and enter it in Supabase. Studio only records the date you did it, so it can warn you before Apple's six month cap expires. It warns at 30 days.
+    </Note>
+
+    Under the list sits **Apply to backend**: *Applies these settings to your backend in one call. Secrets never pass through the browser.*
+
+    **Next** unlocks as soon as one method is on. Until then the footer reads *Enable at least one sign-in method.*
+  </Step>
+
+  <Step title="Step 3: review the auth screens">
+    Step 3 is headed *Auth screens. Your existing pages get wired up; anything missing gets created.* This is the step that tells you what **Finish setup** will actually build.
+
+    With email and password on, in a five page project, it reported:
+
+    - Reusing your **Sign Up** page. Its fields and button get wired to sign-up. Matched by page name.
+    - Creating **Sign In**. Fields: Email, Password. Button *Sign in*. Also links to: Forgot password?, New here? Create account.
+    - Creating **Confirm Email**. No input fields. Also links to: Resend email.
+    - Creating **Forgot Password**. Fields: Email. Button *Send reset link*. Also links to: Back to sign in.
+    - Creating **Check Email**. No input fields. Also links to: Resend link.
+    - After a successful sign-in the app opens **Settings**.
+
+    Below that sits a live **Auth screens** preview with tabs for **Sign in**, **Sign up** and **Forgot password**, rendering a wireframe of each flow with labelled states such as ENTRY POINT, SESSION CHECK, an error state and Signed in. These screens update as you change the configuration above.
+
+    <Frame caption="Step 3 with one sign-in method on: a green reuse row for Sign Up and four Creating rows">
+      <img src="/studio-guide/images/set-up-authentication/auth-screens.jpg" alt="Step 3 listing which pages get reused and which get created" />
+    </Frame>
+  </Step>
+
+  <Step title="Step 4: check field validation">
+    Step 4 sets *what each field must contain before the sign-in or sign-up button runs*, on the web preview, Expo Go and the exported app. Sensible rules are already set, and Studio tells you to edit them only if your backend expects something different.
+
+    Defaults generated for an email and password setup:
+
+    | Screen | Field | Rules |
+    | --- | --- | --- |
+    | **Sign In** | Email | **Required**, message *This field is required*. **Email Format**, message *Please enter a valid email address* |
+    | **Sign In** | Password | **Required** |
+    | **Forgot Password** | Email | **Required**, **Email Format** |
+
+    Each field carries a **VALIDATION RULES** count badge, a per rule toggle, and an **Add Validation Rule** button.
+  </Step>
+
+  <Step title="Step 5: protect pages">
+    Step 5 asks you to *choose which pages a signed-out user cannot reach*, and adds *Unchecked pages stay public. You can change any of this later under Advanced.*
+
+    Every page outside the auth flow is listed with a checkbox, **all checked by default**, each labelled *Requires sign-in*. Bulk **All** and **None** buttons sit above the list. A page that step 3 claimed for the auth flow, such as a matched Sign Up page, does not appear here.
+
+    <Frame caption="Step 5 with four pages listed, each checked and labelled Requires sign-in">
+      <img src="/studio-guide/images/set-up-authentication/protect.jpg" alt="The Protect checklist" />
+    </Frame>
+  </Step>
+
+  <Step title="Step 6: finish setup">
+    Step 6 is headed *Review and finish. One step applies everything. Advanced settings are optional.*
+
+    The **Ready to set up** card summarises the whole configuration: the identity provider, how many sign-in methods are enabled, how many existing pages get wired up and how many new pages get created, how many pages will require sign-in, which page signing in opens, and the names of the new pages.
+
+    <Frame caption="Step 6 with a populated summary above the four collapsible Advanced panels">
+      <img src="/studio-guide/images/set-up-authentication/finish.jpg" alt="The Finish step summary" />
+    </Frame>
+
+    <Note>
+    **Finish setup** creates pages in your project and applies everything at once, to Web Preview, Expo Go and the exported app. The only way back is **Start over**, which deletes the generated screens again. Read the next section before you press it.
+    </Note>
+  </Step>
+</Steps>
+
+## The four Advanced panels
+
+All four sit under step 6 and are optional.
+
+### Roles and permissions
+
+*Optional, skip if every user is the same.* Four numbered sections:
+
+| Section | Name | What is in it |
+| --- | --- | --- |
+| **0** | **Data source** | **Roles table** (placeholder `user_roles`) and **Roles column** (placeholder `role`). Shown because your provider is Supabase. Studio warns *Typos aren't caught here, use Test Connection on the Provider tab to verify the table exists* |
+| **1** | **Permissions** | Fine grained capabilities checked at runtime, for example `invoice.approve`. A text field plus **Add** |
+| **2** | **Roles** | Named bundles of permissions. A text field plus **Add role**. Each saved role renders its permissions as toggle chips |
+| **3** | **Provider role mapping** | Maps a raw provider value to one of your roles. **Add row** is disabled until at least one role exists |
+
+<Note>
+*The Provider tab* in section 0's warning means the wizard's step 1, **Connect**. The product uses two names for the same place.
+</Note>
+
+### Per-screen and API access
+
+*Fine-grained control beyond the checklist.* A table with columns **TARGET**, **ACCESS**, **ROLES** and **CURRENT**, plus bulk **Set all to Authenticated** and **Set all to Public** buttons. Each row's **ACCESS** dropdown offers three levels: **Public**, **Authenticated**, **Role-restricted**.
+
+### Token lifetime
+
+*How long access tokens stay valid, and how long the app keeps working offline before requiring a fresh sign-in.*
+
+| Control | Default | Options |
+| --- | --- | --- |
+| **Access Token TTL** | `15 minutes` | 5 minutes, 15 minutes, 30 minutes, 1 hour |
+| **Offline Grace Period** | `None` | None, 1 hour, 8 hours, 24 hours |
+
+This is the one Advanced panel hidden while authentication is off.
+
+### Session behaviour
+
+| Toggle | State | What it does |
+| --- | --- | --- |
+| **End SSO session on sign-out** | off by default, badged **Recommended** | When the user signs out of the app, also invalidate their session at the identity provider, so a second sign-in requires fresh credentials. Applies where the provider supports it |
+
+## What you should know before you finish
+
+<Note>
+**Once setup has run, the master Authentication toggle is disabled and Start over is the only way back.** Hovering the toggle shows the title *Start over to turn authentication off.*
+
+**Start over** deletes the generated auth screens, removes sign-in requirements from every page, and turns authentication off. Its confirmation dialog says so plainly: *The generated auth screens are deleted, every page stops requiring sign-in, and authentication is turned off. Pages you designed yourself are kept, but the sign-in and sign-up buttons on them stop working until you set up again. This cannot be undone.*
+</Note>
+
+<Note>
+**Nothing persists until the provider connection is valid.** Adding a role or permission without a Project URL raises a red toast: *Security config invalid, Project URL is required for supabase.*
+
+Until the connection is valid, a full page reload discards the lot: authentication on, the selected backend, the enabled sign-in method, the Protect selections, permissions, roles, mapping rows, and an applied setup state. The pane comes back at *Step 1, Auth off* — confirmed directly: turning the toggle on, switching backends, and enabling a sign-in method during this guide's own video recording all reverted on the next fresh page load, with no manual cleanup needed.
+
+Do step 1 first, properly, and only then the rest. Treat the wizard as unsaved until the connection is real.
+</Note>
+
+## The Authentication actions
+
+Once sign-in exists, you trigger it from a page or component with an action. **Exactly seven Authentication actions exist:**
+
+**Sign In**, **Sign Up**, **Sign Out**, **Send OTP Code**, **Verify OTP Code**, **Send Magic Link**, **Send Password Reset**.
+
+Every one of them carries **On Success** and **On Error** branches, and every one opens and is fully configurable with no provider connected. Their parameters are tabulated in the [action reference](/reference/actions).
+
+<Note>
+Email confirmation is handled by the generated **Confirm Email** screen and by the *Require email confirmation before first sign-in* toggle, not by an action you wire yourself.
+</Note>
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| *Turn on authentication to continue* under a greyed out Next | The master toggle is off | Flip the toggle, or click **Turn on authentication**. You can still read every step by clicking its name in the left list |
+| *Fill in the connection details before continuing* | Step 1 has empty required fields | Paste your provider's connection details. Nothing downstream can be saved until this is valid |
+| *Enable at least one sign-in method* | Step 2 has zero methods on | Turn on **Email and password**. It is the only one that needs nothing external |
+| Red toast *Security config invalid* when adding a role | Roles are validated against the provider connection | Complete step 1 first. Until then, roles you add are provisional and will not survive a reload |
+| Everything you configured is gone after a refresh | Same root cause. The configuration was never valid enough to persist | Do step 1 first, then the rest |
+| Google's or Apple's redirect URIs show messages instead of URLs | Studio derives them from project settings you have not filled in yet | Fill in the Project URL, and set the Expo owner and slug and the URL scheme in App Settings |
+| **Add row** in Provider role mapping is greyed out | There are no roles to map to | Add a role in section 2 first |
+| The master **Authentication** toggle is greyed out | Setup has already been applied | Use **Start over**, and read its dialog first. It deletes the generated auth screens |
+| You cannot find authentication in **App Settings** | Authentication setup lives in the left rail, not in App Settings | Use **CONFIG → Security**, the shield icon |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Action reference" href="/studio-guide/reference/actions">
+    Parameters for all seven Authentication actions, and the other 15.
+  </Card>
+  <Card title="Connect an API" href="/studio-guide/guides/connect-an-api">
+    Define the endpoints a signed-in user's session will call.
+  </Card>
+</CardGroup>

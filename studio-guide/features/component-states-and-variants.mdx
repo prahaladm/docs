@@ -1,0 +1,120 @@
+---
+title: "Component States and Variants"
+description: "Pick a component's built in look, and pin it into a state while you design against it."
+---
+
+## Overview
+
+Most of a component's look is chosen, not hand built. A Button is not red because someone typed `#DC2626` into it. It is red because its **Action** is set to `Negative`.
+
+Studio puts those choices in two blocks at the top of a selected component's **Style** tab:
+
+- **APPEARANCE**: `Variant`, `Action` and `Size`, the built in looks a component ships with.
+- **STATE**: on/off flags such as Disabled and Loading, which pin the component into that state so you can see and build against it.
+
+<Note>
+Both blocks live in the **Style** tab of the **Properties** panel, with a component selected on the canvas. APPEARANCE is at the top, STATE sits directly below it.
+</Note>
+
+<Frame caption="Cycling Variant, Action and Size, toggling Loading and Disabled, and applying then clearing a themed preset.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/component-states-and-variants-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. Applying the preset overwrites the button's own label, exactly as [Themed Components](/features/themed-components) warns; the recording ends with it retyped back.
+
+## Appearance: Variant, Action and Size
+
+Select a Button and you get all three.
+
+| Property | Control | Options |
+| --- | --- | --- |
+| **Variant** | Segmented buttons | `Solid`, `Outline`, `Link` |
+| **Action** | Dropdown, each option with a colour dot | `Primary`, `Secondary`, `Positive`, `Negative`, `Default` |
+| **Size** | Dropdown | `XS`, `SM`, `MD`, `LG`, `XL` |
+
+<Frame caption="A Button's PROPERTIES block: Variant as segmented Solid/Outline/Link, Action set to Primary, Size set to MD, and the STATE toggles below">
+  <img src="/studio-guide/images/component-states-and-variants/button-appearance-and-state.png" alt="Button appearance and state properties" />
+</Frame>
+
+**Action is the semantic one.** You tell the component what it means, and Studio picks the colour from that. Each option carries its own colour dot: Primary blue, Positive green, Negative red, Secondary and Default grey.
+
+<Frame caption="opening the Action dropdown and picking Negative, showing the five options with their colour dots">
+  <img src="/studio-guide/images/component-states-and-variants/action-options.gif" alt="The Action dropdown with its five semantic options" />
+</Frame>
+
+<Frame caption="The Size dropdown open, showing XS, SM, MD, LG and XL with MD ticked">
+  <img src="/studio-guide/images/component-states-and-variants/size-options.png" alt="The Size dropdown" />
+</Frame>
+
+<Note>
+Not every component has all three, and the same property can use a different control on a different type.
+
+An **Input** renders Variant as a *dropdown* rather than segmented buttons, renders Size as *segmented buttons* `SM / MD / LG / XL` rather than a dropdown, and adds a **Type** property a Button does not have. A layout component such as **Box** has no PROPERTIES section at all. Its panel starts at LAYOUT.
+</Note>
+
+These are the built in looks each component ships with. To save a look of your own under a name and reuse it, create a themed preset.
+
+## The STATE section
+
+STATE toggles do not describe a styling rule. They pin the component into that state on the canvas so you can design against it.
+
+A Button has four: **Disabled**, **Loading**, **Pressed**, **Focus Visible**. Two of them change what you see, and two do not.
+
+| Toggle | Effect on the Studio canvas |
+| --- | --- |
+| **Disabled** | Dims the component |
+| **Loading** | Shows a spinner in place of the label |
+| **Pressed** | No observable change |
+| **Focus Visible** | No observable change |
+
+<Frame caption="toggling Loading on, the canvas button swapping its label for a spinner, then toggling Disabled on and the same button dimming">
+  <img src="/studio-guide/images/component-states-and-variants/state-toggles.png" alt="Loading and Disabled toggles changing the canvas button" />
+</Frame>
+
+### STATE means boolean flags, not only interaction states
+
+Different component types put quite different things in this section.
+
+| Component | Its STATE toggles |
+| --- | --- |
+| **Button** | Disabled, Loading, Pressed, Focus Visible |
+| **Input** | Disabled, Invalid, Read Only, Required |
+| **Heading** | Bold, Italic, Underline, Strikethrough, Truncated |
+| **Box** | No PROPERTIES section at all |
+
+<Frame caption="Input properties: Variant as a dropdown, Size as segmented SM/MD/LG/XL, a Type property, and a STATE section with Disabled, Invalid, Read Only and Required">
+  <img src="/studio-guide/images/component-states-and-variants/input-state-section.png" alt="An Input's state section" />
+</Frame>
+
+<Frame caption="Heading properties: Size, Color, and a STATE section holding Bold, Italic, Underline, Strikethrough and Truncated">
+  <img src="/studio-guide/images/component-states-and-variants/heading-state-section.png" alt="A Heading's state section" />
+</Frame>
+
+<Frame caption="Box properties: the panel goes straight from the Style/Data/Actions tabs to LAYOUT, with no PROPERTIES section">
+  <img src="/studio-guide/images/component-states-and-variants/box-no-properties.png" alt="A Box has no properties section" />
+</Frame>
+
+Read the section as "this component's boolean flags" rather than "its interaction states".
+
+## Where per state styling lives
+
+A selected component's Style tab has, in order: PROPERTIES, LAYOUT, STYLE, CONDITIONAL, PLATFORM VISIBILITY, CONDITIONAL VISIBILITY, RESPONSIVE VISIBILITY, THEMED COMPONENT.
+
+Two of those carry a second look for a component:
+
+1. **Conditional styling**, the `CONDITIONAL` toggle, which gives you a second look for when a condition holds, such as a selected list row.
+2. **A themed preset**, which is where hover overrides are defined. They live in the themed component editor and apply on the Web target.
+
+<CardGroup cols={1}>
+  <Card title="Themed Components" icon="palette" href="/studio-guide/features/themed-components">
+    Save a component's styling once, reuse it anywhere, and get the only hover override Studio offers.
+  </Card>
+</CardGroup>
+
+## Reusing a look across a project
+
+If you want one component you configure once and reuse everywhere, that is a themed preset. If you want a group of components you can drop in as a unit, some types such as Card, List, CardList and Table expose a **Template Style** property that builds out a whole nested structure for you.
+
+## Summary
+
+APPEARANCE picks a component's built in look, and `Action` is the property that carries meaning and drives colour. STATE pins a component into a flag state while you design, with Disabled and Loading being the two that visibly change the canvas on a Button. Reach for a themed preset when you need one look reused across a project.

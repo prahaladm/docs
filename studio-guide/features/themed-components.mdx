@@ -1,0 +1,104 @@
+---
+title: "Themed Components"
+description: "Save a component's styling once and reuse it anywhere in your project."
+---
+
+## Overview
+
+A themed component is a saved set of styling values with a name. You configure one Button the way you want it, save it as "Primary CTA", and then apply that look to any Button in your project.
+
+Without this, styling the same Button in ten places means repeating the same edits ten times, with ten chances to get it wrong. A themed component captures the styling once so every use stays identical.
+
+<Note>
+You will find this under **CONFIG → Runtime Theme → Themed Components**, the path the video below opens with. It is not the **Foundation → Design System** page.
+</Note>
+
+<Frame caption="Creating a Button preset and applying it to a component on the canvas, start to finish.">
+  <video autoPlay loop muted playsInline controls poster="/images/themed-components/video-poster.jpg" className="w-full aspect-video rounded-xl" src="/studio-guide/videos/themed-components.mp4"></video>
+</Frame>
+
+That recording is a real session with nothing cut. Follow the pointer. It opens **Runtime Theme**, creates a Button preset called "Danger CTA", sets its **Action** to Negative and its **Radius** to Full, saves it, then applies it to the "Edit My Profile" button on the canvas.
+
+Watch the button's label in the last few seconds. Applying the preset replaces "Edit My Profile" with "Button", which is the overwrite behaviour covered in [Apply a preset](#apply-a-preset).
+
+## Create a preset
+
+<Steps>
+  <Step title="Open Themed Components">
+    In the left sidebar, expand **CONFIG**, click the palette icon to open **Runtime Theme**, then select the **Themed Components** tab.
+
+    You will see any existing presets grouped by category, a search box, and a **+ Create Component** button at the top right.
+
+    <Frame caption="The Themed Components tab with one existing preset and the Create Component button">
+      <img src="/studio-guide/images/themed-components/entry-point.jpg" alt="Themed Components tab inside Runtime Theme" />
+    </Frame>
+  </Step>
+
+  <Step title="Name it and pick a type">
+    Click **+ Create Component**. Type a name, then click the component type you want to style.
+
+    Name the preset for what it is for, such as "Primary CTA", not for what it is, such as "Button". Once you have twenty presets, the purpose is the only thing that tells them apart.
+
+    <Frame caption="typing a name, picking Button from the type grid, clicking Create">
+      <img src="/studio-guide/images/themed-components/create-preset.jpg" alt="Creating a themed component preset" />
+    </Frame>
+
+    <Note>
+    Fill in the name **before** you click a type card. Clicking a type first can clear the name field. If that happens, retype the name before clicking **Create**.
+    </Note>
+  </Step>
+
+  <Step title="Configure the styling">
+    The property editor opens with a live preview on the left showing Mobile, Tablet and Desktop at once, and property sections on the right:
+
+    - **Properties**: content, appearance such as Variant, Action and Size, and state toggles such as Disabled and Loading.
+    - **Layout**: spacing and sizing.
+    - **Style**: background, text and border colours, radius, opacity.
+
+    Every change updates the preview straight away.
+
+    <Frame caption="The property editor: live preview on the left, property sections on the right">
+      <img src="/studio-guide/images/themed-components/property-editor.jpg" alt="Themed component property editor" />
+    </Frame>
+
+    <Tip>
+    There is no Save button. Your edits save automatically a moment after you stop typing. Watch the header for "Saving..." then "Saved" before you navigate away.
+    </Tip>
+  </Step>
+</Steps>
+
+## Apply a preset
+
+Select a component on the canvas, scroll the **Style** tab to the bottom, and open the **THEMED COMPONENT** dropdown. Pick your preset and the component takes on its look straight away.
+
+<Frame caption="selecting a button, opening the THEMED COMPONENT dropdown, picking Danger CTA, the canvas button turning into a red pill">
+  <img src="/studio-guide/images/themed-components/apply-preset.png" alt="Applying a themed preset to a component on the canvas" />
+</Frame>
+
+You can also place a pre styled component directly. Open the Add component popover and look for the **THEMED** group at the bottom.
+
+<Warning>
+Applying a preset overwrites the component's own text and spacing, and removing the preset does not give them back. Use **Undo** if you change your mind.
+</Warning>
+
+The dropdown only lists presets matching the selected component's type, so a Button node shows Button presets only.
+
+You can still edit a component's own fields while a preset is applied. Nothing is locked. So you can apply the preset for its colour and shape, then set the label back to what you want.
+
+## Hover styling, only available here
+
+Inside the themed component editor there is a **HOVER** section badged **Web only**. Turn it on and you get hover overrides for Fill, Text/Icon, Border, Border Width, Radius, Opacity and Elevation, each starting at `Unset`.
+
+<Frame caption="The HOVER section enabled, showing Fill and the other hover override fields">
+  <img src="/studio-guide/images/themed-components/hover-section.png" alt="Hover section of the themed component editor" />
+</Frame>
+
+This is the only per state style override in Studio, and it exists only on themed components. A component placed straight onto the canvas has no equivalent. Needing a hover state is on its own a good reason to use a preset.
+
+<Note>
+Hover applies on the Web target. Native builds ignore it.
+</Note>
+
+## Summary
+
+Create a preset once under **CONFIG → Runtime Theme → Themed Components**, then apply it from the **THEMED COMPONENT** dropdown at the bottom of any matching component's Style tab. Presets are the only place in Studio where you can define a hover style. Be careful applying one to an existing component, because it overwrites the text and spacing and setting the dropdown back to `None` does not restore them.

@@ -1,0 +1,117 @@
+---
+title: "Add and Configure Components"
+description: "Place a component on the canvas from the Component Tree, then set its properties in the Properties panel."
+---
+
+## Overview
+
+A normal component is a plain, one off instance you place on a screen and configure right there. Add a Button, set its text and size, and you are done. Nothing is saved to a reusable list.
+
+That is the difference from a **Themed Component**, which is a named preset you save once and place many times. Most of a screen is normal components. Reach for a themed preset only when you want the same configured look in several places.
+
+By the end of this guide you will have opened the Component Tree, added components from the catalog, and configured each one's own properties on the canvas.
+
+**Prerequisites**
+
+- A NativeFlow Studio project, open and loaded.
+- Normal edit access to the project. No other permissions are needed.
+
+<Frame caption="Adding and configuring five component types in one session, at automation speed.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/add-and-configure-components.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session that adds and configures five component types back to back: **Button** with Text, Variant, Action and Size, **Input** with Placeholder, Default Value, Variant and Size, **Card** with Template Style, Variant, Size and Padding, **Badge** with Text, Variant, Action and Size, and **Switch** with Checked, Disabled, Size and Track Color. It runs at automation speed with no narration, and every action in it is real.
+
+## Add a component
+
+<Steps>
+  <Step title="Open the Component Tree">
+    In the left sidebar, click the layers icon to open the **Component Tree**.
+
+    The panel lists every page, and under the selected page every component already on the canvas, nested to match the real container structure.
+  </Step>
+
+  <Step title="Click the + on a container row">
+    Container rows such as the root **Page**, a **Box**, a **Row**, a **Column** or a **Card** each show a **+** button. Click it to open the **Add component** popover.
+
+    For a screen's first components, use the root **Page** or **Box** row.
+
+    <Note>
+    Only container rows render a **+**. A leaf type such as Button or Text cannot hold children, so it has no **+**. Add to the nearest container row instead.
+    </Note>
+  </Step>
+
+  <Step title="Search the catalog and click the type you want">
+    The popover has a **Search components...** box and the full catalog grouped by category: Typography, Layout, Forms, Data Display and more. Type part of the name and click the exact match.
+
+    <Frame caption="The Component Tree with Button and Input already added, the Card template in place, and the Add component popover open with a search for Badge">
+      <img src="/studio-guide/images/add-and-configure-components/add-popover.jpg" alt="Add component popover with the catalog and search box" />
+    </Frame>
+
+    The new component lands on the canvas and is selected automatically. The Properties panel on the right switches to its fields.
+
+    <Tip>
+    If the search finds nothing, you probably typed a partial or misspelled name. Clear the search and browse the category instead.
+    </Tip>
+  </Step>
+</Steps>
+
+## Configure its properties
+
+With the component selected, the **Properties** panel on the right shows two tabs:
+
+- **Style**: the component's own fields, such as a Button's Text, Variant, Action and Size, plus the universal Style and Layout sections that every type shares.
+- **Data**: the binding fields for that component.
+
+Change any field and the canvas updates immediately. There is no separate apply step.
+
+<Frame caption="A Button selected on the canvas with the Size dropdown open, showing XS, SM, MD, LG and XL">
+  <img src="/studio-guide/images/add-and-configure-components/button-configured.jpg" alt="Button selected with its Size dropdown open" />
+</Frame>
+
+<Frame caption="An Input selected with Placeholder, Default Value, Variant and Size all set">
+  <img src="/studio-guide/images/add-and-configure-components/input-configured.jpg" alt="Input selected with its properties set" />
+</Frame>
+
+<Note>
+Autosave is debounced, not instant. If a change does not seem to stick, wait for the header indicator to move from "Saving..." to "Saved" before you close the tab.
+</Note>
+
+<Note>
+The Style and Layout panel on a normal component is the same one the Themed Components editor uses. Themed against normal changes where the configuration is saved and reused, not which properties exist.
+</Note>
+
+## Templated components
+
+Some types do not start empty. **Card** exposes a **Template Style** property with options including Product Card, Profile Card and Stat Card. Picking one auto builds a real nested structure underneath it.
+
+Choosing the product template built `Card > Column > Box > Heading > Text > Row > Text`, rendering a "Wireless Headphones / $129.00 / Buy" layout. That is genuine canvas content, not a placeholder image, and every nested piece is itself a normal component you can select and configure on its own.
+
+## Repeat for the rest of the screen
+
+Every component you add is independent. Configuring one never affects another. Add as many as the screen needs, each with its own properties.
+
+<Frame caption="The finished canvas with a Switch selected and configured for Track Color, Checked and Disabled, above it the Card's product layout and the earlier Button, Input and Badge">
+  <img src="/studio-guide/images/add-and-configure-components/final-canvas.jpg" alt="Finished canvas with five configured components" />
+</Frame>
+
+<Note>
+A brand new project's changes can seem to vanish shortly after you create it. This is a known Studio persistence gap for very recently created projects. Give a fresh project a few moments, and check the header's "Saving..." then "Saved" indicator, before you navigate away.
+</Note>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Fine tune the UI" href="/studio-guide/guides/fine-tune-the-ui">
+    Reparent nodes, add conditional styling and hide components per platform or breakpoint.
+  </Card>
+  <Card title="Page configuration" href="/studio-guide/guides/page-configuration">
+    Configure the page itself: header, variables and lifecycle actions.
+  </Card>
+  <Card title="Themed components" href="/studio-guide/features/themed-components">
+    Save a configured look once and reuse it anywhere in the project.
+  </Card>
+  <Card title="Build screens with AI" href="/studio-guide/guides/build-screens-with-ai">
+    Let the AI Assistant lay out a screen or a whole flow before you refine it.
+  </Card>
+</CardGroup>

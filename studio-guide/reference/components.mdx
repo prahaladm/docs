@@ -1,0 +1,45 @@
+---
+title: "Component Reference"
+description: "Which of the two component catalogs to reach for, and what each one covers."
+---
+
+## Overview
+
+Studio exposes **two different property sets for the same components**, depending on where you are editing. So there are two component catalogs, and picking the right one matters.
+
+| Catalog | What it covers | Size |
+| --- | --- | --- |
+| **Component Reference (General)** | Every component type in Studio's general component registry, and every property Studio exposes for it **anywhere** in Studio | **53 types, 432 schema properties, 72 shared style keys, 354 events** |
+| **Themed Component Property Reference** | Only what the **Create Themed Component** dialog itself offers, which is a deliberately narrower set | **51 types, 6 universal Style properties, 13 universal Layout properties** |
+
+Both are large reference documents, published in full as their own pages — [Component Properties](/reference/component-properties) and [Themed Component Properties](/reference/themed-component-properties).
+
+## Which one you want
+
+**Use the general reference** when you are working on the canvas: you have a component selected and you want to know what a property is called, what events it fires, or what the schema stores behind a panel label.
+
+Its useful jump points:
+
+- **Universal Style Properties**, the 72 style keys every one of the 53 types shares, grouped as Appearance, Border, Effects, Flexbox, Geometry, Position, Spacing and Typography.
+- **Available Widgets, by Category**, the catalog table covering Charts, Data Display, Disclosure, Feedback, Forms, Layout, Media And Icons, Others, Overlay and Typography, with each type's own property and event counts.
+
+**Use the themed reference** when you are building a preset under **CONFIG → Theme Settings → Themed Components**. That dialog offers a much smaller set: 6 universal Style properties (`backgroundColor`, `color`, `borderRadius`, `borderWidth`, `borderColor`, `opacity`) and 13 universal Layout properties, plus whatever is distinctive about each type. The themed reference also records which types each universal property is hidden or restricted for, and the container only and stack only applicability rules on the layout properties.
+
+In both, each component's own section lists only what is distinctive about it. Badge has 4 properties of its own, Button has 8, and a pure layout component such as Box has none beyond the universal set.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Component properties" icon="shapes" href="/studio-guide/reference/component-properties">
+    The full general catalog: 53 types, every property, everywhere in Studio.
+  </Card>
+  <Card title="Themed component properties" icon="palette" href="/studio-guide/reference/themed-component-properties">
+    The full themed catalog: the narrower set the Create Themed Component dialog offers.
+  </Card>
+  <Card title="Style and tokens" href="/studio-guide/reference/style-and-tokens">
+    The two property planes, colour tokens, typography names and breakpoints.
+  </Card>
+  <Card title="Themed components" href="/studio-guide/features/themed-components">
+    How to create and apply a preset.
+  </Card>
+</CardGroup>
