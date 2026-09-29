@@ -1,0 +1,184 @@
+---
+title: "Fine Tune the UI"
+description: "Reparent nodes in the Component Tree, style a component conditionally, and control where it is visible."
+---
+
+## Overview
+
+Once a component is on the canvas with its basic properties set, three deeper controls shape how it behaves in different situations:
+
+- **Reparenting**: drag a row in the Component Tree to move a component to a different parent or position.
+- **Conditional styling**: give one component a second look that applies while a condition holds, such as a selected row or an active chip.
+- **Visibility controls**: three independent ways to show or hide a component, by platform, by a rule, or by screen size.
+
+By the end of this guide you will have moved a component to a new parent, configured a conditional style inside a List row, and hidden a component on one platform and one breakpoint.
+
+**Prerequisites**
+
+- A NativeFlow Studio project, open and loaded, with at least one component on a page.
+- For conditional styling, a **List** component on the page. The toggle exists everywhere but only becomes a real condition builder inside a List's repeated row template.
+- For Conditional Visibility, at least one Input or other bindable component on the page, because the Source Field dropdown only lists fields that already exist there.
+- No backend or auth connection is needed for anything here.
+
+Reparenting happens in the **Component Tree** in the left panel. The other three controls sit in the **Style** tab of the Properties panel, below the universal Style and Layout sections: a **CONDITIONAL** toggle, then three collapsible sections named **PLATFORM VISIBILITY**, **CONDITIONAL VISIBILITY** and **RESPONSIVE VISIBILITY**.
+
+<Frame caption="A real sibling-reorder drag in the Component Tree, the already-configured Conditional style on a List row, and the Platform/Responsive/Conditional Visibility toggles.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/fine-tune-the-ui-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. Every toggle it flips is flipped back by the end.
+
+## Reparent a node
+
+<Steps>
+  <Step title="Find the row you want to move">
+    In the verified example the Sign Up page's tree read `Column > Heading, Form > FormControl 1 > Input 1, FormControl 2 > Input 2, Button`. The **Create Account** Button was the last child of the **Form**, after both fields.
+
+    <Frame caption="The Component Tree before the move, with Button as the last child of Form, after FormControl 1 and FormControl 2">
+      <img src="/studio-guide/images/fine-tune-the-ui/tree-before-reparent.jpg" alt="Component Tree before reparenting" />
+    </Frame>
+  </Step>
+
+  <Step title="Drag the row and watch for the insertion line">
+    Drag the row by its handle. A green horizontal insertion line appears between rows to show exactly where the component will land. That line is the reliable signal that the drop will register.
+
+    <Frame caption="dragging the Button row upward, with a green insertion line appearing between Heading and Form">
+      <img src="/studio-guide/images/fine-tune-the-ui/reparent-drag.jpg" alt="Dragging a row in the Component Tree" />
+    </Frame>
+
+    <Note>
+    Each tree row is a native HTML5 drag source, not a pointer based drag. If a drag seems to do nothing, start from the row's own drag handle and move slowly enough that the green insertion line appears before you release.
+    </Note>
+  </Step>
+
+  <Step title="Release to drop it">
+    Releasing on that line moved the Button out of the Form entirely and made it a direct child of Column, between Heading and Form. The canvas updated immediately, rendering **Create Account** under the heading and above the Email and Password fields, and the header's autosave indicator went from "Saving..." to "Saved".
+
+    <Frame caption="The Component Tree after the move, with Button now a direct child of Column, and the canvas showing Create Account above the Email and Password fields">
+      <img src="/studio-guide/images/fine-tune-the-ui/tree-after-reparent.jpg" alt="Component Tree after reparenting" />
+    </Frame>
+  </Step>
+</Steps>
+
+<Tip>
+The same drag reorders siblings, not just reparents across containers. Dragging the Password field above the Email field swapped their order on the canvas straight away.
+</Tip>
+
+## Style a component conditionally
+
+<Note>
+**The CONDITIONAL toggle only becomes a real condition builder on a component inside a List's repeated row template.**
+
+Anywhere else it just explains the prerequisite. Before you turn it on, the helper text reads "Turn on to change how this looks while a condition holds, a selected row, an active chip." Turn it on outside a List and that message is simply replaced by "Put this component inside a List to compare against the row it repeats." No condition builder appears.
+</Note>
+
+<Steps>
+  <Step title="Select a component inside a List row template">
+    Add a **List** from the Data Display category, then select a node inside the row it repeats. In the verified example, the List's default preview data rendered three rows built from a `Row > Box (icon) + Column > Text, Text` template, and the selected node was the `Text` holding the name.
+  </Step>
+
+  <Step title="Build the condition">
+    Turning on **CONDITIONAL** there reveals a three part condition:
+
+    - A **Row field**, a free text field naming a value on the repeating row's own data. You type it. There is no picker.
+    - An operator, either **is** or **is not**.
+    - A **Page variable** dropdown listing the page's own Page Variables to compare against.
+  </Step>
+
+  <Step title="Set the alternate style">
+    Below the condition, set the **Background**, **Text**, **Border** and **Outline** to apply while the condition holds.
+
+    These accept theme colour tokens, not only literal hex values. Setting Text to `$Primary` from the colour picker's Theme Tokens section confirmed the override can reference the design system.
+
+    <Frame caption="A conditional style configured on a List row's Text node: the When row, then Background, Text, Border and Outline overrides">
+      <img src="/studio-guide/images/fine-tune-the-ui/conditional-style-config.jpg" alt="Conditional style configuration panel" />
+    </Frame>
+  </Step>
+</Steps>
+
+The canvas renders this live and per row. In the verified example the first row's name appeared bold and purple while the other two rows kept their default style, which proves the condition is evaluated independently for each repeated row rather than once for the whole list.
+
+<Frame caption="The canvas result: the first list row's name renders in the override style while the other two rows render normally">
+  <img src="/studio-guide/images/fine-tune-the-ui/conditional-style-result.jpg" alt="Conditional style applied to one list row" />
+</Frame>
+
+## Control visibility
+
+Three visibility sections sit below CONDITIONAL, each collapsible and each independent of the others.
+
+### Platform Visibility
+
+Two toggles, **Web** and **Mobile**. There is no separate iOS and Android split.
+
+Helper text: "Hidden components are removed from that platform's layout, which reflows around them. Data bindings stay attached."
+
+<Frame caption="turning the Mobile toggle off in the Platform Visibility section and the component disappearing from the Mobile canvas">
+  <img src="/studio-guide/images/fine-tune-the-ui/platform-visibility.jpg" alt="Toggling Mobile visibility off" />
+</Frame>
+
+Turning **Mobile** off with the canvas in Mobile preview mode removed the text from the canvas entirely, not just dimmed it, and the row collapsed around it. Switching the canvas to **Web** preview mode showed the text again, with an orange **Hidden on mobile** badge on each affected element.
+
+<Frame caption="The canvas in Web preview mode, showing the text again with an orange Hidden on mobile badge on each row">
+  <img src="/studio-guide/images/fine-tune-the-ui/hidden-on-mobile-badge.jpg" alt="Hidden on mobile badge on the canvas" />
+</Frame>
+
+### Responsive Visibility
+
+Three toggles, with these breakpoints:
+
+- **Phone**: under 600px
+- **Tablet**: 600px to 900px
+- **Large Tablet**: over 900px
+
+Helper text: "Show or hide this component at different screen sizes."
+
+<Frame caption="turning the Phone toggle off in Responsive Visibility, with the component disappearing and an orange Hidden on Phone badge appearing">
+  <img src="/studio-guide/images/fine-tune-the-ui/responsive-visibility.jpg" alt="Toggling Phone visibility off" />
+</Frame>
+
+Turning **Phone** off with the canvas at phone width hid the text and showed an orange **Hidden on Phone** badge, the same live feedback pattern as Platform Visibility.
+
+<Note>
+If a Platform or Responsive toggle seems to have no effect, the canvas's own device and platform preview mode does not match what you turned off. Switch the canvas to that platform or width. The effect and the badge only show for the mode you are currently viewing.
+</Note>
+
+### Conditional Visibility
+
+This one hides or shows the whole component based on a rule, and it does not require a List. It has three fields:
+
+- **Source Field**: a dropdown of other bindable fields already on the page. On a sign up page it listed the Input placeholders as labels, `you@example.com` and `Enter a password`, so it points at another component's current value rather than at a Page Variable.
+- **Condition**: seven operators, **Equals**, **Not Equals**, **Is Empty**, **Is Not Empty**, **Contains**, **Greater Than** and **Less Than**.
+- **Value**: a free text comparison value.
+
+A plain language summary updates as you configure it, for example "Visible when you@example.com equals test@nativeflow.com".
+
+<Frame caption="Conditional Visibility fully configured with a Source Field, a Condition of Equals, a Value, and the live summary sentence below">
+  <img src="/studio-guide/images/fine-tune-the-ui/conditional-visibility-config.jpg" alt="Conditional Visibility configuration" />
+</Frame>
+
+<Note>
+**Conditional Visibility is not enforced in the canvas editor.** It applies only in Preview and in the exported app.
+
+With a rule configured and clearly unmet, the target component still rendered normally on the canvas and stayed selectable. Platform and Responsive Visibility behave differently and are enforced live on the canvas for whichever device and platform mode is active. Check a Conditional Visibility rule in Preview or the exported app, never on the canvas.
+</Note>
+
+<Note>
+If the Source Field dropdown is empty, there are no other bindable fields on the page yet. Add an Input or another bindable component first.
+</Note>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Page configuration" href="/studio-guide/guides/page-configuration">
+    Set the page's header, variables and lifecycle actions.
+  </Card>
+  <Card title="Add and configure components" href="/studio-guide/guides/add-and-configure-components">
+    Place components and set their basic Style and Layout properties.
+  </Card>
+  <Card title="Themed components" href="/studio-guide/features/themed-components">
+    Save a styled component once and reuse it across the project.
+  </Card>
+  <Card title="Action reference" href="/studio-guide/reference/actions">
+    The full catalog of actions you can attach to components and page events.
+  </Card>
+</CardGroup>

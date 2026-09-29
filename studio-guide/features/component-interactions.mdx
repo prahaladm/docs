@@ -1,0 +1,147 @@
+---
+title: "Component Interactions"
+description: "Attach actions to a component's own touch and hover events, so tapping it actually does something."
+---
+
+## Overview
+
+A component placed on the canvas looks right but does nothing. Tapping a Button navigates nowhere, opens nothing and calls nothing until you attach an action to one of its events.
+
+That is what the **Actions** tab is for. You pick an event the component can fire, such as `On Tap`, and attach one or more actions to it. The component keeps the behaviour from then on, wherever it sits in the tree.
+
+<Note>
+Select a component on the canvas, open the **Properties** panel, and click the **Actions** tab. Inside it, **EVENT ACTIONS → TOUCH EVENTS** lists every event that component can fire.
+
+This is the component's own tab. A **page** has its own separate Actions tab for lifecycle events such as On Screen Load — see [Page Configuration](/guides/page-configuration).
+</Note>
+
+<Frame caption="A Button's Actions tab in a Mobile app project: seven touch events, none configured yet">
+  <img src="/studio-guide/images/component-interactions/actions-tab.png" alt="The Actions tab of a selected Button, showing the touch event list" />
+</Frame>
+
+## The events you can attach to
+
+Seven events are available on every component in a **Mobile app** project:
+
+| Event | Fires when |
+| --- | --- |
+| **On Tap** | The component is tapped or clicked once. The one you want most of the time |
+| **On Double Tap** | Two taps land in quick succession |
+| **On Long Press** | A press is held rather than released straight away |
+| **On Touch Start** | A finger or pointer first makes contact, before any release |
+| **On Touch End** | Contact ends |
+| **On Press In** | The press begins — useful for a pressed-state effect |
+| **On Press Out** | The press is released |
+
+A **Web app** project adds two more at the bottom of the same list:
+
+| Event | Fires when |
+| --- | --- |
+| **On Hover In** | The pointer moves onto the component |
+| **On Hover Out** | The pointer moves off it |
+
+<Frame caption="The same Actions tab in a Web app project: nine events, with On Hover In and On Hover Out at the end">
+  <img src="/studio-guide/images/component-interactions/hover-events-web.png" alt="Touch events list including hover events in a Web app project" />
+</Frame>
+
+<Note>
+Hover is not a setting you switch on. It follows the project's **app target**, which is chosen once when the project is created — **Mobile app** (React Native / Expo) or **Web app** (Responsive Next.js) — and cannot be changed from the canvas afterwards.
+
+The quickest way to tell which kind of project you are in is the viewport buttons above the canvas. A Mobile app project offers **Phone**, **Tablet** and **Tablet landscape**. A Web app project offers **Desktop**, **Tablet** and **Mobile**.
+</Note>
+
+## Attach an action
+
+<Steps>
+  <Step title="Select the component">
+    Click the component on the canvas, or its row in the Component Tree. The Properties panel header should name the component you meant, such as **Button**.
+
+    If the header still reads **Page**, the click did not land on the node. Select it from the Component Tree instead, where there is nothing overlapping to intercept the click.
+  </Step>
+
+  <Step title="Open the Actions tab">
+    The tabs are **Style**, **Data** and **Actions**. Open **Actions** and you get **EVENT ACTIONS**, then the **TOUCH EVENTS** list.
+  </Step>
+
+  <Step title="Open the event you want">
+    Click the event row, for example **On Tap**. The action catalog opens with a **Search actions...** box at the top and every action grouped by category underneath.
+
+    <Frame caption="The action catalog opening from On Tap, with the search box and the NAVIGATION group at the top. The list scrolls — six categories sit below.">
+      <img src="/studio-guide/images/component-interactions/action-catalog.png" alt="The action catalog popover with its search box and categories" />
+    </Frame>
+
+    Search is the fastest way in once you know what you want. Type `nav` and **Navigate To** is the first hit.
+  </Step>
+
+  <Step title="Pick an action and configure it">
+    Click an action and it attaches straight away, with its own parameters expanding inline underneath the event.
+
+    **Navigate To**, for instance, gives you a **Target Page** dropdown listing every page in the project, and a **Route Parameters** section. With a target page that declares no parameters, that section reads *No parameters declared on target page. You can add custom params below*, with an **+ Add Parameter** button.
+
+    The event row now shows a **1 action** badge, and the **EVENT ACTIONS** heading carries a count of every configured event on this component.
+  </Step>
+</Steps>
+
+<Frame caption="On Tap configured with one action. The badge on the row and the count beside EVENT ACTIONS both reflect it.">
+  <img src="/studio-guide/images/component-interactions/on-tap-configured.png" alt="The Actions tab with one action configured on On Tap" />
+</Frame>
+
+<Tip>
+There is no Save button. Configuration saves on its own a moment after you stop editing, so give it a second before you navigate away or close the tab — an action attached and abandoned immediately may not survive the reload.
+</Tip>
+
+Two more controls sit under a configured event:
+
+- **Add Action** attaches a second action to the *same* event. They run in order, so a `Show Toast` followed by a `Navigate To` does both on one tap.
+- **View as Code** shows the configuration as code rather than panel fields.
+
+To change an action later, expand the event and use **Edit**.
+
+## The action catalog
+
+The same catalog opens for every event, on every component. It currently holds **22 actions across six categories**:
+
+| Category | Actions |
+| --- | --- |
+| **Navigation** | Navigate To, Go Back, Open URL |
+| **Data** | API Call, Set Variable |
+| **Interaction** | Show Alert, Show Toast, Haptic Feedback, Copy to Clipboard, Toggle Overlay |
+| **Communication** | Share, Open Email |
+| **Flow** | Run TypeScript, Delay, Console Log |
+| **Authentication** | Sign In, Sign Up, Sign Out, Send OTP Code, Verify OTP Code, Send Magic Link, Send Password Reset |
+
+Every entry carries a one line description in the catalog itself, such as *Navigate to another page* under **Navigate To**. For what each action takes as parameters, see the [Action Reference](/reference/actions).
+
+## Actions that need something set up first
+
+Most actions work the moment you attach them. These do not, and the panel does not always explain why:
+
+| Action | Needs | What you see without it |
+| --- | --- | --- |
+| **Navigate To** | A second page in the project | The Target Page dropdown has nothing to pick |
+| **Toggle Overlay** | An overlay component — Modal, Drawer, AlertDialog or Popover — placed somewhere in the project | The dropdown opens empty, with no error |
+| **API Call** | An API call defined under **CONNECT → API Calls** | The dropdown has nothing to select. Defining the call is enough; the backend does not have to be connected yet |
+| **Set Variable** | A variable declared on the page | The Variable dropdown is empty. See [Page Configuration](/guides/page-configuration) |
+| **Haptic Feedback** | A Mobile app project | Marked mobile only — there is no vibration hardware to drive on the web |
+
+<Warning>
+An unconfigured action is still an attached action. Studio marks no action parameter as required, so a `Navigate To` with no target page attaches happily, shows its **1 action** badge, and then does nothing when tapped. If an interaction silently does nothing in Preview, check its parameters before suspecting the event.
+</Warning>
+
+## Actions belong to the component, not to a preset
+
+Actions are stored on the placed node. A themed component captures styling only — background, radius, hover styling and the rest — and carries no actions with it.
+
+So applying a preset to a Button will not bring that Button's interactions along, and two Buttons sharing a preset can behave completely differently. Wire each one up where it sits.
+
+## Check it in the real Preview
+
+The panel can only tell you an action is attached, not that it does what you meant. Open **Preview** and perform the gesture for real — tap the button, hover the element in a Web app project — and watch what happens.
+
+This matters most for the events that are easy to attach and easy to get wrong: `On Double Tap` needs two quick taps to fire at all, and `On Press In` / `On Press Out` fire at opposite ends of a single press, so wiring the same action to both runs it twice.
+
+See [Preview](/features/preview) for opening it and for the device sizes it runs at.
+
+## Summary
+
+Select a component, open **Properties → Actions**, click an event such as **On Tap**, and pick an action from the catalog. Seven touch events are available in a Mobile app project and nine in a Web app project, where hover is added. One event can carry several actions, which run in order. A few actions — Toggle Overlay, API Call, Set Variable, Navigate To — need something to exist in the project before they have anything to point at, and they fail quietly rather than loudly, so confirm the finished interaction in Preview rather than in the panel.

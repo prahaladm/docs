@@ -1,0 +1,157 @@
+---
+title: "Quickstart: Build Your First Screen"
+description: "Go from an empty account to a real, editable screen on the canvas."
+---
+
+## Overview
+
+This is the fastest route from nothing to something you can edit. You will create a project, then let the AI Assistant generate a first screen from one plain English sentence, and confirm that what it produced is made of real components rather than a picture of a screen.
+
+Studio's core building pattern is not dragging components onto a blank canvas one at a time. It is describing the screen you want, then refining what comes back. This page is that pattern's on ramp.
+
+### Prerequisites
+
+- A NativeFlow Studio account, signed in. See [Sign in to Studio](/get-started/sign-in) if you are not.
+- Nothing else. This flow is exactly what a first time user sees with zero existing projects or screens.
+
+<Frame caption="New project to a generated first screen, then an edit and a live preview.">
+  <video controls muted playsInline poster="/images/end-to-end-poster.jpg" className="w-full aspect-video rounded-xl" src="/studio-guide/videos/end-to-end-flow.mp4"></video>
+</Frame>
+
+<Tip>
+Selecting a component and changing one of its properties updates the canvas immediately, with no save step.
+</Tip>
+
+<Frame caption="Changing the button's text, with the canvas updating as you type">
+  <img src="/studio-guide/images/quickstart/live-property-edit.gif" alt="Editing a component property and seeing the canvas update" />
+</Frame>
+
+## Build the screen
+
+<Steps>
+  <Step title="Start from the Projects dashboard">
+    Go to `https://getnativeflow.com/projects`. This is where every signed in user lands.
+
+    Each project the account owns shows as a card with a thumbnail, name, screen count and last edited time. A **+ New Project** button sits at the top right.
+
+    <Frame caption="The Projects dashboard with existing project cards and the + New Project button at the top right">
+      <img src="/studio-guide/images/quickstart/01-projects-dashboard.jpg" alt="Projects dashboard" />
+    </Frame>
+  </Step>
+
+  <Step title="Create the project">
+    Click **+ New Project**. A **Create New Project** dialog opens.
+
+    It asks for exactly one thing, a **Project Name**, with the placeholder text "My Awesome App". There is no template picker, category or extra setup step. Just a name, a **Cancel** button, and a **Create** button that stays disabled until the name field has content.
+
+    <Frame caption="The Create New Project dialog: a single Project Name field with the placeholder My Awesome App, plus Cancel and Create buttons">
+      <img src="/studio-guide/images/quickstart/02-new-project-dialog.jpg" alt="Create New Project dialog" />
+    </Frame>
+
+    <Note>
+    **Wait about a second after typing the name before you click Create.**
+
+    Clicking **Create** immediately after typing did not work reliably in live testing. The dialog just sat there with no visible error. The button looks clickable straight away, but a name validation check has not resolved internally yet. If nothing happens, wait a moment and click **Create** again.
+    </Note>
+  </Step>
+
+  <Step title="Land in the editor on an empty page">
+    Create takes you straight into the project's main editor, the same five region layout covered in the [Studio Interface Tour](/get-started/interface-tour).
+
+    A brand new project starts with one page called "Page 1", empty, and the AI Assistant panel open on the left by default.
+
+    <Frame caption="A new project's landing state: empty Page 1 on the canvas, the AI Assistant panel open with suggestion cards, a Create your first screen prompt above them, and an orange No backend linked banner">
+      <img src="/studio-guide/images/quickstart/03-new-project-landing.jpg" alt="New project landing state" />
+    </Frame>
+
+    Two things are worth noticing here:
+
+    - A **"Create your first screen"** callout sits above the usual suggestion cards. It is new project specific framing that nudges you toward the AI Assistant rather than the component catalog.
+    - The four suggestion cards, **Build a page**, **Add components**, **Add API** and **Add validation**, plus the **Ask AI...** input, are the same ones the interface tour documents. Here they are the only thing to do, because the canvas is empty.
+  </Step>
+
+  <Step title="Prompt the AI Assistant">
+    This is the core action. Click into the **Ask AI...** box and type a plain English description of the screen you want.
+
+    The prompt used for this walkthrough:
+
+    ```text
+    Build a simple profile screen with an avatar, name, bio text, and an Edit Profile button
+    ```
+
+    <Frame caption="The prompt typed into the Ask AI input box, not yet submitted">
+      <img src="/studio-guide/images/quickstart/04-ai-prompt-typed.jpg" alt="Prompt typed into the AI Assistant input" />
+    </Frame>
+
+    Submit with the send button or Enter. The chat log immediately shows a **"Thinking..."** status with a running seconds counter.
+
+    <Frame caption="The AI Assistant chat showing Thinking... 4s immediately after the prompt was submitted">
+      <img src="/studio-guide/images/quickstart/05-ai-generating.jpg" alt="AI Assistant generating a screen" />
+    </Frame>
+
+    <Note>
+    Generation took roughly 15 seconds from submit to a fully rendered result. Real components appeared on the canvas well before the chat's own explanatory reply had finished rendering, so watch the canvas, not the chat.
+    </Note>
+  </Step>
+
+  <Step title="Read the result">
+    The AI Assistant did not just produce a description. It built and placed real, selectable components on the canvas: a circular avatar image, a name heading with the placeholder value "Sarah Chen", a bio paragraph, and a solid **Edit Profile** button, all centred and using the project's default theme colours.
+
+    <Frame caption="The generated profile screen on the canvas, avatar, name, bio text and an Edit Profile button, beside the AI Assistant's chat reply describing what it built">
+      <img src="/studio-guide/images/quickstart/06-ai-generated-result.jpg" alt="Generated profile screen and the AI Assistant reply" />
+    </Frame>
+
+    The reply is specific about what it did. It named the exact components used, "avatar (CircleImage), name heading, bio text, and a themed 'Edit Profile' button", and the theme tokens it applied, "Background surface, Primary button, Primary Text for text".
+
+    Because no backend is connected yet, it also listed the placeholder values it invented, the name "Sarah Chen", the bio "Product designer crafting...", and a `pravatar.co` avatar image, each with a suggested source of "API or page variable". Then it asked directly: *"Should any of these be bound to an API/variable, or kept static for now?"*
+
+    Below that it offered two follow up actions as clickable chips, **"Bind avatar and name to API user endpoint"** and **"Add edit profile button navigation flow"**, plus an **"Undo last AI action"** control.
+  </Step>
+
+  <Step title="Confirm it is real, not a mockup">
+    Click the stacked layers icon in the left rail to switch that panel to the **Component Tree**. You will see the node structure the AI Assistant actually created:
+
+    ```text
+    Page → Box → Center → Column → Circle Image, Heading, Text, Button
+    ```
+
+    <Frame caption="The Component Tree showing the generated structure: Page, Box, Center, Column, with Circle Image, Heading, Text and Button as children">
+      <img src="/studio-guide/images/quickstart/07-component-tree.jpg" alt="Component Tree of the generated screen" />
+    </Frame>
+
+    Every one of those is a real, independently selectable component. Click the Button and its own fields load into the Properties panel on the right, exactly as they would for a component you added by hand: Text "Edit Profile", Text Align Center, Variant Solid, Action Primary, Size MD.
+
+    <Frame caption="The generated Button selected, with the Properties panel showing editable fields: Text Edit Profile, Text Align Center, Variant Solid, Action Primary, Size MD">
+      <img src="/studio-guide/images/quickstart/08-button-selected-properties.jpg" alt="Properties panel for the generated Button" />
+    </Frame>
+
+    <Note>
+    **A freshly created project does not reliably save.** This is a known Studio bug, confirmed live during this walkthrough. After the profile screen was generated, the Projects dashboard card for the same project still read "0 screens".
+
+    Keep working in the same browser tab and session. Reloading or reopening a brand new project is exactly the action observed to lose changes that render correctly in the editor. Treat this as a product issue, not something you did wrong.
+    </Note>
+  </Step>
+</Steps>
+
+## Keep iterating
+
+From here the loop is the same one the rest of the docs cover:
+
+- Select any generated component and configure it through the **Properties** panel tabs, Style, Data and Actions.
+- Send another prompt to the AI Assistant, either one of its own suggested follow ups such as binding the avatar and name to an API, or a fresh request. Generating and then refining is the same pattern every time.
+- Undo covers both AI changes and hand edits, so you can experiment freely.
+
+<Tip>
+If clicking a row in the Component Tree opens a Delete confirmation instead of selecting the component, you hit the hover revealed delete icon rather than the row. Click **Cancel**, then click again closer to the row's label text than its edge.
+</Tip>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Studio Interface Tour" icon="layout" href="/studio-guide/get-started/interface-tour">
+    What each of the editor's five regions is for, and where every control lives.
+  </Card>
+  <Card title="Build screens with AI" icon="sparkles" href="/studio-guide/guides/build-screens-with-ai">
+    Go deeper on prompting: multi screen flows, follow up prompts, and refining what comes back.
+  </Card>
+</CardGroup>

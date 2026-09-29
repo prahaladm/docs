@@ -1,0 +1,156 @@
+---
+title: "Studio Interface Tour"
+description: "The five regions of the Studio editor and what each one is for."
+---
+
+## Overview
+
+When you open a project, Studio takes you to one screen where all of the building happens. It is a single layout built around five regions:
+
+- a **Canvas** in the centre, showing a live preview of the screen you are building
+- an **AI Assistant** panel on the left, for generating UI from a prompt
+- a **Component Tree**, also on the left, listing every page and the selected page's nested components
+- a **Properties** panel on the right, for configuring whatever is selected
+- a **top bar** for project level controls such as undo, redo, preview and save status
+
+It is worth knowing what each region is for before diving into any one workflow. To follow along, open any project from `https://getnativeflow.com/projects` by clicking its card. A project that already has screens and components on them shows more than an empty one.
+
+<Frame caption="The full editor layout: AI Assistant panel on the left, Canvas in the centre with a real screen open, Properties panel on the right showing a selected Badge, and the top bar across the top">
+  <img src="/studio-guide/images/interface-tour/01-overview-editor-layout.jpg" alt="Full Studio editor layout" />
+</Frame>
+
+The editor is a fixed three column layout with a top bar spanning the full width: a narrow icon rail plus a content panel on the left, the Canvas filling the centre, and the Properties panel on the right.
+
+The left rail is icons only, with no separate labels. In the **BUILD** section it offers a chat bubble icon for the **AI Assistant**, a grid icon for the **component catalog**, which is the searchable list you add new components from, and a stacked layers icon for the **Component Tree**.
+
+<Note>
+The AI Assistant and the Component Tree render into the same left panel slot, so only one of them is visible at a time. Switching between them is a single click on the rail icon. If you cannot find the Component Tree, that is why.
+</Note>
+
+## Canvas
+
+The centre of the screen. It renders the currently selected page as a live, scrollable device frame, phone shaped in Mobile mode, with all of that page's real components. It is not a static mockup.
+
+<Frame caption="The Canvas showing a real page: a header with a back arrow and the title Page 1, a Hello World text, a data table, a selected Badge, a product card with a Buy button, a radio option, and a full width Button">
+  <img src="/studio-guide/images/interface-tour/02-canvas.png" alt="Studio canvas rendering a real page" />
+</Frame>
+
+Above the canvas frame sits a small toolbar:
+
+- a row of three device preset icons.
+- zoom controls: zoom out, a percentage readout, zoom in.
+- a "fit to screen" icon.
+
+<Frame caption="Cycling the Mobile-mode device presets and zoom controls, then switching Project Type to Web app and back to reveal the Web-mode presets.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/canvas-toolbar-demo.mp4"></video>
+</Frame>
+
+<Note>
+**There is no separate Mobile / Web toggle next to these icons.** What changes them is the project's own **Project Type**, set on the **App Details** page under **App Settings**. On a <Icon icon="mobile-screen-button" size={14} /> **Mobile app** project, the three icons read **Phone — 390 × 844**, **Tablet — 768 × 1024** and **Tablet landscape — 1024 × 768** (the last two share one tablet icon, rotated 90°). Switch **Project Type** to <Icon icon="globe" size={14} /> **Web app** and the same slot instead reads **Mobile — 390 × 844**, **Tablet — 768 × 1024** and **Desktop — matches the current Studio window width**. A small glyph beside the project name in the very top bar mirrors whichever mode is active, but isn't itself clickable.
+
+Switching Project Type is a real, project-wide change, not a lightweight view toggle — Studio's own confirmation dialog reads *"The screen sizes, available components, app configuration and export options all change. Anything you built with components that only exist in the other kind of app will stop showing."*
+</Note>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. **Project Type** is switched to Web app and back to Mobile app, each transition going through Studio's own confirmation dialog rather than skipped, and confirmed reverted afterward with a completely fresh session.
+
+Clicking any component on the canvas selects it. The same node highlights in the Component Tree and its fields appear in the Properties panel. Empty containers show a green dashed **"Drop components here"** placeholder.
+
+### Overlay components
+
+Some components do not render inline. Modal, Drawer, AlertDialog and Actionsheet appear instead as a small tab strip below the canvas frame, alongside a **Page** tab, so you can preview each one on demand.
+
+Selecting an overlay's tab renders it over the canvas. A Drawer, for example, shows its semi transparent backdrop covering the rest of the page.
+
+<Note>
+If the canvas suddenly looks dimmed under a large grey overlay, an overlay component's tab is selected and it is drawing its own backdrop over the page. Click the **Page** tab in that same strip to get back to the normal inline view.
+</Note>
+
+## AI Assistant
+
+The left panel's default view, labelled **"AI Assistant"** in the UI with a **BUILD** badge next to the label.
+
+<Frame caption="The AI Assistant panel: four suggestion cards for Build a page, Add components, Add API and Add validation, a No backend linked banner, and the Ask AI input box">
+  <img src="/studio-guide/images/interface-tour/03-ai-assistant-panel.png" alt="AI Assistant panel" />
+</Frame>
+
+It shows four suggestion cards:
+
+- **Build a page**, "Login, profile, settings..."
+- **Add components**, "Buttons, inputs, cards"
+- **Add API**, "Connect a REST endpoint"
+- **Add validation**, "Email, required, length"
+
+At the bottom is an **"Ask AI..."** text input with a **+** attach control, a **Plan** toggle, and a send button.
+
+<Note>
+A status banner can appear above the input. An orange **"No backend linked, connect Supabase"** warning appears when the project has no backend connected, so it depends on project state rather than always being present.
+</Note>
+
+<Frame caption="Reading an existing conversation, typing a draft prompt into Ask AI without sending it, then switching to the Component Tree and back.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/ai-assistant-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. On a project with existing history, the four suggestion cards give way to the real conversation instead; a draft prompt is typed into the input to show what that looks like, then cleared without ever being sent, since submitting a real prompt would generate unpredictable content on a shared project rather than something safely revertible.
+
+## Component Tree
+
+Reached by clicking the stacked layers icon in the left rail. It replaces the AI Assistant in the same panel slot.
+
+<Frame caption="The Component Tree panel: a Pages list above the current page's nested component tree, with Badge 1 selected">
+  <img src="/studio-guide/images/interface-tour/04-component-tree.png" alt="Component Tree panel" />
+</Frame>
+
+It is split into two stacked sections.
+
+**Pages** lists every screen in the project, with a count badge, a search box and an **+ Add Page** control. Clicking a page swaps the Canvas to that page.
+
+**The selected page's tree** lists every component already on that page, indented to match the real container nesting. In the project shown above that is `Page → Box 1 → Text 1, Modal (→ Heading, Text 2), Drawer, AlertDialog, Actionsheet, Table, Badge 1, Row 6, Card (→ Badge 2, Column (→ Badge 3, Text 6), Row 7, ...)`.
+
+Container rows have an expand and collapse arrow and, on hover, a **+** to add a child directly from that row. Clicking any row selects that node, highlighting it on the canvas and loading its fields into the Properties panel.
+
+## Properties panel
+
+Shows the fields for whatever is currently selected: a component, or the page itself when nothing else is selected.
+
+<Frame caption="The Properties panel on the Style tab for a selected Badge: Content with Text and Bind, Appearance with Variant, Action and Size, Layout with padding, margin, flex and min height, and Style with text style, background, text colour and border">
+  <img src="/studio-guide/images/interface-tour/05-properties-panel.png" alt="Properties panel for a selected Badge" />
+</Frame>
+
+With a component selected, three tabs are always present.
+
+- **Style** holds the component's own fields plus universal **Layout** and **Style** sections. For a Badge the component's own fields were Text content with a **Bind** shortcut, Variant with Solid and Outline, an Action dropdown, and Size with SM, MD and LG. Layout covers padding, margin and sizing. Style covers background, text colour, border and opacity. Selecting a different component type changes only the top part. A Drawer, for instance, showed Anchor with Left, Right, Top and Bottom, Size with SM, MD, LG and Full, and a Backdrop toggle, with the same Layout and Style sections underneath.
+- **Data** holds a **Data Bindings** section. With no API connected it showed the guidance *"Add API calls in the API panel to bind data to this component"* alongside the field it can bind, for example a **Text** row accepting `Text or @column`.
+- **Actions** holds grouped **Event Actions**. For the Badge, a **Touch Events** group listed On Tap, On Double Tap, On Long Press, On Touch Start and On Touch End, each with a **+** to attach an action.
+
+<Note>
+If the panel shows page level **Settings**, **Variables** and **Actions** instead of a component's **Style**, **Data** and **Actions**, nothing is selected and the page itself is the active selection. Click a component on the canvas or in the Component Tree to load its own fields.
+</Note>
+
+## Top bar
+
+Spans the full width above the other three regions.
+
+<Frame caption="The top bar: back arrow, NativeFlow logo and the project name AuthFlow on the left, then undo and redo, a play icon, a Platform review icon, an overflow menu, a Saved status indicator, a notification bell and the user avatar on the right">
+  <img src="/studio-guide/images/interface-tour/06-top-bar.png" alt="Studio top bar" />
+</Frame>
+
+On the left: a back arrow that returns to the projects list, and the project name.
+
+On the right, left to right: undo and redo icons, a play icon for preview, a **Platform review** icon, a **···** overflow menu, a save status indicator that reads **Saved** once changes are persisted, a notifications bell with an unread count badge, and the signed in user's avatar.
+
+<Note>
+**Platform review** is a project wide check, not a per component one. It opens a modal listing every page in the project with a rendering differences check between platforms, reporting "No differences" for a page that renders the same on both.
+
+Its icon resembles the Component Tree's layers icon but lives in the top right toolbar, not the left rail.
+</Note>
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/studio-guide/get-started/quickstart">
+    Create a project and generate your first screen from a prompt.
+  </Card>
+  <Card title="Themed Components" icon="palette" href="/studio-guide/features/themed-components">
+    Save a component's styling once and reuse it across the project.
+  </Card>
+</CardGroup>

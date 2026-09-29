@@ -1,0 +1,1256 @@
+---
+title: "Themed Component Properties"
+description: "The narrower property set the Create Themed Component dialog itself offers, for every themeable type."
+---
+
+
+Every component type the **Create Themed Component** dialog itself offers, and every property it exposes for each — a deliberately narrower set than the general component registry.
+
+**51 themeable component types · 6 universal Style properties · 13 universal Layout properties**
+
+**Not themeable:** `Carousel`, `Video` exist as ordinary components in Studio (see the [general Component Reference](/reference/component-properties)) but have no themed-component schema at all — they can't be turned into a reusable preset via Create Themed Component.
+
+See [Create Themed Component](/features/themed-components) for how to actually use these to build a preset, and the [general Component Reference](/reference/component-properties) for what each component can do elsewhere in Studio, beyond theming.
+
+**A note on colors and other themeable values:** Any `color`-type prop or style value (backgroundColor/color/borderColor/*Color props) may be a raw value OR a `$token` reference resolved against the active theme mode. Namespace is inferred from the token string.
+
+| Token kind | Pattern | Example |
+| --- | --- | --- |
+| colors | `$<tokenName>` | `$primary` |
+| typography | `$typography.<scale\|weight\|fontFamily>[.<key>]` | `$typography.scale.md` |
+| spacing | `$spacing.<key>` | `$spacing.md` |
+| borderRadius | `$borderRadius.<key>` | `$borderRadius.lg` |
+
+## Available Widgets, by Category
+
+### Charts
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [AreaChart](#areachart) | No | 25 |
+| [BarChart](#barchart) | No | 23 |
+| [LineChart](#linechart) | No | 26 |
+| [PieChart](#piechart) | No | 11 |
+| [StackedBarChart](#stackedbarchart) | No | 22 |
+
+### Data Display
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Badge](#badge) | No | 4 |
+| [Card](#card) | Yes | 4 |
+| [CardList](#cardlist) | Yes | 16 |
+| [LanguageSwitcher](#languageswitcher) | No | 2 |
+| [List](#list) | Yes | 14 |
+| [Table](#table) | Yes | 3 |
+
+### Disclosure
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Accordion](#accordion) | No | 6 |
+| [Actionsheet](#actionsheet) | No | 3 |
+
+### Feedback
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Alert](#alert) | No | 3 |
+| [Progress](#progress) | No | 5 |
+| [Spinner](#spinner) | No | 3 |
+| [Toast](#toast) | No | 6 |
+
+### Forms
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Button](#button) | No | 9 |
+| [Checkbox](#checkbox) | No | 8 |
+| [Form](#form) | Yes | 0 |
+| [FormControl](#formcontrol) | Yes | 8 |
+| [IconButton](#iconbutton) | No | 10 |
+| [Input](#input) | No | 9 |
+| [Link](#link) | No | 5 |
+| [Pressable](#pressable) | Yes | 4 |
+| [Radio](#radio) | No | 9 |
+| [SearchInput](#searchinput) | No | 16 |
+| [Select](#select) | No | 8 |
+| [Slider](#slider) | No | 8 |
+| [Switch](#switch) | No | 4 |
+| [Textarea](#textarea) | No | 7 |
+
+### Layout
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Box](#box) | Yes | 7 |
+| [Center](#center) | Yes | 1 |
+| [Column](#column) | Yes | 1 |
+| [Divider](#divider) | No | 3 |
+| [Grid](#grid) | Yes | 4 |
+| [Row](#row) | Yes | 1 |
+
+### Media And Icons
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Avatar](#avatar) | No | 3 |
+| [CircleImage](#circleimage) | No | 14 |
+| [Icon](#icon) | No | 4 |
+| [Image](#image) | No | 6 |
+
+### Others
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Fab](#fab) | No | 5 |
+| [Skeleton](#skeleton) | No | 6 |
+
+### Overlay
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [AlertDialog](#alertdialog) | No | 4 |
+| [Drawer](#drawer) | No | 3 |
+| [Menu](#menu) | No | 4 |
+| [Modal](#modal) | Yes | 2 |
+| [Popover](#popover) | No | 5 |
+| [Tooltip](#tooltip) | No | 2 |
+
+### Typography
+
+| Component | Container | Own Properties |
+| --- | --- | --- |
+| [Heading](#heading) | No | 8 |
+| [Text](#text) | No | 10 |
+
+## Universal Style Properties
+
+Every themed component gets these from the dialog's **Style** accordion, in addition to its own properties below — subject to the applicability notes in each row.
+
+| Property | Label | Section | Type | Applies To | Notes |
+| --- | --- | --- | --- | --- | --- |
+| `backgroundColor` | Background Color | Background | color | all component types |  |
+| `color` | Text Color | Text Color | color | component types that render text | Hidden for: Image, Avatar, CircleImage, Icon, Row, Column, Box, Grid, List, CardList, BarChart, LineChart, PieChart, AreaChart, StackedBarChart. |
+| `borderRadius` | Radius | Border | number (px) | all component types |  |
+| `borderWidth` | Border Width | Border | number (px) | all component types |  |
+| `borderColor` | Border Color | Border | color | all component types |  |
+| `opacity` | Opacity | Effects | number (%) | all component types |  |
+
+## Universal Layout Properties
+
+Every themed component gets these from the dialog's **Layout** accordion, in addition to its own properties below — subject to the applicability notes in each row (several are container-only or have per-type exceptions, unlike the Style properties above, which are almost all universal).
+
+| Property | Section | Type | Applies To | Notes |
+| --- | --- | --- | --- | --- |
+| `flexDirection` | Direction | select | container types (Box, Row, Column, Grid, List, CardList) |  |
+| `justifyContent` | Alignment | select | container types | Disabled with a hint on Box — Box is a single-child wrapper, so alignment doesn't apply; a one-click convert-to-Row/Column banner is offered instead. |
+| `alignItems` | Alignment | select | container types | Same Box caveat as justifyContent. |
+| `itemsSpacing` | Spacing | number (px) | stack types only (Row, Column) | Alias for `props.gap (kept in sync)` |
+| `gap` | Spacing | number (px) | non-stack container types (Box, Grid, List, CardList) | On Grid, setting gap clears rowGap/columnGap longhands — canvas only applies the shorthand. |
+| `padding / paddingTop / paddingRight / paddingBottom / paddingLeft` | Spacing | number (px) | all component types except where hidden | Hidden for: Image, Text, Heading |
+| `margin / marginTop / marginRight / marginBottom / marginLeft` | Spacing | number (px) | all component types, no exceptions |  |
+| `flexWrap` | Advanced | select | container types | Hidden for: List, CardList |
+| `overflow` | Advanced | select | container types | Hidden for: List, CardList. The 'scroll' option itself is additionally hidden for Row/Column/Box — the underlying native view ignores overflow:'scroll'; use the dedicated Scrollable toggle instead. |
+| `scrollable` | Advanced | select | stack types only (Row, Column) | Canvas adds overflow:auto on the scroll axis; the live preview and the exported app render a real scroll view. Requires a fixed size on the scroll axis. |
+| `flex` | Advanced | number | all component types, no exceptions | A Row/Column with flex>0 nested inside a perpendicular stack parent absorbs all leftover space along the parent main axis — flagged in-editor as a warning. |
+| `minHeight` | Advanced | number (px) | all component types, no exceptions |  |
+| `columns` | Advanced | number | Grid only |  |
+
+## Component Details
+
+### Accordion
+
+- **Category:** Disclosure
+- **Container (accepts children):** No
+
+**Properties specific to Accordion** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Accordion Item` | Header text of the accordion section |
+| `defaultValue` | Default Value | string | — | Key of the section that is expanded by default |
+| `type` | Type | select | `single` | `Single`, `Multiple` |
+| `variant` | Variant | select | `filled` | `Filled`, `Unfilled` |
+| `isCollapsible` | Collapsible | boolean | `true` | Allow the open section to be collapsed by clicking again |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the accordion |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Actionsheet
+
+- **Category:** Disclosure
+- **Container (accepts children):** No
+
+**Properties specific to Actionsheet** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Actions` | Heading text of the action sheet |
+| `items` | Items (comma) | string | `Edit,Delete,Cancel` | Comma-separated list of action items |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the action sheet when clicking outside it |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Alert
+
+- **Category:** Feedback
+- **Container (accepts children):** No
+
+**Properties specific to Alert** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `This is an alert` | The alert message text |
+| `action` | Action | select | `info` | `Error`, `Warning`, `Success`, `Info`, `Muted` |
+| `variant` | Variant | select | `solid` | `Solid`, `Outline`, `Accent` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### AlertDialog
+
+- **Category:** Overlay
+- **Container (accepts children):** No
+
+**Properties specific to AlertDialog** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Are you sure?` | Heading text of the alert dialog |
+| `description` | Description | string | `This action cannot be undone.` | Body text explaining the alert action |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `Full` |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the dialog when clicking outside it |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### AreaChart
+
+- **Category:** Charts
+- **Container (accepts children):** No
+
+**Properties specific to AreaChart** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of data points |
+| `title` | Title | string | — | Chart title displayed above the chart |
+| `lineColor` | Line Color | color | `#56D0A0` | Color of the area line |
+| `startFillColor` | Fill Color | color | `#56D0A0` | Color of the area fill |
+| `startOpacity` | Fill Opacity | number | `0.3` | Opacity of the area fill (0-1) |
+| `thickness` | Line Thickness | number | `2` | Thickness of the line |
+| `curved` | Curved | boolean | `true` | Use curved lines |
+| `hideDataPoints` | Hide Data Points | boolean | `false` | Hide data point dots |
+| `dataPointsColor` | Points Color | color | `#56D0A0` | Color of data point dots |
+| `dataPointsRadius` | Points Radius | number | `3` | Radius of data point dots |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width in pixels |
+| `chartHeight` | Chart Height | number | `200` | Total chart height in pixels |
+| `backgroundColor` | Background | color | — | Chart background color |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `paddingTop` | Chart Inset Top | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingRight` | Chart Inset Right | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingBottom` | Chart Inset Bottom | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingLeft` | Chart Inset Left | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. months) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Avatar
+
+- **Category:** Media And Icons
+- **Container (accepts children):** No
+
+**Properties specific to Avatar** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `src` | Image URL | string | — | URL of the avatar image |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `XL`, `2XL` |
+| `fallbackText` | Fallback Text | string | `AB` | Initials shown when no image is available |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Badge
+
+- **Category:** Data Display
+- **Container (accepts children):** No
+
+**Properties specific to Badge** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Badge` | The label text inside the badge |
+| `variant` | Variant | select | `solid` | `Solid`, `Outline` |
+| `action` | Action | select | `info` | `Error`, `Warning`, `Success`, `Info`, `Muted` |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### BarChart
+
+- **Category:** Charts
+- **Container (accepts children):** No
+
+**Properties specific to BarChart** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of data points with value, label, and optional frontColor |
+| `title` | Title | string | — | Chart title displayed above the chart |
+| `barWidth` | Bar Width | number | `30` | Width of each bar in pixels |
+| `spacing` | Spacing | number | `10` | Space between bars in pixels |
+| `frontColor` | Bar Color | color | `#4ABFF4` | Default color for bars |
+| `showGradient` | Show Gradient | boolean | `false` | Apply gradient fill to bars |
+| `showValuesOnTop` | Show Values | boolean | `false` | Display values above each bar |
+| `hideRules` | Hide Rules | boolean | `false` | Hide horizontal grid lines |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width in pixels |
+| `chartHeight` | Chart Height | number | `200` | Total chart height in pixels |
+| `backgroundColor` | Background | color | — | Chart background color |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `paddingTop` | Chart Inset Top | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingRight` | Chart Inset Right | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingBottom` | Chart Inset Bottom | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingLeft` | Chart Inset Left | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. months) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Box
+
+- **Category:** Layout
+- **Container (accepts children):** Yes
+
+**Properties specific to Box** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `flexDirection` | Direction | select | `column` | `Column`, `Row`, `Column Reverse`, `Row Reverse` |
+| `justifyContent` | Justify | select | `flex-start` | `Start`, `Center`, `End`, `Between`, `Around` |
+| `alignItems` | Align | select | `stretch` | `Stretch`, `Start`, `Center`, `End` |
+| `gap` | Gap | number | `0` | Spacing in pixels between child elements |
+| `padding` | Padding | number | `0` | Inner spacing between the box border and its content |
+| `flexWrap` | Flex Wrap | select | `nowrap` | `No Wrap`, `Wrap`, `Wrap Reverse` |
+| `overflow` | Overflow | select | `visible` | `Visible`, `Hidden`, `Scroll` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Button
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Button** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Button` | The label text displayed inside the button |
+| `variant` | Variant | select | `solid` | `Solid`, `Outline`, `Link` |
+| `action` | Action | select | `primary` | `Primary`, `Secondary`, `Positive`, `Negative`, `Default` |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `XL` |
+| `textAlign` | Text Align | select | `center` | `Left`, `Center`, `Right` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction and dim the button |
+| `isLoading` | Loading | boolean | `false` | Show a spinner and disable the button |
+| `isPressed` | Pressed | boolean | `false` | Force the pressed visual state |
+| `isFocusVisible` | Focus Visible | boolean | `false` | Show the keyboard focus ring indicator |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Card
+
+- **Category:** Data Display
+- **Container (accepts children):** Yes
+
+**Properties specific to Card** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `productCard` | `Product card (image · title · price · button)`, `Profile card (avatar · name · role · follow)`, `Stat card (label · value · delta · icon)`, `Media card (16:9 thumb · title · meta)`, `Pricing card (tier · price · features · CTA)`, `Article card (cover · category · title · author)`, `Custom (empty — build your own)` |
+| `variant` | Variant | select | `elevated` | `Elevated`, `Outline`, `Ghost`, `Filled` |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+| `padding` | Padding | number | `16` | Inner spacing between the card border and its content |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### CardList
+
+- **Category:** Data Display
+- **Container (accepts children):** Yes
+
+**Properties specific to CardList** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `list` | `List (icon + title + subtitle)`, `Card`, `Table`, `Data Grid`, `Checklist`, `Calendar`, `Kanban`, `Transaction List (icon · title/subtitle · amount · chevron)`, `Contact List (initials avatar · name · role)`, `Settings List (icon · label/description · chevron)`, `Media List (16:9 thumb · title · duration)`, `Custom (empty — build your own rows)` |
+| `dataSource` | Data Source | string | — | API call or variable providing the card list data array |
+| `space` | Card Spacing | select | `none` | `None`, `XS`, `SM`, `MD`, `LG`, `XL`, `2XL`, `3XL`, `4XL` |
+| `variant` | Card Variant | select | `elevated` | `Elevated`, `Outline`, `Filled`, `Ghost` |
+| `cardPadding` | Card Padding | number | `12` | Inner spacing inside each card in pixels |
+| `cardBorderRadius` | Card Radius | number | `8` | Corner radius of each card in pixels |
+| `itemCount` | Preview Items | number | `3` | Number of placeholder cards shown in the canvas preview |
+| `flexDirection` | Direction | select | `column` | `Column`, `Row`, `Column Reverse`, `Row Reverse` |
+| `justifyContent` | Justify Content | select | `flex-start` | `Start`, `Center`, `End`, `Between`, `Around`, `Evenly` |
+| `alignItems` | Align Items | select | `stretch` | `Stretch`, `Start`, `Center`, `End`, `Baseline` |
+| `flexWrap` | Flex Wrap | select | `nowrap` | `No Wrap`, `Wrap`, `Wrap Reverse` |
+| `overflow` | Overflow | select | `visible` | `Visible`, `Hidden`, `Scroll` |
+| `gap` | Gap Override | number | `0` | Override spacing in pixels between cards (0 = use space token) |
+| `scrollable` | Scrollable | boolean | `true` | Enable vertical scrolling when content overflows |
+| `showsScrollIndicator` | Scroll Indicator | boolean | `true` | Show the scrollbar indicator while scrolling |
+| `cardBackgroundColor` | Per-Card Background | color | `#FFFFFF` | Fill color of each INDIVIDUAL card in the list (not the container). For the overall list background use Style → Background Color below. |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Center
+
+- **Category:** Layout
+- **Container (accepts children):** Yes
+
+**Properties specific to Center** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `padding` | Padding | number | `0` | Inner spacing between the container border and its content |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Checkbox
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Checkbox** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `label` | Label | string | `Checkbox` | Text displayed next to the checkbox indicator |
+| `isChecked` | Checked | boolean | `false` | Whether the checkbox is currently checked |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the checkbox |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling on the checkbox |
+| `isIndeterminate` | Indeterminate | boolean | `false` | Show a partial-check state (dash instead of checkmark) |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+| `value` | Value | string | — | The form value submitted when this checkbox is selected |
+| `checkColor` | Check Color | color | — | Color applied to the checkbox border and background fill when checked |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### CircleImage
+
+- **Category:** Media And Icons
+- **Container (accepts children):** No
+
+**Properties specific to CircleImage** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `source` | Image URL | string | — | URL of the circular image to display |
+| `alt` | Alt Text | string | `User` | Descriptive text for accessibility |
+| `size` | Size | select | `md` | `XS (24px)`, `SM (32px)`, `MD (40px)`, `LG (48px)`, `XL (64px)`, `2XL (96px)` |
+| `fallbackType` | Fallback Type | select | `text` | `Text (Initials)`, `Icon` |
+| `fallbackText` | Fallback Text | string | — | Initials displayed when no image is available |
+| `fallbackIcon` | Fallback Icon | string | `user` | Icon name shown when no image is available |
+| `fallbackBg` | Fallback Background | color | `#6366F1` | Background color of the fallback circle |
+| `fallbackColor` | Fallback Color | color | `#FFFFFF` | Text or icon color in the fallback circle |
+| `borderWidth` | Border Width | number | `0` | Thickness of the circle border in pixels |
+| `borderColor` | Border Color | color | — | Color of the circle border |
+| `showBadge` | Show Badge | boolean | `false` | Display a small status badge on the circle |
+| `badgePosition` | Badge Position | select | `bottom-right` | `Top Right`, `Bottom Right`, `Top Left`, `Bottom Left` |
+| `badgeBg` | Badge Color | color | `#22C55E` | Background color of the status badge |
+| `badgeSize` | Badge Size | number | `12` | Diameter of the status badge in pixels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Column
+
+- **Category:** Layout
+- **Container (accepts children):** Yes
+
+**Properties specific to Column** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `space` | Space | select | `none` | `None`, `XS`, `SM`, `MD`, `LG`, `XL`, `2XL`, `3XL`, `4XL` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Divider
+
+- **Category:** Layout
+- **Container (accepts children):** No
+
+**Properties specific to Divider** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `orientation` | Orientation | select | `horizontal` | `Horizontal`, `Vertical` |
+| `color` | Color | color | — | Color of the divider line |
+| `thickness` | Thickness | number | `1` | Thickness of the divider line in pixels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Drawer
+
+- **Category:** Overlay
+- **Container (accepts children):** No
+
+**Properties specific to Drawer** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `anchor` | Anchor | select | `left` | `Left`, `Right`, `Top`, `Bottom` |
+| `size` | Size | select | `sm` | `SM`, `MD`, `LG`, `Full` |
+| `isBackdropVisible` | Backdrop Visible | boolean | `true` | Show a dimmed overlay behind the drawer |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Fab
+
+- **Category:** Others
+- **Container (accepts children):** No
+
+**Properties specific to Fab** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placement` | Placement | select | `bottom right` | `Top Right`, `Top Left`, `Bottom Right`, `Bottom Left` |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the FAB |
+| `label` | Label | string | — | Optional text label displayed alongside the FAB icon |
+| `icon` | Icon | icon | `plus` | Icon displayed inside the FAB button |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Form
+
+- **Category:** Forms
+- **Container (accepts children):** Yes
+
+No properties of its own beyond the Universal Style and Layout Properties above.
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### FormControl
+
+- **Category:** Forms
+- **Container (accepts children):** Yes
+
+**Properties specific to FormControl** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `label` | Label | string | `Field Label` | Label displayed above the form field |
+| `helperText` | Helper Text | string | — | Guidance text displayed below the input field |
+| `errorText` | Error Text | string | — | Validation error message shown when the field is invalid |
+| `isRequired` | Required | boolean | `false` | Mark the field as required with a visual indicator |
+| `isDisabled` | Disabled | boolean | `false` | Disable all child form inputs |
+| `isInvalid` | Invalid | boolean | `false` | Show error styling on all child form inputs |
+| `isReadOnly` | Read Only | boolean | `false` | Make all child inputs read-only |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Grid
+
+- **Category:** Layout
+- **Container (accepts children):** Yes
+
+**Properties specific to Grid** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `columns` | Columns | number | `2` | Number of columns in the grid layout |
+| `gap` | Gap | number | `8` | Uniform spacing between all grid cells in pixels |
+| `rowGap` | Row Gap | number | `8` | Vertical spacing between grid rows in pixels |
+| `columnGap` | Column Gap | number | `8` | Horizontal spacing between grid columns in pixels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Heading
+
+- **Category:** Typography
+- **Container (accepts children):** No
+
+**Properties specific to Heading** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Heading` | The heading text content displayed on screen |
+| `size` | Size | select | `xl` | `XS`, `SM`, `MD`, `LG`, `XL`, `2XL`, `3XL`, `4XL`, `5XL` |
+| `bold` | Bold | boolean | `true` | Apply bold font weight to the heading |
+| `italic` | Italic | boolean | `false` | Apply italic style to the heading |
+| `underline` | Underline | boolean | `false` | Add underline decoration to the heading |
+| `strikeThrough` | Strikethrough | boolean | `false` | Add strikethrough decoration to the heading |
+| `isTruncated` | Truncated | boolean | `false` | Truncate text with ellipsis if it overflows |
+| `color` | Color | color | — | Override the heading text color |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Icon
+
+- **Category:** Media And Icons
+- **Container (accepts children):** No
+
+**Properties specific to Icon** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `name` | Icon | icon | `star` | Which icon to display from the icon library |
+| `size` | Size | number | `24` | Icon dimensions in pixels |
+| `color` | Color | color | `#0077E6` | Color of the icon strokes |
+| `strokeWidth` | Stroke Width | number | `2` | Thickness of the icon stroke lines |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### IconButton
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to IconButton** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `icon` | Icon Name | icon | `heart` | Name of the Lucide icon to display |
+| `iconSize` | Icon Size | number | `0` | Override icon size in pixels (0 = auto from button size) |
+| `iconColor` | Icon Color | color | — | Override the icon color |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `XL` |
+| `variant` | Variant | select | `solid` | `Solid`, `Outline`, `Ghost`, `Link` |
+| `action` | Action | select | `primary` | `Primary`, `Secondary`, `Positive`, `Negative` |
+| `label` | Label Text | string | — | Optional text label displayed alongside the icon |
+| `labelPosition` | Label Position | select | `bottom` | `Bottom`, `Right`, `Top`, `Left` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction and dim the button |
+| `isLoading` | Loading | boolean | `false` | Show a spinner and disable the button |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Image
+
+- **Category:** Media And Icons
+- **Container (accepts children):** No
+
+**Properties specific to Image** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `src` | Source URL | string | — | URL of the image to display |
+| `placeholder` | Placeholder URL | string | — | A low-res or fallback image shown while the main image loads or if it fails |
+| `alt` | Alt Text | string | `Image` | Descriptive text for accessibility and screen readers |
+| `width` | Width | string | `100%` | Width of the image element |
+| `height` | Height | string | `200` | Height of the image element |
+| `resizeMode` | Resize Mode | select | `cover` | `Cover`, `Contain`, `Stretch`, `Center` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Input
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Input** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Enter text...` | Hint text shown when the input is empty |
+| `defaultValue` | Default Value | string | — | Initial value pre-filled in the input |
+| `variant` | Variant | select | `outline` | `Outline`, `Rounded`, `Underlined` |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG`, `XL` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the input |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling |
+| `isReadOnly` | Read Only | boolean | `false` | Allow text selection but prevent editing |
+| `isRequired` | Required | boolean | `false` | Mark this field as required for form validation |
+| `type` | Type | select | `text` | `Text`, `Password`, `Email`, `Number`, `Phone`, `URL` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### LanguageSwitcher
+
+- **Category:** Data Display
+- **Container (accepts children):** No
+
+**Properties specific to LanguageSwitcher** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `variant` | Variant | select | `select` | `Dropdown`, `Segmented` |
+| `showLabel` | Show locale code | boolean | `true` | Render the BCP-47 code next to each option |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### LineChart
+
+- **Category:** Charts
+- **Container (accepts children):** No
+
+**Properties specific to LineChart** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of data points |
+| `title` | Title | string | — | Chart title displayed above the chart |
+| `lineColor` | Line Color | color | `#FF6384` | Color of the line |
+| `thickness` | Line Thickness | number | `2` | Thickness of the line in pixels |
+| `curved` | Curved | boolean | `true` | Use curved lines instead of straight |
+| `hideDataPoints` | Hide Data Points | boolean | `false` | Hide the dots on each data point |
+| `dataPointsColor` | Points Color | color | `#FF6384` | Color of data point dots |
+| `dataPointsRadius` | Points Radius | number | `4` | Radius of data point dots |
+| `areaFill` | Area Fill | boolean | `false` | Fill the area under the line |
+| `areaFillColor` | Area Fill Color | color | `#FF6384` | Color of the area fill under the line |
+| `areaFillOpacity` | Area Fill Opacity | number | `0.2` | Opacity of the area fill (0-1) |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width in pixels |
+| `chartHeight` | Chart Height | number | `200` | Total chart height in pixels |
+| `backgroundColor` | Background | color | — | Chart background color |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `paddingTop` | Chart Inset Top | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingRight` | Chart Inset Right | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingBottom` | Chart Inset Bottom | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingLeft` | Chart Inset Left | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. months) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Link
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Link** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Link` | The clickable text displayed for the link |
+| `href` | URL (href) | string | — | The destination URL the link navigates to |
+| `isExternal` | External | boolean | `false` | Open the link in a new browser tab |
+| `isHovered` | Hovered | boolean | `false` | Force the hovered visual state |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `XL` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### List
+
+- **Category:** Data Display
+- **Container (accepts children):** Yes
+
+**Properties specific to List** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `templateStyle` | Template Style | select | `list` | `List (icon + title + subtitle)`, `Card`, `Table`, `Data Grid`, `Checklist`, `Calendar`, `Kanban`, `Transaction List (icon · title/subtitle · amount · chevron)`, `Contact List (initials avatar · name · role)`, `Settings List (icon · label/description · chevron)`, `Media List (16:9 thumb · title · duration)`, `Custom (empty — build your own rows)` |
+| `dataSource` | Data Source | string | — | API call or variable providing the list data array |
+| `space` | Item Spacing | select | `none` | `None`, `XS`, `SM`, `MD`, `LG`, `XL`, `2XL`, `3XL`, `4XL` |
+| `divider` | Show Dividers | boolean | `true` | Draw a thin separator line between each row in the list. |
+| `dividerColor` | Divider Line Color | color | `#E5E7EB` | Color of the thin separator LINE between rows (only visible when "Show Dividers" is on). This is NOT the list background — for that use Style → Background Color below. |
+| `itemCount` | Preview Items | number | `3` | Number of placeholder items shown in the canvas preview |
+| `flexDirection` | Direction | select | `column` | `Column`, `Row`, `Column Reverse`, `Row Reverse` |
+| `justifyContent` | Justify Content | select | `flex-start` | `Start`, `Center`, `End`, `Between`, `Around`, `Evenly` |
+| `alignItems` | Align Items | select | `stretch` | `Stretch`, `Start`, `Center`, `End`, `Baseline` |
+| `flexWrap` | Flex Wrap | select | `nowrap` | `No Wrap`, `Wrap`, `Wrap Reverse` |
+| `overflow` | Overflow | select | `visible` | `Visible`, `Hidden`, `Scroll` |
+| `gap` | Gap Override | number | `0` | Override spacing in pixels between items (0 = use space token) |
+| `scrollable` | Scrollable | boolean | `true` | Enable vertical scrolling when content overflows |
+| `showsScrollIndicator` | Scroll Indicator | boolean | `true` | Show the scrollbar indicator while scrolling |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Menu
+
+- **Category:** Overlay
+- **Container (accepts children):** No
+
+**Properties specific to Menu** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placement` | Placement | select | `bottom` | `Top`, `Bottom`, `Left`, `Right` |
+| `offset` | Offset | number | `8` | Distance in pixels between the trigger and menu popup |
+| `items` | Items (comma) | string | `Edit,Delete,Share` | Comma-separated list of menu action items |
+| `closeOnSelect` | Close on Select | boolean | `true` | Dismiss the menu after an item is selected |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Modal
+
+- **Category:** Overlay
+- **Container (accepts children):** Yes
+
+**Properties specific to Modal** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `size` | Size | select | `full` | `XS`, `SM`, `MD`, `LG`, `Full` |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the modal when clicking outside it |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### PieChart
+
+- **Category:** Charts
+- **Container (accepts children):** No
+
+**Properties specific to PieChart** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array of pie slices with value, label, and frontColor |
+| `title` | Title | string | — | Chart title displayed above the chart |
+| `radius` | Radius | number | `80` | Outer radius of the pie chart |
+| `donut` | Donut | boolean | `false` | Render as a donut chart with hollow center |
+| `innerRadius` | Inner Radius | number | `40` | Inner radius when donut is enabled |
+| `showText` | Show Percentages | boolean | `true` | Display percentage labels on slices |
+| `showLabels` | Show Labels | boolean | `false` | Display label text next to each slice |
+| `textColor` | Text Color | color | `#333` | Color of percentage labels |
+| `textSize` | Text Size | number | `10` | Font size of percentage labels |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `backgroundColor` | Background | color | — | Chart background color |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Popover
+
+- **Category:** Overlay
+- **Container (accepts children):** No
+
+**Properties specific to Popover** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Popover` | Heading text inside the popover |
+| `trigger` | Trigger Text | string | `Click me` | Text of the button that opens the popover |
+| `placement` | Placement | select | `bottom` | `Top`, `Bottom`, `Left`, `Right` |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `Full` |
+| `closeOnOverlayClick` | Close on Overlay | boolean | `true` | Dismiss the popover when clicking outside it |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Pressable
+
+- **Category:** Forms
+- **Container (accepts children):** Yes
+
+**Properties specific to Pressable** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `isDisabled` | Disabled | boolean | `false` | Prevent touch/click interactions |
+| `isFocused` | Focused | boolean | `false` | Force the focused visual state |
+| `isHovered` | Hovered | boolean | `false` | Force the hovered visual state |
+| `isPressed` | Pressed | boolean | `false` | Force the pressed visual state |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Progress
+
+- **Category:** Feedback
+- **Container (accepts children):** No
+
+**Properties specific to Progress** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `value` | Value | number | `60` | Current progress percentage (0–100) |
+| `size` | Size | select | `md` | `XS`, `SM`, `MD`, `LG`, `XL`, `2XL` |
+| `orientation` | Orientation | select | `horizontal` | `Horizontal`, `Vertical` |
+| `trackColor` | Track Color | color | `#E5E7EB` | Background color of the unfilled track |
+| `fillColor` | Fill Color | color | `#3b82f6` | Color of the filled progress portion |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Radio
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Radio** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `label` | Label | string | `Radio` | Text displayed next to the radio indicator |
+| `isChecked` | Checked | boolean | `false` | Whether this radio option is currently selected |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with this radio option |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling on the radio |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+| `gap` | Gap | select | `md` | `XS`, `SM`, `MD`, `LG` |
+| `value` | Value | string | — | Unique identifier for this radio option (e.g. 'option1'), used to determine the selected radio in a group |
+| `circleColor` | Circle Color | color | — | Color applied to the radio circle border and the inner fill dot when selected |
+| `circleBorderWidth` | Circle Border Width | number | `2` | Thickness of the radio circle border in pixels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Row
+
+- **Category:** Layout
+- **Container (accepts children):** Yes
+
+**Properties specific to Row** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `space` | Space | select | `none` | `None`, `XS`, `SM`, `MD`, `LG`, `XL`, `2XL`, `3XL`, `4XL` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### SearchInput
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to SearchInput** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Search…` | Hint text shown when the search field is empty |
+| `defaultValue` | Default Value | string | — | Initial search query pre-filled in the field |
+| `variant` | Variant | select | `rounded` | `Outline`, `Rounded`, `Underlined` |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG`, `XL` |
+| `showClearButton` | Show Clear | boolean | `true` | Show a clear button to dismiss the search text |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the search input |
+| `isReadOnly` | Read Only | boolean | `false` | Allow text selection but prevent editing |
+| `iconPosition` | Icon Position | select | `left` | `Left`, `Right` |
+| `showDropdown` | Show Dropdown | boolean | `false` | Enable a results dropdown below the search field for autocomplete or suggestions |
+| `dropdownItems` | Dropdown Items | string | — | Comma-separated list of suggestion items, or bind to an API response array |
+| `emptyMessage` | Empty Message | string | `No results` | Text shown in the dropdown when no items match the search query |
+| `maxDropdownHeight` | Max Dropdown Height | number | `200` | Maximum height of the dropdown results panel in pixels |
+| `debounceMs` | Debounce (ms) | number | `300` | Milliseconds to wait after typing before triggering the search event |
+| `iconColor` | Icon Color | color | — | Color of the search and clear icons |
+| `placeholderColor` | Placeholder Color | color | — | Color of the placeholder hint text |
+| `focusBorderColor` | Focus Border Color | color | — | Border color when the search input is focused |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Select
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Select** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Select option` | Hint text shown when no option is selected |
+| `selectedValue` | Selected Value | string | — | The currently selected option value |
+| `defaultValue` | Default Value | string | — | Option pre-selected when the component first renders |
+| `variant` | Variant | select | `outline` | `Outline`, `Rounded`, `Underlined` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the select |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling |
+| `isRequired` | Required | boolean | `false` | Mark this field as required for form validation |
+| `options` | Options (comma) | string | `Option 1,Option 2,Option 3` | Comma-separated list of dropdown choices. JSON array also accepted, e.g. `["Safety","Equipment"]` or `[{"label":"Safety","value":"safety"}]`. |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Skeleton
+
+- **Category:** Others
+- **Container (accepts children):** No
+
+**Properties specific to Skeleton** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `variant` | Variant | select | `rounded` | `Sharp`, `Rounded`, `Circular` |
+| `speed` | Speed (s) | number | `2` | Animation cycle duration in seconds |
+| `startColor` | Start Color | color | `#E0E0E0` | Base color of the shimmer animation |
+| `isLoaded` | Is Loaded | boolean | `false` | When true, hides the skeleton and shows actual content |
+| `width` | Width | number | `200` | Width of the skeleton placeholder in pixels |
+| `height` | Height | number | `20` | Height of the skeleton placeholder in pixels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Slider
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Slider** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `value` | Value | number | `50` | Current position of the slider thumb |
+| `minValue` | Min Value | number | `0` | Minimum selectable value on the slider |
+| `maxValue` | Max Value | number | `100` | Maximum selectable value on the slider |
+| `step` | Step | number | `1` | Increment value between each selectable position |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+| `orientation` | Orientation | select | `horizontal` | `Horizontal`, `Vertical` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the slider |
+| `trackColor` | Track Color | color | — | Color of the filled portion of the slider track |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Spinner
+
+- **Category:** Feedback
+- **Container (accepts children):** No
+
+**Properties specific to Spinner** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `visible` | Visible | boolean | `true` | Whether the loading spinner is visible |
+| `size` | Size | number | `36` | Diameter of the spinner in pixels |
+| `color` | Color | color | — | Spinner color — uses theme color when empty |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### StackedBarChart
+
+- **Category:** Charts
+- **Container (accepts children):** No
+
+**Properties specific to StackedBarChart** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `chartData` | Chart Data (JSON) | string | `[]` | JSON array with stackValues arrays for each bar group |
+| `title` | Title | string | — | Chart title displayed above the chart |
+| `stackColors` | Stack Colors | string | `#4ABFF4,#FF6384,#FFCE56,#56D0A0` | Comma-separated colors for each stack segment |
+| `barWidth` | Bar Width | number | `30` | Width of each bar |
+| `spacing` | Spacing | number | `10` | Space between bar groups |
+| `showValuesOnTop` | Show Values | boolean | `false` | Display total values above each bar group |
+| `hideRules` | Hide Rules | boolean | `false` | Hide horizontal grid lines |
+| `isAnimated` | Animated | boolean | `true` | Enable animation on render |
+| `chartWidth` | Chart Width | number | `280` | Total chart width |
+| `chartHeight` | Chart Height | number | `200` | Total chart height |
+| `backgroundColor` | Background | color | — | Chart background color |
+| `rulesColor` | Grid Color | color | `#F0F0F0` | Color of horizontal grid lines |
+| `xAxisLabelColor` | X Label Color | color | `#999` | Color of X-axis labels |
+| `yAxisLabelColor` | Y Label Color | color | `#999` | Color of Y-axis labels |
+| `paddingTop` | Chart Inset Top | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingRight` | Chart Inset Right | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingBottom` | Chart Inset Bottom | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `paddingLeft` | Chart Inset Left | number | — | Inner spacing reserved inside the chart for axis labels. Set 0 to remove. |
+| `axisColor` | Axis Color | color | `#E0E0E0` | Color of the X and Y axis lines |
+| `hideAxes` | Hide Axes | boolean | `false` | Hide X and Y axis lines entirely |
+| `hideXAxisLabels` | Hide X Labels | boolean | `false` | Hide the X-axis text labels (e.g. quarters) |
+| `hideYAxisLabels` | Hide Y Labels | boolean | `false` | Hide the Y-axis numeric tick labels |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Switch
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Switch** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `isChecked` | Checked | boolean | `false` | Whether the switch is currently toggled on |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the switch |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG` |
+| `trackColor` | Track Color | color | — | Color of the switch track when toggled on |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Table
+
+- **Category:** Data Display
+- **Container (accepts children):** Yes
+
+**Properties specific to Table** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `columns` | Columns (comma) | string | `Name,Value,Status` | Comma-separated list of column header names |
+| `rows` | Rows | number | `3` | Number of placeholder data rows to display |
+| `headerColor` | Header Color | color | `#F9FAFB` | Background color of the table header row |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Text
+
+- **Category:** Typography
+- **Container (accepts children):** No
+
+**Properties specific to Text** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Hello World` | The text content displayed on screen |
+| `size` | Size | select | `md` | `2XS`, `XS`, `SM`, `MD`, `LG`, `XL`, `2XL`, `3XL`, `4XL`, `5XL`, `6XL` |
+| `bold` | Bold | boolean | `false` | Apply bold font weight to the text |
+| `italic` | Italic | boolean | `false` | Apply italic style to the text |
+| `underline` | Underline | boolean | `false` | Add underline decoration to the text |
+| `strikeThrough` | Strikethrough | boolean | `false` | Add strikethrough decoration to the text |
+| `isTruncated` | Truncated | boolean | `false` | Truncate text with ellipsis if it overflows |
+| `sub` | Sub Text | boolean | `false` | Render as subscript-style smaller text |
+| `highlight` | Highlight | boolean | `false` | Apply a highlight background to the text |
+| `color` | Color | color | — | Override the text color |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Textarea
+
+- **Category:** Forms
+- **Container (accepts children):** No
+
+**Properties specific to Textarea** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `placeholder` | Placeholder | string | `Enter text...` | Hint text shown when the textarea is empty |
+| `defaultValue` | Default Value | string | — | Initial text pre-filled in the textarea |
+| `size` | Size | select | `md` | `SM`, `MD`, `LG`, `XL` |
+| `isDisabled` | Disabled | boolean | `false` | Prevent user interaction with the textarea |
+| `isInvalid` | Invalid | boolean | `false` | Show validation error styling |
+| `isReadOnly` | Read Only | boolean | `false` | Allow text selection but prevent editing |
+| `isRequired` | Required | boolean | `false` | Mark this field as required for form validation |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Toast
+
+- **Category:** Feedback
+- **Container (accepts children):** No
+
+**Properties specific to Toast** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `title` | Title | string | `Toast Title` | Heading text of the toast notification |
+| `description` | Description | string | `Toast description text` | Body text displayed below the toast title |
+| `action` | Action | select | `info` | `Error`, `Warning`, `Success`, `Info`, `Muted` |
+| `variant` | Variant | select | `solid` | `Solid`, `Outline`, `Accent` |
+| `duration` | Duration (ms) | number | `5000` | How long the toast remains visible in milliseconds |
+| `placement` | Placement | select | `bottom` | `Top`, `Bottom`, `Top Right`, `Top Left`, `Bottom Right`, `Bottom Left` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+### Tooltip
+
+- **Category:** Overlay
+- **Container (accepts children):** No
+
+**Properties specific to Tooltip** (plus every Universal Style and Layout Property above):
+
+| Property | Label | Type | Default | Options / Description |
+| --- | --- | --- | --- | --- |
+| `text` | Text | string | `Tooltip text` | The informational text displayed in the tooltip |
+| `placement` | Placement | select | `top` | `Top`, `Bottom`, `Left`, `Right` |
+
+[↑ Back to catalog](#available-widgets-by-category)
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Component properties" icon="shapes" href="/studio-guide/reference/component-properties">
+    Every component type in the general registry, and every property it exposes anywhere in Studio.
+  </Card>
+  <Card title="Themed components" icon="palette" href="/studio-guide/features/themed-components">
+    How to create a preset and apply it to a component.
+  </Card>
+</CardGroup>

@@ -85,6 +85,57 @@
         "hidden": true
       },
       {
+        "group": "Get Started",
+        "pages": [
+          "studio-guide/get-started/quickstart",
+          "studio-guide/get-started/interface-tour",
+          "studio-guide/get-started/sign-in"
+        ]
+      },
+      {
+        "group": "Build",
+        "pages": [
+          "studio-guide/guides/build-screens-with-ai",
+          "studio-guide/guides/add-and-configure-components",
+          "studio-guide/guides/pages-and-navigation",
+          "studio-guide/guides/page-configuration",
+          "studio-guide/guides/fine-tune-the-ui"
+        ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "studio-guide/features/themed-components",
+          "studio-guide/features/component-states-and-variants",
+          "studio-guide/features/component-interactions",
+          "studio-guide/features/theming",
+          "studio-guide/features/app-settings",
+          "studio-guide/features/preview",
+          "studio-guide/features/skills"
+        ]
+      },
+      {
+        "group": "Connect and ship",
+        "pages": [
+          "studio-guide/guides/connect-an-api",
+          "studio-guide/guides/set-up-authentication",
+          "studio-guide/features/integrations",
+          "studio-guide/features/media-assets",
+          "studio-guide/guides/build-android-app"
+        ]
+      },
+      {
+        "group": "Studio Reference",
+        "pages": [
+          "studio-guide/reference/components",
+          "studio-guide/reference/component-properties",
+          "studio-guide/reference/themed-component-properties",
+          "studio-guide/reference/actions",
+          "studio-guide/reference/style-and-tokens",
+          "studio-guide/reference/visibility-rules"
+        ]
+      },
+      {
         "group": "Agent Integration",
         "pages": [
           "agent-integration/overview",
@@ -160,15 +211,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {

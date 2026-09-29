@@ -1,0 +1,156 @@
+---
+title: "Style and Tokens"
+description: "Every style property, colour token, typography name and breakpoint band, in one place."
+---
+
+## Overview
+
+Studio's style vocabulary is spread across a lot of small panels. A colour token name only appears inside a picker, a breakpoint band only shows when you expand one accordion. That is fine while you are building and unhelpful when you are trying to remember a name. This page collects them.
+
+Where the real thing lives:
+
+| What this page catalogs | Where it lives in Studio |
+| --- | --- |
+| Style and layout properties | **Properties → Style** tab, with a component selected |
+| Colour tokens and typography styles | **CONFIG → Theme Settings → Colors / Typography** |
+| Themed preset properties | **CONFIG → Theme Settings → Themed Components** |
+| Breakpoints | **CONFIG → Theme Settings → App Config → Shared → Layout and Responsive** |
+
+## The two property planes
+
+A component exposes two different property sets depending on where you are editing it.
+
+| Plane | Where | Size |
+| --- | --- | --- |
+| **Universal style keys**, shared by every component type | Properties → **Style** tab | **72 keys** in 9 groups: Appearance, Border, Effects, Flexbox, Geometry, Position, Spacing, Typography |
+| **Themed preset properties**, the narrower set the Create Themed Component dialog offers | CONFIG → Theme Settings → Themed Components | **6 Style** properties (`backgroundColor`, `color`, `borderRadius`, `borderWidth`, `borderColor`, `opacity`) plus **13 Layout** properties |
+
+Both sets are enumerated in full in the generated [component catalogs](/reference/components).
+
+## What the Style panel actually calls things
+
+Read top to bottom off a Heading's Style tab. This is the on screen vocabulary, which does not always match the underlying key names.
+
+| Panel section | Fields |
+| --- | --- |
+| **PROPERTIES → CONTENT** | Text, with **Var** and **Bind** |
+| **PROPERTIES → APPEARANCE** | Size |
+| **PROPERTIES → COLOR** | Color |
+| **PROPERTIES → STATE** | Bold, Italic, Underline, Strikethrough, Truncated. The set differs per component type |
+| **LAYOUT → SPACING** | Margin, as four sides `T R B L` |
+| **LAYOUT → SIZING** | Flex (`Hug contents`), Min height (px) |
+| **STYLE → APPEARANCE** | Text style (`None`), Background plus `%`, Text plus `%`, Border plus `%` and px, Opacity `%` |
+| **STYLE → GEOMETRY** | Size (W and H), Radius as **None / SM / MD / LG / Full** plus a **Custom** px value |
+| **CONDITIONAL** | The conditional style toggle. See [visibility rules](/reference/visibility-rules) |
+| **PLATFORM / CONDITIONAL / RESPONSIVE VISIBILITY** | See [visibility rules](/reference/visibility-rules) |
+| **THEMED COMPONENT** | A preset dropdown, reading `None` when the project has no presets |
+
+<Note>
+**Radius has two vocabularies.** The panel labels its presets None, SM, MD, LG and Full. The generated component reference records the same control as the numeric presets `0`, `4`, `8`, `16`, `999`, plus a custom px value. Same control: the panel names them, the schema stores numbers.
+</Note>
+
+## Colour tokens
+
+**16 tokens in 4 groups.** Every token holds a separate value per theme mode. Light and Dark ship by default, and more named modes can be added.
+
+| Group | Tokens |
+| --- | --- |
+| **BRAND COLORS** | Primary, Secondary, Tertiary, Alternate |
+| **SEMANTIC COLORS** | Success, Error, Warning, Info |
+| **UTILITY COLORS** | Primary Text, Background, Surface |
+| **CHART COLORS** | Chart 1, Chart 2, Chart 3, Chart 4, Chart 5 |
+
+<Tip>
+Only `$Token` values follow a Colors edit. A literal hex does not. If a theme colour change did not affect a component, check whether that property holds a token or a literal.
+</Tip>
+
+## Typography
+
+**18 named styles.** Sizes and weights are per project. These are the names, which is what a reference is for.
+
+| Family | Styles |
+| --- | --- |
+| Display | Display Large, Display Medium, Display Small |
+| Headline | Headline Large, Headline Medium, Headline Small |
+| Title | Title Large, Title Medium, Title Small |
+| Label | Label Large, Label Medium, Label Small |
+| Body | Body Large, Body Medium, Body Small, Body Extra Small |
+| Other | Overline, Caption |
+
+Each row carries these fields:
+
+| Field | What it holds |
+| --- | --- |
+| **Mobile** | The authored base size |
+| **Tablet** and **Desktop** | Derived, shown as `size ×multiplier` |
+| **Spacing** | Letter spacing |
+| **Italic** | A toggle |
+| **Weight** | Light, Normal, Medium, Semi Bold, Bold, Extra Bold |
+| **Color** | A token, not a literal |
+| **Font Family** | One of the project's font families |
+
+## Token syntax
+
+Any colour type property or style value can hold a raw value **or** a `$token` reference resolved against the active theme mode. The namespace is inferred from the token string.
+
+| Token kind | Pattern | Example |
+| --- | --- | --- |
+| colors | `$<tokenName>` | `$primary` |
+| typography | `$typography.<scale, weight or fontFamily>[.<key>]` | `$typography.scale.md` |
+| spacing | `$spacing.<key>` | `$spacing.md` |
+| borderRadius | `$borderRadius.<key>` | `$borderRadius.lg` |
+
+In the Style panel's colour picker these appear as a **Theme Tokens** section. Picking `$Primary` there is what makes a later Colors edit ripple through.
+
+## Spacing, opacity and elevation
+
+| Vocabulary | Values |
+| --- | --- |
+| **Padding and Margin** | `padding`, `margin`, plus per side `Top`, `Right`, `Bottom`, `Left`, and `Horizontal` / `Vertical` shorthands. Default `0`, so spacing is opt in |
+| **Gap** | `gap`, `rowGap`, `columnGap`. On Row and Column the panel writes `props.space` or `props.gap` and the style key is the fallback. In the themed dialog the same control is `itemsSpacing` on stacks and `gap` on other containers |
+| **Radius** | `borderRadius` plus the four per corner keys. Panel presets None, SM, MD, LG, Full, plus a custom px value |
+| **Opacity** | `opacity`, stored `0..1` in the model, shown as 0 to 100 percent in the panel |
+| **Elevation and shadow** | `elevation` on **Android**, and `shadowColor`, `shadowOpacity`, `shadowRadius`, `shadowOffset` on **iOS**. Two platform specific mechanisms, not one cross platform shadow |
+
+## Breakpoints
+
+<Note>
+**Studio has two separate breakpoint systems, with different numbers and different labels.** This is the most confusing piece of style vocabulary in the product, so both are named here. Do not reason from one system's band name to the other's.
+</Note>
+
+| System | Where | Bands |
+| --- | --- | --- |
+| **Per project breakpoints** | CONFIG → Theme Settings → App Config → Shared → Layout and Responsive | **Mobile** `0`, **Tablet** `479`, **Tablet (landscape)** `767`, **Desktop** `991` and above. Each value is the last pixel of the range before it. Plus a **Mobile breakpoint override** at `900` |
+| **Per component Responsive Visibility** | Properties → Style → RESPONSIVE VISIBILITY | **Phone** under `600px`, **Tablet** `600` to `900px`, **Large Tablet** over `900px` |
+
+How they line up against measured preview widths:
+
+| Preview size | Measured viewport | Responsive Visibility band | App Config band |
+| --- | --- | --- | --- |
+| Phone / Mobile | `390 × 844` | **Phone** | **Mobile** |
+| Tablet | `768 × 1024` | **Tablet** | **Tablet (landscape)** |
+| Tablet landscape | `1024 × 768` | **Large Tablet** | **Desktop** |
+
+Against Responsive Visibility the three preview sizes hit the three bands cleanly, one size per band. Against App Config's breakpoints the labels do not match: the preview's portrait Tablet falls inside App Config's band called *Tablet (landscape)*, and the preview's Tablet landscape falls in App Config's *Desktop*. The numbers are internally consistent, the two systems simply do not share a vocabulary.
+
+## Scale multipliers
+
+App Config → Shared → **Themed Component Scale** holds the multipliers that drive the derived tiers.
+
+| Multiplier | What it scales |
+| --- | --- |
+| **Font scale** | Typography styles only |
+| **Theme scale** | Themed components: type, spacing, radii, icons |
+
+Each is locked to `Mobile = 1 (Base)` with adjustable Tablet and Desktop multipliers. Studio's own note: *Colors and behaviour never scale.*
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Component catalogs" href="/studio-guide/reference/components">
+    The 72 universal style keys and the per component property tables.
+  </Card>
+  <Card title="Visibility rules" href="/studio-guide/reference/visibility-rules">
+    The four rule mechanisms in the Style tab.
+  </Card>
+</CardGroup>

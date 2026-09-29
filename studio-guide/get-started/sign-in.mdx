@@ -1,0 +1,84 @@
+---
+title: "Sign In to Studio"
+description: "Get from a logged out browser to your Projects dashboard using Google sign in."
+---
+
+## Overview
+
+By the end of this page you will be signed in and looking at your **Projects** dashboard, the screen every Studio session starts from.
+
+NativeFlow Studio has no username and password form of its own. Sign in is handled entirely through **Google OAuth**, an industry standard way of letting one site trust an identity proved on another. You sign in with an existing Google account and Studio trusts that identity, so there is no separate Studio password to create or remember.
+
+That also means access to a Studio account can be tied to the same Google account your company already manages for its team.
+
+### Prerequisites
+
+- **A Google account that has been granted access to NativeFlow Studio.** There is no separate NativeFlow account or password to set up beforehand.
+- **A modern web browser.** No extensions, VPN or special configuration are needed for sign in itself.
+
+## Sign in
+
+<Steps>
+  <Step title="Open NativeFlow Studio">
+    Go to NativeFlow Studio in your browser.
+
+    If you already have an active session, you land straight on your **Projects** dashboard and you are done. Skip to step 4 to check what you should see.
+
+    If you do not, Studio shows its sign in screen with a **"Log in"** or **"Continue with Google"** entry point.
+
+    <Tip>
+    You do not have to start at the home page. If you follow a link to a page that needs a session, Studio sends you to sign in first and then takes you to what you originally asked for.
+    </Tip>
+  </Step>
+
+  <Step title="Start the login flow">
+    Select the Google sign in option.
+
+    This hands you off to Google's own sign in page. You are briefly leaving NativeFlow's site and are now on an `accounts.google.com` screen.
+
+    <Note>
+    Google's sign in screens are strict about how they are reached. An automated or unusual browser configuration can be rejected outright with a message like *"This browser or app may not be secure."*
+
+    This is not a NativeFlow restriction. It is Google protecting its own sign in page. Signing in from a normal, everyday browser avoids it entirely.
+    </Note>
+  </Step>
+
+  <Step title="Complete authentication">
+    Follow Google's prompts. Pick the Google account to use if you have more than one signed in, then complete whatever verification your account requires, such as a password, a passkey, or 2 step verification.
+
+    Once Google confirms your identity it redirects you back to NativeFlow Studio automatically. There is nothing further to do on Google's side.
+  </Step>
+
+  <Step title="Verify you are signed in">
+    You land on Studio's **Projects** dashboard. That is the confirmation that sign in succeeded. If it had not, you would still be looking at the sign in screen from step 1.
+
+    <Frame caption="The Projects dashboard straight after a successful sign in, with the left navigation, project cards, the + New Project button, and the account name in the bottom left">
+      <img src="/studio-guide/images/sign-in/04-projects-dashboard-after-login.jpg" alt="Projects dashboard after a successful login" />
+    </Frame>
+
+    What you should see: a left hand navigation with Projects, My Team, Marketplace, Resources and Community, your project cards, a **+ New Project** button at the top right, and your account name and email in the bottom left corner. That last one is the real proof you are signed in as yourself rather than viewing a public page.
+  </Step>
+</Steps>
+
+## If something goes wrong
+
+| Issue | Likely cause | What to do |
+| --- | --- | --- |
+| You are shown the sign in screen again after previously being logged in | Your session expired | Sign in again the same way, steps 1 to 3. |
+| Google shows "This browser or app may not be secure" | Google flagged the browser you are signing in from as unusual or automated | Sign in from a normal, everyday browser instead. |
+| You are stuck on Google's screen and never redirected back | The sign in was cancelled or did not complete | Return to NativeFlow Studio and start again from step 1. |
+
+<Note>
+Once you are signed in, your session persists across visits until it naturally expires, at which point you are returned to the sign in screen.
+</Note>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/studio-guide/get-started/quickstart">
+    Create your first project and generate a screen from a prompt.
+  </Card>
+  <Card title="Studio Interface Tour" icon="layout" href="/studio-guide/get-started/interface-tour">
+    The five regions of the editor and what each one is for.
+  </Card>
+</CardGroup>

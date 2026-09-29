@@ -1,0 +1,129 @@
+---
+title: "Visibility Rules"
+description: "The four visibility and conditional style mechanisms in the Style tab, and how they differ."
+---
+
+## Overview
+
+Four independent mechanisms sit in the **Properties → Style** tab, below GEOMETRY, in this order. Three of them hide things. One restyles things. They do not interact, so a component can carry all four at once.
+
+| Mechanism | What it decides | Rule shape | Enforced in the canvas editor? |
+| --- | --- | --- | --- |
+| **CONDITIONAL** (conditional styling) | How a component *looks* | `When [row field] [is / is not] [Page Variable]` | **Yes**, live, per repeated row |
+| **PLATFORM VISIBILITY** | Whether it renders on Web or Mobile | Two independent toggles | **Yes**, with an orange *Hidden on mobile* badge |
+| **CONDITIONAL VISIBILITY** | Whether it renders at all | `[Source Field] [operator] [Value]` | **No**, only in Preview and the exported app |
+| **RESPONSIVE VISIBILITY** | Whether it renders at a screen size | Three band toggles | **Yes**, with an orange *Hidden on Phone* badge |
+
+## Platform Visibility
+
+| Toggle | Default |
+| --- | --- |
+| **Web** | on |
+| **Mobile** | on |
+
+There is no separate iOS and Android split, just these two.
+
+Studio's own helper text: *Hidden components are removed from that platform's layout, which reflows around them. Data bindings stay attached.*
+
+## Conditional Visibility
+
+Off by default behind a single **Enable** switch. Turning it on reveals three fields.
+
+| Field | Control | Default or placeholder | Values |
+| --- | --- | --- | --- |
+| **Source Field** | dropdown | *Select a field...* | Other bindable fields already on the same page. It points at another component's current value, **not** at a Page Variable. On a page with two Inputs they were listed by their placeholder text, such as `you@example.com` and `Enter a password` |
+| **Condition** | dropdown | `Equals` | The seven operators below |
+| **Value** | text | *Comparison value* | A literal to compare against |
+
+**The seven operators:**
+
+| # | Operator | Uses the Value field? |
+| --- | --- | --- |
+| 1 | **Equals** *(default)* | yes |
+| 2 | **Not Equals** | yes |
+| 3 | **Is Empty** | no |
+| 4 | **Is Not Empty** | no |
+| 5 | **Contains** | yes |
+| 6 | **Greater Than** | yes |
+| 7 | **Less Than** | yes |
+
+As you fill the three fields, a plain language summary sentence renders beneath them and updates live, for example *Visible when you@example.com equals "test@nativeflow.com"*.
+
+<Note>
+**This is the one mechanism the canvas does not enforce.** A component whose Conditional Visibility rule is clearly unmet still renders normally while you are editing.
+
+That is deliberate, since you would otherwise be unable to select it, but it means the rule can only be checked in Preview or in the exported app. Platform and Responsive Visibility are enforced live in the canvas, which is why they feel different.
+</Note>
+
+## Responsive Visibility
+
+| Toggle | Band | Default |
+| --- | --- | --- |
+| **Phone** | under `600px` | on |
+| **Tablet** | `600` to `900px` | on |
+| **Large Tablet** | over `900px` | on |
+
+Helper text: *Show or hide this component at different screen sizes.*
+
+**How the bands line up with real preview widths.** The Preview panel's three device sizes were measured from inside the running app, so this table is arithmetic on real numbers.
+
+| Preview size | Measured viewport | Responsive Visibility band | App Config band |
+| --- | --- | --- | --- |
+| Phone / Mobile | `390 × 844` | **Phone** (under 600) | **Mobile** (0 to 479) |
+| Tablet | `768 × 1024` | **Tablet** (600 to 900) | **Tablet (landscape)** (768 to 991) |
+| Tablet landscape | `1024 × 768` | **Large Tablet** (over 900) | **Desktop** (992 and up) |
+
+<Note>
+**The two band systems do not share a vocabulary.** Against Responsive Visibility the three preview sizes hit the three bands cleanly, one size per band, which is exactly what you want for checking a visibility rule.
+
+Against App Config's breakpoints the labels do not match. The preview's *portrait* Tablet at 768 falls inside App Config's band called *Tablet (landscape)*, and the preview's *Tablet landscape* at 1024 falls in App Config's *Desktop*. The numbers are internally consistent. Do not map one system's names onto the other's. See [style and tokens](/reference/style-and-tokens).
+</Note>
+
+## Conditional styling
+
+The **CONDITIONAL** section is not a visibility rule. It is a second set of style values that apply while a condition holds.
+
+Off state helper text, before the toggle is turned on: *Turn on to change how this looks while a condition holds, a selected row, an active chip.*
+
+| Part | Control | Values |
+| --- | --- | --- |
+| **Prerequisite** | | The component must be **inside a List's repeated row template**. Anywhere else the toggle only shows *Put this component inside a List to compare against the row it repeats* and no builder appears |
+| **When**, row field | free **text** input | A field name read off the repeating row's own data. Typed manually, with no autocomplete against the List's data source |
+| **When**, operator | dropdown | **is** or **is not**. Two operators only, not the seven Conditional Visibility offers |
+| **When**, comparison | dropdown | The page's own **Page Variables** |
+| **Then**, overrides | colour pickers | **Background**, **Text**, **Border**, **Outline**. Each accepts a literal colour or a theme token such as `$Primary` from the picker's Theme Tokens section |
+
+The condition is evaluated **per repeated row**, not once for the whole list. That was confirmed on the canvas by one row rendering in the override style while its siblings did not.
+
+## The two comparison mechanisms are not the same
+
+They sit inches apart in the same panel, so they are easy to conflate.
+
+| | Conditional **styling** | Conditional **Visibility** |
+| --- | --- | --- |
+| Left hand side | A **row field**, typed as free text | A **Source Field** picked from other components on the page |
+| Operators | 2: **is**, **is not** | 7: Equals through Less Than |
+| Right hand side | A **Page Variable**, picked | A **literal value**, typed |
+| Requires a List | **yes** | no |
+| Effect | Changes 4 style values | Shows or hides the whole component |
+| Enforced in canvas | yes | no |
+
+## Troubleshooting
+
+| Issue | Likely cause | What to do |
+| --- | --- | --- |
+| A Conditional Visibility rule appears to do nothing | It is not enforced in the canvas editor | Check it in Preview or the exported app |
+| The CONDITIONAL section shows a message instead of a condition builder | The selected component is not inside a List's repeated row template | Select a component nested inside a List's row template. Conditional styling exists only there |
+| A component's Responsive Visibility band and App Config's breakpoints seem to disagree | They are two separate systems with different numbers and different labels | Read the band table above. Do not map one system's names onto the other's |
+| A component vanished from the canvas with an orange badge on it | Platform or Responsive Visibility is switched off for the current target or width | Re-enable the toggle, or change the canvas target or width |
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Style and tokens" href="/studio-guide/reference/style-and-tokens">
+    The rest of the Style panel vocabulary, and both breakpoint systems.
+  </Card>
+  <Card title="Action reference" href="/studio-guide/reference/actions">
+    All 22 actions and their parameters.
+  </Card>
+</CardGroup>

@@ -1,0 +1,238 @@
+---
+title: "App Settings"
+description: "Your app's identity and packaging: names, entry page, icons, deep links and languages."
+---
+
+## Overview
+
+<Note>
+**App Config is not App Settings.** These are two different panes, one icon apart in the sidebar's CONFIG group, and confusing them is the single easiest mistake to make in this area.
+
+- **App Settings** is the gear icon. It holds the app's *identity and packaging*: project and package names, the entry page, the icon and splash, the deep link scheme, and the languages the app ships with. That is this page.
+- **App Config** is the palette icon, inside Theme Settings. It holds the app *shell*: navigation type, tab bar, header, breakpoints and scale.
+
+If you are looking for navigation type or breakpoints, you want App Config.
+</Note>
+
+Everything else in Studio edits a screen, a component or a token. App Settings edits the app. None of it changes how a page looks on the canvas. All of it changes what the exported app is.
+
+<CardGroup cols={1}>
+  <Card title="Theming" icon="palette" href="/studio-guide/features/theming">
+    Colour tokens, the typography scale, and App Config, which is the pane this one is confused with.
+  </Card>
+</CardGroup>
+
+<Frame caption="Opening App Settings, reading App Details and App Assets, setting a Deep Linking scheme and clearing it again, then reading the Languages pane's three tabs.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/app-settings-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. The Deep Linking scheme typed on camera is cleared again before the session ends, and confirmed empty on a fresh reload afterward — no locale is added, matching how this pane was verified.
+
+## Open it and read what is in it
+
+In the left sidebar, expand **CONFIG** and click the **gear** icon. The group starts collapsed, and its buttons are not rendered at all until you expand it, so an apparently missing gear icon usually means a collapsed group.
+
+The pane opens on **App Details** and has its own navigation column with a search box.
+
+<Frame caption="The App Settings navigation column: a search box, then the GENERAL and PROJECT SETUP groups">
+  <img src="/studio-guide/images/app-settings/app-settings-nav.jpg" alt="The App Settings navigation column" />
+</Frame>
+
+Four panes are available, in two groups:
+
+| Group | Entries |
+| --- | --- |
+| **GENERAL** | App Details, App Assets, Deep Linking |
+| **PROJECT SETUP** | Languages |
+
+Each has its own section below.
+
+<Tip>
+The search box filters the navigation column, groups included. Typing `lang` narrows it to the entry that matches.
+</Tip>
+
+<Note>
+**There is no Save button in this pane, and no saving indicator either.**
+
+Verified at the network level: editing **Project Description** and clicking away fired no save request of any kind, and the value was gone after a reload. The same edit did persist once a change was made in a *different* App Settings pane, which triggered a whole project save that swept it up.
+
+Do not trust an App Details edit on its own. Reload the project and check the field actually kept your value.
+</Note>
+
+## App Details
+
+Names, the entry point, and one URL that reaches outside the project.
+
+<Frame caption="Editing Display Name and Theme API URL and reverting both, then touching Deep Linking to force the save this pane needs on its own.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/app-details-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration, and it live-reproduces the bug in the Note above rather than just describing it. **Display Name** and **Theme API URL** are typed, cleared, and blurred exactly like any other field edit — and the first take of this recording, doing only that, left both fields reading the *typed* value on a fresh reload, not the cleared one. The published recording's closing step — typing and clearing a scheme in **Deep Linking** — is what actually commits the reverts; without it, an App Details-only edit isn't reliably saved at all.
+
+<Frame caption="The App Details pane: Project Name, Project Description, an APP NAMES section with Package Name and Display Name, a STUDIO VERSION badge, INITIAL PAGE with Entry Page and Logged In Page, and RUNTIME THEMING with a Theme API URL field">
+  <img src="/studio-guide/images/app-settings/app-details.jpg" alt="The App Details pane" />
+</Frame>
+
+| Section | Field | What it is for |
+| --- | --- | --- |
+| | **Project Name** (required) | The name of the project in Studio |
+| | **Project Description** | Free text, optional |
+| **APP NAMES** | **Package Name** (required) | Reverse domain format, for example `com.company.app` |
+| | **Display Name** | The name shown on the device home screen |
+| **STUDIO VERSION** | A version badge | Read only |
+| **INITIAL PAGE** | **Entry Page** | The first screen shown on app launch |
+| | **Logged In Page** | The screen shown after user login |
+| **RUNTIME THEMING** | **Theme API URL** | Optional. When set, the exported app fetches its theme from this URL on launch and caches it locally. Leave it empty to ship with the bundled theme snapshot. |
+
+<Tip>
+**Display Name falls back to Project Name.** Its placeholder is literally the project name, so leaving it empty means the home screen name is whatever the project is called in Studio. If the app's home screen name is wrong, set Display Name explicitly.
+</Tip>
+
+Entry Page and Logged In Page list the project's real pages by their Studio names. Logged In Page additionally offers `None`, which is the honest state for a project with no authentication configured.
+
+<Frame caption="The Entry Page dropdown open, listing the project's real pages with the current one ticked">
+  <img src="/studio-guide/images/app-settings/entry-page-dropdown.jpg" alt="The Entry Page dropdown" />
+</Frame>
+
+## App Assets
+
+Splash screen, icons and the error image.
+
+<Frame caption="Hovering all seven Image Fit tooltips, setting and reverting Background Color and the Image Width unit toggle, then reading Icons & Error Image without uploading anything.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/app-assets-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. **Background Color** is taken from `Unset` to `Primary` and back, and the **Image Width** unit toggle from `PX` to `%` and back — both confirmed reverted, the color on a fresh reload afterward. Nothing is uploaded to any of the three image targets, which stay `Unset` throughout.
+
+<Frame caption="The App Assets pane: a Splash Image drop zone with Phone and Tablet previews, a SPLASH IMAGE SETTINGS card with image fit, size and colour controls, and an ICONS & ERROR IMAGE row with three Unset upload targets plus the home screen preview and icon tips">
+  <img src="/studio-guide/images/app-settings/app-assets.jpg" alt="The App Assets pane" />
+</Frame>
+
+**SPLASH SCREEN** takes one **Splash Image**, with a recommended size of 1242 x 2688px, and shows live **Phone** and **Tablet** previews beside it.
+
+**SPLASH IMAGE SETTINGS** below it holds:
+
+- **Image Fit**, seven icon only buttons with no visible labels. Their tooltips, in order: scale to fit within bounds preserving aspect ratio; scale to fill bounds cropping if needed; display at original size centred; stretch to fill exact dimensions; tile to fill the space; no resizing applied; position at the bottom contained within width.
+- **Image Width** and **Image Height**, each with a px and percent unit toggle.
+- **Min Duration (ms)**, the minimum time the splash is held.
+- **Background Color** and **Pre-loading Color**, both dropdowns of the project's own theme colour tokens rather than free form colours. Their options are `Unset`, the sixteen tokens, then `Custom...`. Change a token in Theme Settings and the splash follows.
+
+<Frame caption="The unlabelled Image Fit row with one button hovered, its tooltip reading Scale image to fill bounds, cropping if needed">
+  <img src="/studio-guide/images/app-settings/image-fit-tooltip.jpg" alt="An Image Fit tooltip" />
+</Frame>
+
+**ICONS & ERROR IMAGE** holds three upload targets: **Launcher Icon** (app icon), **Android Adaptive Icon** (foreground layer) and **Error Image** (fallback image). Underneath sit three read only aids: a home screen preview with iOS and Android variants, an auto generated sizes row showing that you upload one image and Studio derives the rest, and Studio's own icon tips:
+
+> Upload a square PNG, at least 1024x1024 px. Keep the design simple and avoid small text. Leave about 15% safe zone from the edges for Android adaptive masking. Use a solid or gradient background for best visibility.
+
+## Deep Linking
+
+One field, and it does more than it looks like it does.
+
+<Frame caption="Typing a custom URL scheme, watching the empty-state banner change, then clearing it back to empty.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/deep-linking-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. The scheme is typed, held for a moment, then cleared and blurred with Tab — confirmed empty again on a fresh reload afterward.
+
+<Frame caption="The Deep Linking pane: a CUSTOM URL SCHEME field followed by a literal :// suffix, an information banner, and a HOW DEEP LINKS WORK list">
+  <img src="/studio-guide/images/app-settings/deep-linking.jpg" alt="The Deep Linking pane" />
+</Frame>
+
+Under **CUSTOM URL SCHEME** there is a text box, placeholdered `app`, followed by a literal `://`. What you type is the scheme part of `yourscheme://...`. With the field empty, a banner tells you to enter a scheme to enable deep linking.
+
+Studio's own three bullet explanation sits below it:
+
+> Each screen automatically gets a deep link based on its name and route parameters. Use deep links in push notifications, emails, or share them with users. Route parameters are automatically passed to the target screen.
+
+**Per screen deep links are automatic.** You do not register them one by one. Setting the scheme is the whole setup, and the route and parameters each screen exposes come from its own page config.
+
+## Languages
+
+The navigation entry is **Languages**, but the pane's own heading is **Localization**. It is not a thin feature. It has three tabs and covers locale selection, a translation catalog with review states, runtime switching and an RTL linter.
+
+<Frame caption="Reading the locale rows and the Add locale search list, toggling Require approval before export off and back on, then reading Translations and RTL & Layout.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/languages-demo.mp4"></video>
+</Frame>
+
+The recording above is a real, unscripted session — it runs at automation speed with no narration. Only the **Require approval before export** toggle is actually changed, `off → on → off`, confirmed reverted on a fresh reload afterward. **No locale is added** — the Add locale list is opened to show its options and dismissed without picking one, and neither Translations nor RTL & Layout is touched.
+
+<Tabs>
+  <Tab title="Settings">
+    <Frame caption="The Localization Settings tab: the in-app switching notice, Default locale, Supported locales with an Add locale button, Fallback locale, RTL locales, three toggles, Number format locale, and a Remote translation catalog section">
+      <img src="/studio-guide/images/app-settings/languages-settings.jpg" alt="The Localization settings tab" />
+    </Frame>
+
+    A notice at the top answers the runtime question directly: users can switch language inside the app at any time, and switching between left to right and right to left requires a one time reload, which is a React Native constraint.
+
+    | Control | What it does |
+    | --- | --- |
+    | **Default locale** | The locale the app starts in |
+    | **Supported locales** | The set the app ships with, as chips, plus **+ Add locale** |
+    | **Fallback locale** | Used when a translation is missing in the active locale |
+    | **RTL locales** | One toggle chip per supported locale. Switch on the right to left ones |
+    | **Auto-detect device locale** | Pick a supported locale from the user's device on first launch |
+    | **Persist user choice** | Remember the locale the user selects across launches |
+    | **Require approval before export** | Block export when any string is still draft |
+    | **Number format locale** | Follow app locale, or follow device locale |
+
+    <Note>
+    **Default locale and Fallback locale only offer locales you have already added.** Add the locale under Supported locales first, then pick it as default or fallback.
+    </Note>
+
+    **+ Add locale** opens a searchable list of 62 locales, each with a flag, its endonym, its English name and its code, including the four right to left ones: Arabic, Hebrew, Persian and Urdu.
+
+    <Frame caption="The Add locale dropdown open, with a search box and entries showing each locale's flag, endonym, English name and code">
+      <img src="/studio-guide/images/app-settings/add-locale-dropdown.jpg" alt="The searchable Add locale list" />
+    </Frame>
+
+    **Remote translation catalog**, at the bottom, is the localization counterpart of App Details' Theme API URL. The exported app fetches per locale JSON from a **Catalog URL** at runtime and overlays it on the bundled catalog, using `{locale}` as a placeholder. You also set **When to fetch** (on app launch, on locale change, or both) and **Cache for (minutes)**. So translations can ship bundled and be patched remotely without a rebuild.
+
+  </Tab>
+
+  <Tab title="Translations">
+    <Frame caption="The Translations tab: a search keys box, an All statuses filter, the Add key, Extract from canvas and Auto-translate buttons, a COVERAGE card, and an empty key table">
+      <img src="/studio-guide/images/app-settings/translations.jpg" alt="The Translations tab" />
+    </Frame>
+
+    | Control | What it is |
+    | --- | --- |
+    | **Search keys** | Filters the key table |
+    | **All statuses** | A filter with four states: Draft, Reviewed, Approved, Missing |
+    | **+ Add key** | Creates a translation key by hand |
+    | **Extract from canvas** | Pulls strings out of the screens you have already built |
+    | **Auto-translate** | Machine translates the catalog |
+    | **COVERAGE** | A per locale progress card, with the caveat that built-in plugin strings are not included in v1 |
+    | Key table | One Key column plus one column per supported locale |
+
+    Those four statuses are the same vocabulary the Settings tab's "block export when any string is still draft" toggle refers to, so the review workflow can gate an export.
+
+  </Tab>
+
+  <Tab title="RTL & Layout">
+    <Frame caption="The RTL & Layout tab: a warning that no RTL locales are configured, and a logical-edge linter with a Scan pages button">
+      <img src="/studio-guide/images/app-settings/rtl-layout.jpg" alt="The RTL and Layout tab" />
+    </Frame>
+
+    With no RTL locale switched on in the Settings tab, the tab shows a notice saying so and pointing you back there.
+
+    Below it sits the **Logical-edge linter** with a **Scan pages** button. It detects use of properties such as `marginLeft` and `right` and suggests logical replacements such as `marginStart` and `end`. That is the practical half of RTL support: a left anchored margin stays on the left when the app flips, and this finds those.
+
+  </Tab>
+</Tabs>
+
+## Where backend linking lives
+
+Connecting Supabase is not part of App Settings. It lives in the sidebar's own **CONNECT** group, under **Database**, and it is a credential free authorization handoff rather than a form. You click one button, authorize NativeFlow on Supabase's own site, and then pick or create a project.
+
+Until a project has been through that handoff, the AI Assistant panel shows an orange banner saying no backend is linked. Treat the banner as a status indicator and open **CONNECT → Database** yourself.
+
+<CardGroup cols={1}>
+  <Card title="Integrations" icon="plug" href="/studio-guide/features/integrations">
+    What Studio can connect to, and what each connection form asks of you.
+  </Card>
+</CardGroup>
+
+## Summary
+
+App Settings is the app's identity and packaging, not its shell. It holds four panes: App Details, App Assets, Deep Linking and Languages. There is no Save button and no saving indicator here, so reload and check any App Details edit you care about.

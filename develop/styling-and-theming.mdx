@@ -8,7 +8,7 @@ description: "Applying design tokens, text styles, and light/dark theme modes to
     Theming lives at **CONFIG → Theme Settings** (the palette icon). The pane itself is headed **Runtime Theme** — *"Drives the canvas and the exported app,"* distinct from the separate, agent-authored **Foundation → Design System** spec. It has four sub-sections down a left rail: **Colors**, **Typography & Icons**, **App Config**, and **Themed Components**.
 
     <Frame caption="Editing the Primary color token to orange and back on camera, then reading the Typography table and all three App Config tabs.">
-      <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/videos/nativeflow-studio-tour/theme-settings-demo.mp4"></video>
+      <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/studio-guide/videos/theme-settings-demo.mp4"></video>
     </Frame>
 
     **Colors** groups 16 tokens into four sets — Brand (Primary/Secondary/Tertiary/Alternate), Semantic (Success/Error/Warning/Info), Utility (Primary Text/Background/Surface), Chart (Chart 1–5). Clicking a swatch opens a **Choose a Color** dialog with no Save button — the edit applies as you make it and reaches the canvas live, with no reload, for any component *bound* to that token (a component holding a literal hex color won't change). Every token also holds a separate value per mode (Light/Dark), and the Light/Dark toggle **only scopes which values you're editing** — it does not switch what the canvas renders.

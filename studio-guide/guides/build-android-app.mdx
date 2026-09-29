@@ -1,0 +1,135 @@
+---
+title: "Build an Android App"
+description: "Turn your project into an Android APK or AAB from the Build & Export menu."
+---
+
+## Overview
+
+**Build & Export** is the one place in Studio where a project stops being a project and becomes something that exists outside Studio. This guide covers the Android build: what the build dialog offers, and what you should set before you press the button.
+
+By the end you will know which of the three Android build types you want, which architecture to pick, and why your app's name, icon and package name have to be set somewhere else first.
+
+**Prerequisites**
+
+- A project open in Studio. Build & Export is a project level toolbar control, not something on the Projects dashboard.
+- Your app's identity and artwork set up first, if you care what the installer looks like. The launcher icon, splash screen, package name and display name all come from **CONFIG → App Settings**, not from the build dialog.
+- Studio itself asks you for nothing else. The build dialog requests no Google Play service account, no keystore and no signing certificate. Its own text says Android builds run on Codemagic and that a Release APK is signed on Codemagic.
+
+<Tip>
+Throughout this page, <Icon icon="mobile-screen-button" size={12} /> marks a Mobile-only route out of Studio, <Icon icon="globe" size={12} /> marks Web-only, and both icons together mean it applies to either target.
+</Tip>
+
+## Build the app
+
+<Steps>
+  <Step title="Set the app's identity first">
+    Nothing in the Build & Export menu configures your app's identity or artwork. Open **CONFIG → App Settings** and set these before you build.
+
+    | What | Where | Notes |
+    | --- | --- | --- |
+    | **Package name** | App Settings → App Details → **Package Name** | Reverse domain format, for example `com.company.app`. A fresh project defaults to the literal placeholder `com.example.app` |
+    | **Display name** | App Settings → App Details → **Display Name** | The name shown on the device home screen |
+    | **Launcher icon** | App Settings → **App Assets** | Launcher icon, Android adaptive icon, error image. Icon sizes are auto generated |
+    | **Splash screen** | App Settings → **App Assets** | Splash image, fit mode, size, minimum duration, background colour |
+
+    <Frame caption="App Settings with App Details open, showing Package Name and Display Name">
+      <img src="/studio-guide/images/build-android-app/app-details.jpg" alt="App Details in CONFIG App Settings" />
+    </Frame>
+  </Step>
+
+  <Step title="Open Build & Export">
+    In the top right toolbar, click the **⋮** icon. It sits directly after **Preview** and the **Platform review** layers icon, and its tooltip reads **Build & Export**.
+
+    <Frame caption="The top right toolbar with the Build & Export three dot control hovered">
+      <img src="/studio-guide/images/build-android-app/build-export-button.jpg" alt="The Build and Export control in the project toolbar" />
+    </Frame>
+
+    The menu holds four items plus a section header.
+
+    | Item | What it is |
+    | --- | --- |
+    | <Icon icon="mobile-screen-button" size={14} /> **Export project** | Downloads the project as a React Native source package |
+    | <Icon icon="globe" size={14} /> **Export as Next.js (Web)** | Downloads the project as a Next.js web project |
+    | <Icon icon="mobile-screen-button" size={14} /> **Build Android** | Opens the **Build Mobile App** dialog |
+    | <Icon icon="mobile-screen-button" size={14} /><Icon icon="globe" size={14} /> **GitHub...** | Opens the **GitHub Integration** dialog |
+    | **RECENT BUILDS** | This project's builds. On a project that has never built, it reads *No builds yet.* |
+
+    <Note>
+    The ⋮ icon doubles as a build indicator for this project's builds.
+    </Note>
+  </Step>
+
+  <Step title="Choose a build type" icon="mobile-screen-button">
+    Choose **Build Android**. Studio saves the project, then opens a dialog titled **Build Mobile App**. Three build types are offered, all Android.
+
+    | Option | Studio's own description |
+    | --- | --- |
+    | **Preview APK (Android)** *(selected by default)* | *Debug build, fastest. Install via direct download / QR.* |
+    | **Release APK (Android)** | *Production-style APK signed on Codemagic.* |
+    | **Release AAB (Android)** | *Android App Bundle for Play Store upload.* |
+
+    <Frame caption="The Build Mobile App dialog: three Android build types, the Architecture group, the status line and the Build now button">
+      <img src="/studio-guide/images/build-android-app/build-mobile-app-dialog.jpg" alt="The Build Mobile App dialog" />
+    </Frame>
+  </Step>
+
+  <Step title="Choose an architecture">
+    Two options sit below the build types.
+
+    | Option | Studio's own description |
+    | --- | --- |
+    | **arm64-v8a** *(selected by default)* | *Recommended for local testing, demos and fastest builds.* |
+    | **All** | *Recommended for Play Store (production and distribution). Larger, slower build.* |
+
+    Architecture is the one piece of build configuration that is not in App Settings.
+  </Step>
+
+  <Step title="Start the build">
+    The status box reads *Ready to build. Click Build now below to start.* The footer has **Close** and **Build now**.
+
+    <Note>
+    **Build now is enabled from the moment the dialog opens and is gated on nothing.**
+
+    No field in this dialog is required, both option groups come pre-selected, and there is no validation between you and a real hosted build. If you opened the dialog to look around, press **Escape** or **Close**. Both close it cleanly with nothing left behind.
+    </Note>
+  </Step>
+</Steps>
+
+## The other routes out of Studio
+
+If an Android installer is not what you need, the same menu has three other exits.
+
+<CardGroup cols={2}>
+  <Card title="Export project" icon="mobile-screen-button">
+    Downloads a production ready React Native source package as a ZIP: a standard React Native application with no proprietary runtime and no custom file format, buildable with standard React Native and Expo tooling.
+  </Card>
+  <Card title="Export as Next.js (Web)" icon="globe">
+    The web counterpart, matching the **Web** canvas target and the Next.js web preview output.
+  </Card>
+  <Card title="GitHub..." icon="code-branch">
+    Pushes your Expo project to your own repository via the NativeFlow GitHub App. You install that app on GitHub yourself, then paste the numeric **Installation ID** from the resulting `github.com/settings/installations/...` URL back into the dialog, along with **Owner** and **Repository**. Studio does not run a GitHub sign-in of its own.
+  </Card>
+</CardGroup>
+
+<Note>
+The GitHub dialog also takes a **Default branch** (`main`), used only as the parent for new branches, a **Studio working branch** (`nativeflow/main`), a **Push on save** toggle that is off by default, and a separate GitHub username and email used as the commit author.
+</Note>
+
+## Troubleshooting
+
+| Issue | Likely cause | What to do |
+| --- | --- | --- |
+| Your installed app shows the wrong name, icon or package | Those come from **App Settings**, not the build dialog. A fresh project's Package Name defaults to the literal `com.example.app` | Set Package Name, Display Name, the launcher icon and the splash in **CONFIG → App Settings** before building |
+| You opened a dialog and want out without committing to anything | Both the **Build Mobile App** and **GitHub Integration** dialogs close on **Escape** | Press Escape. Nothing is started or saved |
+| The GitHub dialog wants an Installation ID you do not have | Studio does not run a GitHub sign-in of its own | Install the **NativeFlow GitHub App** on GitHub, then copy the number from the `github.com/settings/installations/...` URL |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Set up authentication" href="/studio-guide/guides/set-up-authentication">
+    Applies to Web Preview, Expo Go and the exported app alike.
+  </Card>
+  <Card title="Connect an API" href="/studio-guide/guides/connect-an-api">
+    Wire your screens to real data before you ship an installer.
+  </Card>
+</CardGroup>
