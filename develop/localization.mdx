@@ -3,11 +3,21 @@ title: "Localization"
 description: "Managing translation keys and locale content for a NativeFlow app."
 ---
 
-This page should cover internationalizing an app: defining translation keys, providing per-locale text, and machine-translating gaps before human review.
-
 <Tabs>
   <Tab title="Studio">
-    TODO: step-by-step instructions for managing translation keys and locale content through the Studio localization panel.
+    The navigation entry is **Languages** (under **CONFIG → App Settings**), but the pane's own heading is **Localization** — confirmed live to be a genuinely full localization system, not a thin locale picker. It has three tabs: **Settings**, **Translations**, **RTL & Layout**.
+
+    <Frame caption="Reading the locale rows and the Add locale search list, toggling Require approval before export off and back on, then reading Translations and RTL & Layout.">
+      <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/videos/nativeflow-studio-tour/languages-demo.mp4"></video>
+    </Frame>
+
+    **Settings tab.** A notice at the top confirms users can switch language inside the app at any time; switching between left-to-right and right-to-left requires one reload (a React Native constraint). Controls: **Default locale**, **Supported locales** (chips + **+ Add locale**, a searchable list of **62 locales** with flag, endonym, English name and code — including the four RTL ones: Arabic, Hebrew, Persian, Urdu), **Fallback locale**, **RTL locales** (a toggle chip per supported locale), **Auto-detect device locale**, **Persist user choice**, **Require approval before export** (blocks export while any string is still draft), and **Number format locale**. Default and Fallback locale only offer locales you've already added under Supported locales.
+
+    A **Remote translation catalog** section lets the exported app fetch per-locale JSON from a Catalog URL at runtime and overlay it on the bundled catalog, with `{locale}` as a URL placeholder, a "when to fetch" setting, and a cache duration — so translations can ship bundled *and* be patched remotely without a rebuild.
+
+    **Translations tab.** A key table (one column per supported locale) with **Search keys**, a **Draft / Reviewed / Approved / Missing** status filter, **+ Add key**, **Extract from canvas** (pulls strings out of screens you've already built), **Auto-translate**, and a per-locale coverage card.
+
+    **RTL & Layout tab.** With no RTL locale enabled, this shows a notice pointing back to the Settings tab. Its real function is a **Logical-edge linter** (Scan pages button) that detects properties like `marginLeft` / `right` and suggests logical replacements (`marginStart` / `end`) — the practical mechanism that keeps a left-anchored margin on the left when the app flips to RTL.
   </Tab>
   <Tab title="Agent">
     TODO: show the equivalent agent flow using `upsert_translation_key`, `set_translation`, and `auto_translate`.

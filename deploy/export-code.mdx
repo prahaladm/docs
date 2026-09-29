@@ -3,8 +3,13 @@ title: "Export Code"
 description: "Generating and downloading the native/React Native codebase for an app."
 ---
 
-This page should cover exporting the generated codebase: what languages/frameworks are produced, project structure, and how to pull it locally for manual edits or a full exit from the platform.
+The same **⋮ Build & Export** menu (top-right toolbar) that builds an Android installer also offers two direct code exports, confirmed live:
 
-<Note>
-  TODO: document supported export targets and the exact repo structure produced by `render_page_preview`/codegen.
-</Note>
+| Option | What it produces |
+| --- | --- |
+| **Export project** | A production-ready **React Native source package**, as a ZIP — a standard React Native application with no proprietary runtime and no custom file format, buildable with standard React Native/Expo tooling |
+| **Export as Next.js (Web)** | The web counterpart, matching the project's **Web** canvas target and the Next.js web-preview output |
+
+Both are direct downloads with no configuration dialog — clicking either just produces the file. This is the fastest full exit from the platform: what you get is ordinary source, not something requiring NativeFlow tooling to keep working.
+
+A third route in the same menu, **GitHub…**, pushes the Expo project to your own repository via the NativeFlow GitHub App rather than downloading a file. You install that app on GitHub yourself, then paste the numeric **Installation ID** (from the resulting `github.com/settings/installations/...` URL) back into the dialog, along with **Owner** and **Repository** — Studio doesn't run its own GitHub sign-in. The dialog also takes a **Default branch** (used only as the parent for new branches), a **Studio working branch** (defaulting to `nativeflow/main`), a **Push on save** toggle (off by default), and a separate GitHub username/email used as the commit author.

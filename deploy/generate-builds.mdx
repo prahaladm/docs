@@ -3,8 +3,22 @@ title: "Generate Builds"
 description: "Producing installable iOS and Android builds from a NativeFlow project."
 ---
 
-This page should cover the build pipeline: triggering a build, supported platforms, signing configuration, and where to download the resulting artifact.
+**Android only today.** Open the **⋮ Build & Export** menu (top-right toolbar, right after Preview and Platform review) and choose **Build Android**. This opens the **Build Mobile App** dialog with three build types, all Android:
 
-<Note>
-  TODO: document build time expectations and how signing credentials/certificates are managed.
-</Note>
+| Option | Studio's own description |
+| --- | --- |
+| **Preview APK** *(default)* | "Debug build, fastest. Install via direct download / QR." |
+| **Release APK** | "Production-style APK signed on Codemagic." |
+| **Release AAB** | "Android App Bundle for Play Store upload." |
+
+...crossed with an architecture choice: **arm64-v8a** *(default, "recommended for local testing, demos and fastest builds")* or **All** *("recommended for Play Store … larger, slower build")*.
+
+**Signing:** confirmed live — the dialog asks for nothing. No Google Play service account, no keystore, no signing certificate. Its own subtitle states the model plainly: *"Android builds run on Codemagic. iOS is coming in the next phase."* Release APKs are signed on Codemagic, not locally.
+
+<Warning>
+**iOS does not exist yet, confirmed multiple independent ways as of this pass:** the Build Mobile App dialog offers three options, all Android; the full Build & Export menu's four items don't mention iOS anywhere; and the separate **App Development Lifecycle → Deploy to App Store** entry is a disabled, greyed-out button with no tooltip. There is no iOS build path inside Studio today.
+</Warning>
+
+**Build now is enabled from the moment the dialog opens, gated on nothing** — both option groups come pre-selected and nothing validates before you can start a real, billable, hosted build. If you're only looking around, **Escape** or **Close** exits cleanly with nothing started.
+
+Before building, your app's identity and artwork need to be set separately, under **CONFIG → App Settings**, not in this dialog: Package Name and Display Name (App Details), and the launcher icon / splash screen (App Assets). A fresh project's Package Name defaults to the literal placeholder `com.example.app`.

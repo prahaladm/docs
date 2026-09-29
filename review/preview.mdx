@@ -3,8 +3,31 @@ title: "Preview"
 description: "Rendering a live preview of a screen or app before generating a build."
 ---
 
-This page should cover the preview experience: rendering a screen or full app flow live as changes are made, on both web and device previews.
+The canvas shows what a screen looks like; it can't show what the app *does*. **Preview** runs a real build of the project beside the canvas, so buttons fire their configured actions, switches toggle, and navigation navigates.
 
-<Note>
-  TODO: document supported preview targets (web, iOS simulator, Android emulator, physical device) and any known preview limitations.
-</Note>
+Click the play icon in the top right toolbar — no build and no export step needed, available from the moment a project has a page.
+
+<Frame caption="Opening the preview, waiting through the real first bundle, and cycling all three device sizes.">
+  <video controls muted playsInline className="w-full aspect-video rounded-xl" src="/videos/nativeflow-studio-tour/preview-demo.mp4"></video>
+</Frame>
+
+**Supported preview targets, and what each gives you:**
+
+| Target | What you get |
+| --- | --- |
+| <Icon icon="mobile-screen-button" size={14} /> Mobile | A phone/tablet device frame with device-size toggles and an **Open in Expo Go** button (QR code + session URL, for a real physical device) |
+| <Icon icon="globe" size={14} /> Web | The project's web build (Next.js output), with Desktop / Tablet / Mobile width toggles |
+
+**Known limitation, confirmed live:** the **first bundle takes 25–30 seconds** — a real bundling step, not a placeholder delay. Once warm, the preview stays warm: an editor edit reaches the running preview in **0.3–0.6 seconds** with no re-bundle, measured by polling the preview's DOM directly. Closing and reopening the panel is the only way to force a re-bundle.
+
+Three real device viewports are used, measured from inside the running preview rather than assumed: **390×844** (Phone), **768×1024** (Tablet), **1024×768** (Tablet landscape) on Mobile; the Web target adds a **Desktop** width that matches the Studio window.
+
+<Warning>
+**Undo can look applied and then come back after a reload.** Observed twice: after Undo, both the canvas and the live preview reverted and the header read "Saved" — but reloading the project brought the un-done value back. This wasn't specific to the preview; a control test with the preview closed showed the same behavior. Don't rely on Undo alone to revert something you care about — re-type the original value, reload, and confirm it stuck.
+</Warning>
+
+**Nearby, in the same toolbar area, worth knowing about but distinct from Preview itself:**
+
+- **Platform review** (the layers icon) — a read-only report comparing web vs. mobile rendering, screen by screen. Read it as a screen-level check, not pixel-level: on one verified project, the report said "no differences" even though the same project's web build visibly rendered Switch components as plain checkboxes rather than the mobile pill-shaped toggle.
+- **Issues** (the bug icon, badged with a count) — a project-wide Errors/Warnings list, each with a **Fix** suggestion and button.
+- **Build & Export** — real builds, exports and GitHub pushes live behind a separate menu; nothing there is part of previewing.
