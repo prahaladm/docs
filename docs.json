@@ -197,8 +197,8 @@
     ]
   },
   "logo": {
-    "light": "/images/NativeFlow_Docs.png",
-    "dark": "/images/NativeFlow_Docs.png",
+    "light": "/images/NativeFlow_Docs_Dark.png",
+    "dark": "/images/NativeFlow_Docs_Light.png",
     "href": "https://GetNativeFlow.com"
   },
   "navbar": {
